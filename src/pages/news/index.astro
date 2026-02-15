@@ -3,9 +3,17 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import FloatingSatellites from "../../components/FloatingSatellites.astro";
 import { getCollection } from "astro:content";
 
-const news = (await getCollection("news")).sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
-);
+const allNews = await getCollection("news");
+const news = allNews
+  .filter((entry) => !entry.id.endsWith(".en.md"))
+  .map((entry) => {
+    const enId = entry.id.replace(".md", ".en.md");
+    const translatedEntry = allNews.find((e) => e.id === enId);
+    return { ...entry, translatedEntry };
+  })
+  .sort(
+    (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
+  );
 ---
 
 <BaseLayout title="最新消息 | 夏漢民太空科技中心">
@@ -43,20 +51,44 @@ const news = (await getCollection("news")).sort(
               </div>
 
               <div class="p-6 pt-8">
-                <h2 class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors">
+                <h2
+                  class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors"
+                  data-lang-content="zh-TW"
+                >
                   {item.data.title}
                 </h2>
+                <h2
+                  class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors"
+                  data-lang-content="en"
+                  style="display: none;"
+                >
+                  {item.translatedEntry?.data.title ?? item.data.title}
+                </h2>
                 <p class="text-sm text-gray-500 mb-3">
-                  公告時間 {item.data.date}
+                  <span data-i18n="news.datePrefix">公告時間</span>
+                  <span data-lang-content="zh-TW"> {item.data.date}</span>
+                  <span data-lang-content="en" style="display: none;">
+                    {item.translatedEntry?.data.date ?? item.data.date}
+                  </span>
                 </p>
-                <p class="text-gray-600 text-sm line-clamp-3 mb-4">
+                <p
+                  class="text-gray-600 text-sm line-clamp-3 mb-4"
+                  data-lang-content="zh-TW"
+                >
                   {item.data.excerpt}
+                </p>
+                <p
+                  class="text-gray-600 text-sm line-clamp-3 mb-4"
+                  data-lang-content="en"
+                  style="display: none;"
+                >
+                  {item.translatedEntry?.data.excerpt ?? item.data.excerpt}
                 </p>
                 <a
                   href={`/news/${item.slug}`}
                   class="inline-flex items-center gap-2 text-tech-blue font-medium text-sm hover:gap-3 transition-all duration-300"
                 >
-                  Read more
+                  <span data-i18n="news.readMore">Read more</span>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     fill="none"

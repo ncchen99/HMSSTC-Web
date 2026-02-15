@@ -3,9 +3,34 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import FloatingSatellites from '../components/FloatingSatellites.astro';
 import { getCollection } from 'astro:content';
 
-const missions = (await getCollection('missions')).sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
-const members = (await getCollection('members')).sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
-const news = (await getCollection('news')).sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const allMissions = await getCollection('missions');
+const missions = allMissions
+  .filter((entry) => !entry.id.endsWith(".en.md"))
+  .map((entry) => {
+    const enId = entry.id.replace(".md", ".en.md");
+    const translatedEntry = allMissions.find((e) => e.id === enId);
+    return { ...entry, translatedEntry };
+  })
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+
+const allMembers = await getCollection('members');
+const members = allMembers
+  .filter((entry) => !entry.id.endsWith(".en.md"))
+  .map((entry) => {
+    const enId = entry.id.replace(".md", ".en.md");
+    const translatedEntry = allMembers.find((e) => e.id === enId);
+    return { ...entry, translatedEntry };
+  })
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
+const allNews = await getCollection('news');
+const news = allNews
+  .filter((entry) => !entry.id.endsWith(".en.md"))
+  .map((entry) => {
+    const enId = entry.id.replace(".md", ".en.md");
+    const translatedEntry = allNews.find((e) => e.id === enId);
+    return { ...entry, translatedEntry };
+  })
+  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
 <BaseLayout transparentHeader={true}>
@@ -131,16 +156,56 @@ const news = (await getCollection('news')).sort((a, b) => new Date(b.data.date).
 
             <!-- Content -->
             <div class="p-6 pt-8">
-              <h3 class="text-xl font-heading font-bold text-gray-900 mb-2">{mission.data.title}</h3>
-              <p class="text-sm text-gray-500 mb-3"><span data-i18n="missions.datePrefix">公告時間</span> {mission.data.date}</p>
-              <p class="text-gray-600 text-sm line-clamp-2 mb-4">{mission.data.excerpt}</p>
+              <h3
+                class="text-xl font-heading font-bold text-gray-900 mb-2"
+                data-lang-content="zh-TW"
+              >
+                {mission.data.title}
+              </h3>
+              <h3
+                class="text-xl font-heading font-bold text-gray-900 mb-2"
+                data-lang-content="en"
+                style="display: none;"
+              >
+                {mission.translatedEntry?.data.title ?? mission.data.title}
+              </h3>
+              <p class="text-sm text-gray-500 mb-3">
+                <span data-i18n="missions.datePrefix">公告時間</span>
+                <span data-lang-content="zh-TW"> {mission.data.date}</span>
+                <span data-lang-content="en" style="display: none;">
+                  {mission.translatedEntry?.data.date ?? mission.data.date}</span
+                >
+              </p>
+              <p
+                class="text-gray-600 text-sm line-clamp-2 mb-4"
+                data-lang-content="zh-TW"
+              >
+                {mission.data.excerpt}
+              </p>
+              <p
+                class="text-gray-600 text-sm line-clamp-2 mb-4"
+                data-lang-content="en"
+                style="display: none;"
+              >
+                {mission.translatedEntry?.data.excerpt ?? mission.data.excerpt}
+              </p>
               <a
                 href={`/missions/${mission.slug}`}
                 class="inline-flex items-center gap-2 text-tech-blue font-medium text-sm hover:gap-3 transition-all duration-300"
               >
                 <span data-i18n="missions.readMore">了解更多</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="w-4 h-4"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
                 </svg>
               </a>
             </div>
@@ -183,18 +248,56 @@ const news = (await getCollection('news')).sort((a, b) => new Date(b.data.date).
               )}
             </div>
             <div class="p-6 pt-8">
-              <h3 class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors">
+              <h3
+                class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors"
+                data-lang-content="zh-TW"
+              >
                 {item.data.title}
               </h3>
-              <p class="text-sm text-gray-500 mb-3"><span data-i18n="news.datePrefix">公告時間</span> {item.data.date}</p>
-              <p class="text-gray-600 text-sm line-clamp-2 mb-4">{item.data.excerpt}</p>
+              <h3
+                class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors"
+                data-lang-content="en"
+                style="display: none;"
+              >
+                {item.translatedEntry?.data.title ?? item.data.title}
+              </h3>
+              <p class="text-sm text-gray-500 mb-3">
+                <span data-i18n="news.datePrefix">公告時間</span>
+                <span data-lang-content="zh-TW"> {item.data.date}</span>
+                <span data-lang-content="en" style="display: none;">
+                  {item.translatedEntry?.data.date ?? item.data.date}</span
+                >
+              </p>
+              <p
+                class="text-gray-600 text-sm line-clamp-2 mb-4"
+                data-lang-content="zh-TW"
+              >
+                {item.data.excerpt}
+              </p>
+              <p
+                class="text-gray-600 text-sm line-clamp-2 mb-4"
+                data-lang-content="en"
+                style="display: none;"
+              >
+                {item.translatedEntry?.data.excerpt ?? item.data.excerpt}
+              </p>
               <a
                 href={`/news/${item.slug}`}
                 class="inline-flex items-center gap-2 text-tech-blue font-medium text-sm hover:gap-3 transition-all duration-300"
               >
                 <span data-i18n="news.readMore">了解更多</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke-width="2"
+                  stroke="currentColor"
+                  class="w-4 h-4"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"></path>
                 </svg>
               </a>
             </div>
@@ -259,9 +362,43 @@ const news = (await getCollection('news')).sort((a, b) => new Date(b.data.date).
                 </span>
               </div>
             </div>
-            <h3 class="text-white font-bold text-sm mb-1 group-hover:text-tech-blue-light transition-colors duration-300">{member.data.name}</h3>
-            <p class="text-gray-400 text-xs leading-relaxed">{member.data.affiliation}</p>
-            <p class="text-gray-500 text-xs">{member.data.title}</p>
+            <h3
+              class="text-white font-bold text-sm mb-1 group-hover:text-tech-blue-light transition-colors duration-300"
+              data-lang-content="zh-TW"
+            >
+              {member.data.name}
+            </h3>
+            <h3
+              class="text-white font-bold text-sm mb-1 group-hover:text-tech-blue-light transition-colors duration-300"
+              data-lang-content="en"
+              style="display: none;"
+            >
+              {member.translatedEntry?.data.name ?? member.data.name}
+            </h3>
+            <p
+              class="text-gray-400 text-xs leading-relaxed"
+              data-lang-content="zh-TW"
+            >
+              {member.data.affiliation}
+            </p>
+            <p
+              class="text-gray-400 text-xs leading-relaxed"
+              data-lang-content="en"
+              style="display: none;"
+            >
+              {member.translatedEntry?.data.affiliation ??
+                member.data.affiliation}
+            </p>
+            <p class="text-gray-500 text-xs" data-lang-content="zh-TW">
+              {member.data.title}
+            </p>
+            <p
+              class="text-gray-500 text-xs"
+              data-lang-content="en"
+              style="display: none;"
+            >
+              {member.translatedEntry?.data.title ?? member.data.title}
+            </p>
           </a>
         ))}
       </div>

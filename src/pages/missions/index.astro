@@ -3,9 +3,15 @@ import BaseLayout from "../../layouts/BaseLayout.astro";
 import FloatingSatellites from "../../components/FloatingSatellites.astro";
 import { getCollection } from "astro:content";
 
-const missions = (await getCollection("missions")).sort(
-  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
-);
+const allMissions = await getCollection("missions");
+const missions = allMissions
+  .filter((entry) => !entry.id.endsWith(".en.md"))
+  .map((entry) => {
+    const enId = entry.id.replace(".md", ".en.md");
+    const translatedEntry = allMissions.find((e) => e.id === enId);
+    return { ...entry, translatedEntry };
+  })
+  .sort((a, b) => (a.data.order ?? 99) - (b.data.order ?? 99));
 ---
 
 <BaseLayout
@@ -87,15 +93,39 @@ const missions = (await getCollection("missions")).sort(
               </div>
 
               <div class="p-6 pt-8">
-                <h2 class="text-xl font-heading font-bold text-gray-900 mb-2">
+                <h2
+                  class="text-xl font-heading font-bold text-gray-900 mb-2"
+                  data-lang-content="zh-TW"
+                >
                   {mission.data.title}
+                </h2>
+                <h2
+                  class="text-xl font-heading font-bold text-gray-900 mb-2"
+                  data-lang-content="en"
+                  style="display: none;"
+                >
+                  {mission.translatedEntry?.data.title ?? mission.data.title}
                 </h2>
                 <p class="text-sm text-gray-500 mb-3">
                   <span data-i18n="missionsPage.datePrefix">公告時間</span>{" "}
-                  {mission.data.date}
+                  <span data-lang-content="zh-TW">{mission.data.date}</span>
+                  <span data-lang-content="en" style="display: none;">
+                    {mission.translatedEntry?.data.date ?? mission.data.date}
+                  </span>
                 </p>
-                <p class="text-gray-600 text-sm line-clamp-2 mb-4">
+                <p
+                  class="text-gray-600 text-sm line-clamp-2 mb-4"
+                  data-lang-content="zh-TW"
+                >
                   {mission.data.excerpt}
+                </p>
+                <p
+                  class="text-gray-600 text-sm line-clamp-2 mb-4"
+                  data-lang-content="en"
+                  style="display: none;"
+                >
+                  {mission.translatedEntry?.data.excerpt ??
+                    mission.data.excerpt}
                 </p>
                 <a
                   href={`/missions/${mission.slug}`}

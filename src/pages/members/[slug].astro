@@ -1,21 +1,42 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import type { GetStaticPaths } from "astro";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const members = await getCollection("members");
-  return members.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry },
-  }));
+  const allMembers = await getCollection("members");
+  const baseEntries = allMembers.filter(
+    (entry) => !entry.id.endsWith(".en.md"),
+  );
+
+  return baseEntries.map((entry) => {
+    const enId = entry.id.replace(".md", ".en.md");
+    const translatedEntry = allMembers.find((e) => e.id === enId);
+    return {
+      params: { slug: entry.slug },
+      props: { entry, translatedEntry },
+    };
+  });
 };
 
-const { entry } = Astro.props;
+const { entry, translatedEntry } = Astro.props;
 const { Content } = await entry.render();
+const TranslatedContent = translatedEntry
+  ? (await translatedEntry.render()).Content
+  : null;
+
+interface Props {
+  entry: CollectionEntry<"members">;
+  translatedEntry?: CollectionEntry<"members">;
+}
 ---
 
-<BaseLayout title={`${entry.data.name} | 夏漢民太空科技中心`}>
+<BaseLayout
+  title={`${entry.data.name} | 夏漢民太空科技中心`}
+  titleEn={translatedEntry
+    ? `${translatedEntry.data.name} | HMSSTC`
+    : undefined}
+>
   <div class="pt-28 pb-20 bg-white min-h-screen">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <nav class="mb-8 text-sm">
@@ -23,7 +44,16 @@ const { Content } = await entry.render();
           >首頁</a
         >
         <span class="text-gray-300 mx-2">/</span>
-        <span class="text-gray-600">{entry.data.name}</span>
+        <span class="text-gray-600" data-lang-content="zh-TW"
+          >{entry.data.name}</span
+        >
+        <span
+          class="text-gray-600"
+          data-lang-content="en"
+          style="display: none;"
+        >
+          {translatedEntry?.data.name ?? entry.data.name}
+        </span>
       </nav>
 
       <!-- Member hero -->
@@ -61,11 +91,37 @@ const { Content } = await entry.render();
         <div class="flex flex-col justify-center">
           <h1
             class="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-2"
+            data-lang-content="zh-TW"
           >
             {entry.data.name}
           </h1>
-          <p class="text-lg text-gray-600 mb-1">{entry.data.affiliation}</p>
-          <p class="text-tech-blue font-medium">{entry.data.title}</p>
+          <h1
+            class="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-2"
+            data-lang-content="en"
+            style="display: none;"
+          >
+            {translatedEntry?.data.name ?? entry.data.name}
+          </h1>
+          <p class="text-lg text-gray-600 mb-1" data-lang-content="zh-TW">
+            {entry.data.affiliation}
+          </p>
+          <p
+            class="text-lg text-gray-600 mb-1"
+            data-lang-content="en"
+            style="display: none;"
+          >
+            {translatedEntry?.data.affiliation ?? entry.data.affiliation}
+          </p>
+          <p class="text-tech-blue font-medium" data-lang-content="zh-TW">
+            {entry.data.title}
+          </p>
+          <p
+            class="text-tech-blue font-medium"
+            data-lang-content="en"
+            style="display: none;"
+          >
+            {translatedEntry?.data.title ?? entry.data.title}
+          </p>
           {
             entry.data.email && (
               <a
@@ -96,8 +152,30 @@ const { Content } = await entry.render();
       <!-- Content -->
       <div
         class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-tech-blue prose-li:text-gray-600"
+        data-lang-content="zh-TW"
       >
         <Content />
+      </div>
+
+      <div
+        class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-tech-blue prose-li:text-gray-600"
+        data-lang-content="en"
+        style="display: none;"
+      >
+        {
+          TranslatedContent ? (
+            <TranslatedContent />
+          ) : (
+            <>
+              <div class="p-4 bg-yellow-50 border border-yellow-200 rounded-lg text-yellow-800 mb-4">
+                Content not available in English.
+              </div>
+              <div class="opacity-50">
+                <Content />
+              </div>
+            </>
+          )
+        }
       </div>
 
       <div class="mt-12 pt-8 border-t border-gray-100">
