@@ -21,16 +21,41 @@ export const translations = {
         'hero.title': '夏漢民太空科技中心',
         'hero.subtitle': '啟動臺灣太空新視界｜匯聚前沿科研、跨域人才與國際合作，領航未來太空時代',
         'hero.madeInTaiwan': '臺灣製造',
+        'hero.madeInTaiwanLabel': 'TW',
         'hero.missionCount': '任務次數',
         'hero.scroll': 'Scroll',
 
-        // Missions Section
+        // Missions Section (homepage)
         'missions.title': '參與國家太空任務',
         'missions.active': '執行中任務',
         'missions.retired': '除役任務',
         'missions.datePrefix': '公告時間',
         'missions.readMore': '了解更多',
         'missions.moreInfo': '更多資訊',
+
+        // Missions Page
+        'missionsPage.pageTitle': '太空任務 | 夏漢民太空科技中心',
+        'missionsPage.heading': '參與國家太空任務',
+        'missionsPage.description': '記錄中心參與的太空計畫與科技發展',
+        'missionsPage.active': '執行中任務',
+        'missionsPage.retired': '除役任務',
+        'missionsPage.statusActive': '執行中',
+        'missionsPage.statusRetired': '已除役',
+        'missionsPage.datePrefix': '公告時間',
+        'missionsPage.readMore': '了解更多',
+        'missionsPage.backToMissions': '返回太空任務',
+        'missionsPage.breadcrumbHome': '首頁',
+        'missionsPage.breadcrumbMissions': '太空任務',
+
+        // Activities Page
+        'activitiesPage.pageTitle': '活動花絮 | 夏漢民太空科技中心',
+        'activitiesPage.heading': '活動花絮',
+        'activitiesPage.description': '記錄中心活動的精彩瞬間',
+        'activitiesPage.datePrefix': '公告時間',
+        'activitiesPage.readMore': '了解更多',
+        'activitiesPage.backToActivities': '返回活動花絮',
+        'activitiesPage.breadcrumbHome': '首頁',
+        'activitiesPage.breadcrumbActivities': '活動花絮',
 
         // News Section
         'news.title': '最新消息',
@@ -99,19 +124,44 @@ export const translations = {
         'nav.langSwitch': '中文',
 
         // Hero
-        'hero.title': 'HMSSTC',
-        'hero.subtitle': 'Pioneering Taiwan\'s New Space Vision | Advancing Cutting-Edge Research, Interdisciplinary Talent, and International Cooperation',
+        'hero.title': 'HAN MING HSIA',
+        'hero.subtitle': 'Pioneering a New Era of Space Innovation in Taiwan｜Uniting Innovation, Talent, and Global Collaboration to Shape the Future of Space.',
         'hero.madeInTaiwan': 'Made in Taiwan',
+        'hero.madeInTaiwanLabel': 'TW',
         'hero.missionCount': 'Missions',
         'hero.scroll': 'Scroll',
 
-        // Missions Section
+        // Missions Section (homepage)
         'missions.title': 'National Space Missions',
         'missions.active': 'Active Missions',
         'missions.retired': 'Retired Missions',
         'missions.datePrefix': 'Announced',
         'missions.readMore': 'Read more',
         'missions.moreInfo': 'More Info',
+
+        // Missions Page
+        'missionsPage.pageTitle': 'Space Missions | HMSSTC',
+        'missionsPage.heading': 'National Space Missions',
+        'missionsPage.description': 'Documenting the space programs and technology development participated by the center',
+        'missionsPage.active': 'Active Missions',
+        'missionsPage.retired': 'Retired Missions',
+        'missionsPage.statusActive': 'Active',
+        'missionsPage.statusRetired': 'Retired',
+        'missionsPage.datePrefix': 'Announced',
+        'missionsPage.readMore': 'Read more',
+        'missionsPage.backToMissions': 'Back to Missions',
+        'missionsPage.breadcrumbHome': 'Home',
+        'missionsPage.breadcrumbMissions': 'Missions',
+
+        // Activities Page
+        'activitiesPage.pageTitle': 'Activities | HMSSTC',
+        'activitiesPage.heading': 'Activities',
+        'activitiesPage.description': 'Capturing memorable moments from center activities',
+        'activitiesPage.datePrefix': 'Published',
+        'activitiesPage.readMore': 'Read more',
+        'activitiesPage.backToActivities': 'Back to Activities',
+        'activitiesPage.breadcrumbHome': 'Home',
+        'activitiesPage.breadcrumbActivities': 'Activities',
 
         // News Section
         'news.title': 'Latest News',

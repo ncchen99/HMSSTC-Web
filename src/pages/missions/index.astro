@@ -7,12 +7,12 @@ const missions = (await getCollection('missions')).sort(
 );
 ---
 
-<BaseLayout title="太空任務 | 夏漢民太空科技中心">
+<BaseLayout title="太空任務 | 夏漢民太空科技中心" pageTitleKey="missionsPage.pageTitle">
   <div class="pt-28 pb-20 bg-white min-h-screen">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-4">參與國家太空任務</h1>
-        <p class="text-gray-500 text-lg">記錄中心參與的太空計畫與科技發展</p>
+        <h1 class="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-4" data-i18n="missionsPage.heading">參與國家太空任務</h1>
+        <p class="text-gray-500 text-lg" data-i18n="missionsPage.description">記錄中心參與的太空計畫與科技發展</p>
       </div>
 
       <!-- Status tabs -->
@@ -20,12 +20,14 @@ const missions = (await getCollection('missions')).sort(
         <button
           class="mission-tab-page px-6 py-3 rounded-lg font-medium transition-all duration-300 bg-tech-blue text-white"
           data-status="active"
+          data-i18n="missionsPage.active"
         >
           執行中任務
         </button>
         <button
           class="mission-tab-page px-6 py-3 rounded-lg font-medium transition-all duration-300 bg-gray-100 text-gray-600 hover:bg-gray-200"
           data-status="retired"
+          data-i18n="missionsPage.retired"
         >
           除役任務
         </button>
@@ -55,20 +57,24 @@ const missions = (await getCollection('missions')).sort(
                     ? 'bg-neon-green/20 text-neon-green border border-neon-green/30'
                     : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
                 }`}>
-                  {mission.data.status === 'active' ? '執行中' : '已除役'}
+                  {mission.data.status === 'active' ? (
+                    <span data-i18n="missionsPage.statusActive">執行中</span>
+                  ) : (
+                    <span data-i18n="missionsPage.statusRetired">已除役</span>
+                  )}
                 </span>
               </div>
             </div>
 
             <div class="p-6 pt-8">
               <h2 class="text-xl font-heading font-bold text-gray-900 mb-2">{mission.data.title}</h2>
-              <p class="text-sm text-gray-500 mb-3">公告時間 {mission.data.date}</p>
+              <p class="text-sm text-gray-500 mb-3"><span data-i18n="missionsPage.datePrefix">公告時間</span> {mission.data.date}</p>
               <p class="text-gray-600 text-sm line-clamp-2 mb-4">{mission.data.excerpt}</p>
               <a
                 href={`/missions/${mission.slug}`}
                 class="inline-flex items-center gap-2 text-tech-blue font-medium text-sm hover:gap-3 transition-all duration-300"
               >
-                Read more
+                <span data-i18n="missionsPage.readMore">了解更多</span>
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
                 </svg>
