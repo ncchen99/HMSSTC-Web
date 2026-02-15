@@ -1,21 +1,24 @@
 ---
-import Header from '../components/Header.astro';
-import Footer from '../components/Footer.astro';
-import '../styles/global.css';
-import { i18nClientScript } from '../i18n/translations';
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import "../styles/global.css";
+import { i18nClientScript } from "../i18n/translations";
 
 interface Props {
   title?: string;
   description?: string;
   pageTitleKey?: string;
+  transparentHeader?: boolean;
 }
 
 const {
-  title = '夏漢民太空科技中心 | HMSSTC',
-  description = '啟動臺灣太空新視界｜匯聚前沿科研、跨域人才與國際合作，領航未來太空時代',
+  title = "夏漢民太空科技中心 | HMSSTC",
+  description = "啟動臺灣太空新視界｜匯聚前沿科研、跨域人才與國際合作，領航未來太空時代",
   pageTitleKey,
+  transparentHeader = false,
 } = Astro.props;
 ---
+
 <!doctype html>
 <html lang="zh-TW">
   <head>
@@ -27,7 +30,7 @@ const {
     {pageTitleKey && <meta data-i18n-page-title={pageTitleKey} />}
   </head>
   <body class="min-h-screen bg-space-dark text-white font-body antialiased">
-    <Header />
+    <Header transparent={transparentHeader} />
     <main>
       <slot />
     </main>

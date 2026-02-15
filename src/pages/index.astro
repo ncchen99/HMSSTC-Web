@@ -8,7 +8,7 @@ const members = (await getCollection('members')).sort((a, b) => (a.data.order ??
 const news = (await getCollection('news')).sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
-<BaseLayout>
+<BaseLayout transparentHeader={true}>
   <!-- ========== HERO SECTION ========== -->
   <section class="hero-section relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-32 sm:pt-32 sm:pb-36" id="hero-section">
     <!-- Deep Space Background -->
@@ -33,14 +33,18 @@ const news = (await getCollection('news')).sort((a, b) => new Date(b.data.date).
 
     <!-- Content -->
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center">
-      <!-- Main Title -->
-      <h1
-        class="hero-title text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-white mb-8 mt-20 sm:mb-10 leading-tight tracking-wide"
-        id="hero-title"
-        data-i18n="hero.title"
-      >
-        夏漢民太空科技中心
-      </h1>
+      <div class="relative group">
+        <!-- Text glow effect -->
+        <div class="absolute -inset-x-20 -inset-y-10 bg-tech-purple/20 blur-[100px] opacity-50 group-hover:opacity-80 transition-opacity duration-1000 -z-10"></div>
+        <h1
+          class="hero-title text-5xl sm:text-6xl lg:text-7xl font-bold font-heading mb-8 mt-16 sm:mb-10 leading-tight tracking-[0.12em] animate-shimmer"
+          id="hero-title"
+          data-i18n="hero.title"
+          data-content="夏漢民太空科技中心"
+        >
+          夏漢民太空科技中心
+        </h1>
+      </div>
 
       <!-- Subtitle Box -->
       <div class="hero-subtitle-box max-w-3xl mx-auto mb-10 sm:mb-14">
@@ -370,10 +374,38 @@ const news = (await getCollection('news')).sort((a, b) => new Date(b.data.date).
 
   /* ===== Hero Title ===== */
   .hero-title {
-    text-shadow:
-      0 0 60px rgba(255, 255, 255, 0.08),
-      0 0 120px rgba(100, 150, 255, 0.05);
-    letter-spacing: 0.08em;
+    background: linear-gradient(
+      135deg, 
+      #ffffff 0%, 
+      #ffffff 45%, 
+      rgba(139, 92, 246, 0.4) 50%, 
+      #ffffff 55%, 
+      #ffffff 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 25px rgba(139, 92, 246, 0.2));
+    position: relative;
+    z-index: 1;
+    animation: shimmer 6s linear infinite;
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -100% center; }
+    100% { background-position: 100% center; }
+  }
+
+  .hero-title::after {
+    content: attr(data-content);
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: -1;
+    background: inherit;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: blur(15px) opacity(0.4);
   }
 
   /* ===== Hero Subtitle Box ===== */
