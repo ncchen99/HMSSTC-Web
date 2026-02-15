@@ -1,56 +1,81 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import FloatingSatellites from "../../components/FloatingSatellites.astro";
+import { getCollection } from "astro:content";
 
-const news = (await getCollection('news')).sort(
-  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
+const news = (await getCollection("news")).sort(
+  (a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime(),
 );
 ---
 
 <BaseLayout title="最新消息 | 夏漢民太空科技中心">
-  <div class="pt-28 pb-20 bg-white min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <div class="pt-28 pb-20 bg-white min-h-screen relative overflow-hidden">
+    <FloatingSatellites id="news-list" />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <!-- Page header -->
       <div class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-4">最新消息</h1>
+        <h1
+          class="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-4"
+        >
+          最新消息
+        </h1>
         <p class="text-gray-500 text-lg">掌握中心最新動態與學術進展</p>
       </div>
 
       <!-- News Grid -->
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {news.map((item, index) => (
-          <article class="group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover border border-gray-100">
-            <div class="mission-number text-gray-200">{String(index + 1).padStart(2, '0')}</div>
+        {
+          news.map((item, index) => (
+            <article class="group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover border border-gray-100">
+              <div class="mission-number text-gray-200">
+                {String(index + 1).padStart(2, "0")}
+              </div>
 
-            <div class="relative h-52 overflow-hidden">
-              {item.data.image && (
-                <img
-                  src={item.data.image}
-                  alt={item.data.title}
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
-                />
-              )}
-            </div>
+              <div class="relative h-52 overflow-hidden">
+                {item.data.image && (
+                  <img
+                    src={item.data.image}
+                    alt={item.data.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                )}
+              </div>
 
-            <div class="p-6 pt-8">
-              <h2 class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors">
-                {item.data.title}
-              </h2>
-              <p class="text-sm text-gray-500 mb-3">公告時間 {item.data.date}</p>
-              <p class="text-gray-600 text-sm line-clamp-3 mb-4">{item.data.excerpt}</p>
-              <a
-                href={`/news/${item.slug}`}
-                class="inline-flex items-center gap-2 text-tech-blue font-medium text-sm hover:gap-3 transition-all duration-300"
-              >
-                Read more
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                </svg>
-              </a>
-            </div>
-          </article>
-        ))}
+              <div class="p-6 pt-8">
+                <h2 class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors">
+                  {item.data.title}
+                </h2>
+                <p class="text-sm text-gray-500 mb-3">
+                  公告時間 {item.data.date}
+                </p>
+                <p class="text-gray-600 text-sm line-clamp-3 mb-4">
+                  {item.data.excerpt}
+                </p>
+                <a
+                  href={`/news/${item.slug}`}
+                  class="inline-flex items-center gap-2 text-tech-blue font-medium text-sm hover:gap-3 transition-all duration-300"
+                >
+                  Read more
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    class="w-4 h-4"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))
+        }
       </div>
     </div>
   </div>

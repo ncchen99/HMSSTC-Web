@@ -1,18 +1,30 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import FloatingSatellites from "../../components/FloatingSatellites.astro";
+import { getCollection } from "astro:content";
 
-const missions = (await getCollection('missions')).sort(
-  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99)
+const missions = (await getCollection("missions")).sort(
+  (a, b) => (a.data.order ?? 99) - (b.data.order ?? 99),
 );
 ---
 
-<BaseLayout title="太空任務 | 夏漢民太空科技中心" pageTitleKey="missionsPage.pageTitle">
-  <div class="pt-28 pb-20 bg-white min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+<BaseLayout
+  title="太空任務 | 夏漢民太空科技中心"
+  pageTitleKey="missionsPage.pageTitle"
+>
+  <div class="pt-28 pb-20 bg-white min-h-screen relative overflow-hidden">
+    <FloatingSatellites id="missions-list" />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <div class="mb-12">
-        <h1 class="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-4" data-i18n="missionsPage.heading">參與國家太空任務</h1>
-        <p class="text-gray-500 text-lg" data-i18n="missionsPage.description">記錄中心參與的太空計畫與科技發展</p>
+        <h1
+          class="text-4xl md:text-5xl font-heading font-bold text-gray-900 mb-4"
+          data-i18n="missionsPage.heading"
+        >
+          參與國家太空任務
+        </h1>
+        <p class="text-gray-500 text-lg" data-i18n="missionsPage.description">
+          記錄中心參與的太空計畫與科技發展
+        </p>
       </div>
 
       <!-- Status tabs -->
@@ -33,80 +45,108 @@ const missions = (await getCollection('missions')).sort(
         </button>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="missions-page-grid">
-        {missions.map((mission, index) => (
-          <article
-            class="mission-card-page group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover border border-gray-100"
-            data-status={mission.data.status}
-          >
-            <div class="mission-number">{String(index + 1).padStart(2, '0')}</div>
-
-            <div class="relative h-56 overflow-hidden">
-              {mission.data.image && (
-                <img
-                  src={mission.data.image}
-                  alt={mission.data.title}
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
-                />
-              )}
-              <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
-              <div class="absolute top-4 right-4">
-                <span class={`px-3 py-1 rounded-full text-xs font-medium ${
-                  mission.data.status === 'active'
-                    ? 'bg-neon-green/20 text-neon-green border border-neon-green/30'
-                    : 'bg-gray-500/20 text-gray-400 border border-gray-500/30'
-                }`}>
-                  {mission.data.status === 'active' ? (
-                    <span data-i18n="missionsPage.statusActive">執行中</span>
-                  ) : (
-                    <span data-i18n="missionsPage.statusRetired">已除役</span>
-                  )}
-                </span>
+      <div
+        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+        id="missions-page-grid"
+      >
+        {
+          missions.map((mission, index) => (
+            <article
+              class="mission-card-page group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover border border-gray-100"
+              data-status={mission.data.status}
+            >
+              <div class="mission-number">
+                {String(index + 1).padStart(2, "0")}
               </div>
-            </div>
 
-            <div class="p-6 pt-8">
-              <h2 class="text-xl font-heading font-bold text-gray-900 mb-2">{mission.data.title}</h2>
-              <p class="text-sm text-gray-500 mb-3"><span data-i18n="missionsPage.datePrefix">公告時間</span> {mission.data.date}</p>
-              <p class="text-gray-600 text-sm line-clamp-2 mb-4">{mission.data.excerpt}</p>
-              <a
-                href={`/missions/${mission.slug}`}
-                class="inline-flex items-center gap-2 text-tech-blue font-medium text-sm hover:gap-3 transition-all duration-300"
-              >
-                <span data-i18n="missionsPage.readMore">了解更多</span>
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3" />
-                </svg>
-              </a>
-            </div>
-          </article>
-        ))}
+              <div class="relative h-56 overflow-hidden">
+                {mission.data.image && (
+                  <img
+                    src={mission.data.image}
+                    alt={mission.data.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                )}
+                <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
+                <div class="absolute top-4 right-4">
+                  <span
+                    class={`px-3 py-1 rounded-full text-xs font-medium ${
+                      mission.data.status === "active"
+                        ? "bg-neon-green/20 text-neon-green border border-neon-green/30"
+                        : "bg-gray-500/20 text-gray-400 border border-gray-500/30"
+                    }`}
+                  >
+                    {mission.data.status === "active" ? (
+                      <span data-i18n="missionsPage.statusActive">執行中</span>
+                    ) : (
+                      <span data-i18n="missionsPage.statusRetired">已除役</span>
+                    )}
+                  </span>
+                </div>
+              </div>
+
+              <div class="p-6 pt-8">
+                <h2 class="text-xl font-heading font-bold text-gray-900 mb-2">
+                  {mission.data.title}
+                </h2>
+                <p class="text-sm text-gray-500 mb-3">
+                  <span data-i18n="missionsPage.datePrefix">公告時間</span>{" "}
+                  {mission.data.date}
+                </p>
+                <p class="text-gray-600 text-sm line-clamp-2 mb-4">
+                  {mission.data.excerpt}
+                </p>
+                <a
+                  href={`/missions/${mission.slug}`}
+                  class="inline-flex items-center gap-2 text-tech-blue font-medium text-sm hover:gap-3 transition-all duration-300"
+                >
+                  <span data-i18n="missionsPage.readMore">了解更多</span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke-width="2"
+                    stroke="currentColor"
+                    class="w-4 h-4"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"
+                    />
+                  </svg>
+                </a>
+              </div>
+            </article>
+          ))
+        }
       </div>
     </div>
   </div>
 </BaseLayout>
 
 <script>
-  const tabs = document.querySelectorAll('.mission-tab-page');
-  const cards = document.querySelectorAll('.mission-card-page');
+  const tabs = document.querySelectorAll(".mission-tab-page");
+  const cards = document.querySelectorAll(".mission-card-page");
 
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const status = tab.getAttribute('data-status');
-      tabs.forEach(t => {
-        t.classList.remove('bg-tech-blue', 'text-white');
-        t.classList.add('bg-gray-100', 'text-gray-600');
+  tabs.forEach((tab) => {
+    tab.addEventListener("click", () => {
+      const status = tab.getAttribute("data-status");
+      tabs.forEach((t) => {
+        t.classList.remove("bg-tech-blue", "text-white");
+        t.classList.add("bg-gray-100", "text-gray-600");
       });
-      tab.classList.remove('bg-gray-100', 'text-gray-600');
-      tab.classList.add('bg-tech-blue', 'text-white');
+      tab.classList.remove("bg-gray-100", "text-gray-600");
+      tab.classList.add("bg-tech-blue", "text-white");
 
-      cards.forEach(card => {
+      cards.forEach((card) => {
         const el = card as HTMLElement;
-        if (status === 'all') {
-          el.style.display = '';
+        if (status === "all") {
+          el.style.display = "";
         } else {
-          el.style.display = card.getAttribute('data-status') === status ? '' : 'none';
+          el.style.display =
+            card.getAttribute("data-status") === status ? "" : "none";
         }
       });
     });

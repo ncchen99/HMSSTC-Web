@@ -1,0 +1,199 @@
+﻿---
+/**
+ * FloatingSatellites.astro
+ *
+ * A reusable component that adds floating satellite images (FORMOSAT-7 & TRITON)
+ * to any section. The satellites have randomized initial positions and move
+ * with GSAP ScrollTrigger as the user scrolls.
+ *
+ * Usage:
+ *   <div class="relative overflow-hidden">
+ *     <FloatingSatellites id="unique-id" />
+ *     <!-- your content here -->
+ *   </div>
+ *
+ * Props:
+ *   id: string - Unique identifier for this instance (required for multiple instances)
+ */
+
+interface Props {
+    id?: string;
+}
+
+const { id = "floating-satellites" } = Astro.props;
+---
+
+<div class="floating-satellites-container" data-satellite-id={id}>
+    <!-- FORMOSAT-7 Satellite -->
+    <img
+        src="/images/FORMOSAT-7.webp"
+        alt=""
+        class="floating-satellite floating-satellite--formosat"
+        data-satellite="formosat"
+        aria-hidden="true"
+        loading="lazy"
+    />
+    <!-- TRITON Satellite -->
+    <img
+        src="/images/TRITON.webp"
+        alt=""
+        class="floating-satellite floating-satellite--triton"
+        data-satellite="triton"
+        aria-hidden="true"
+        loading="lazy"
+    />
+</div>
+
+<style>
+    .floating-satellites-container {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .floating-satellite {
+        position: absolute;
+        opacity: 0.07;
+        pointer-events: none;
+        user-select: none;
+        will-change: transform;
+        filter: grayscale(20%) brightness(0.9);
+        transition: opacity 0.3s ease;
+    }
+
+    .floating-satellite--formosat {
+        width: clamp(120px, 18vw, 280px);
+        height: auto;
+    }
+
+    .floating-satellite--triton {
+        width: clamp(100px, 15vw, 240px);
+        height: auto;
+    }
+
+    /* Subtle hover glow when scrolling over them */
+    @media (prefers-reduced-motion: no-preference) {
+        .floating-satellite {
+            transition:
+                opacity 0.6s ease,
+                filter 0.6s ease;
+        }
+    }
+</style>
+
+<script>
+    import gsap from "gsap";
+    import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Track initialized containers to avoid double-init
+    const initializedContainers = new WeakSet<HTMLElement>();
+
+    function initFloatingSatellites() {
+        const containers = document.querySelectorAll<HTMLElement>(
+            ".floating-satellites-container",
+        );
+
+        containers.forEach((container) => {
+            // Skip already-initialized containers
+            if (initializedContainers.has(container)) return;
+            initializedContainers.add(container);
+
+            const satellites = container.querySelectorAll<HTMLImageElement>(
+                ".floating-satellite",
+            );
+            const parentSection = container.parentElement;
+
+            if (!parentSection) return;
+
+            // Make sure parent is positioned relatively
+            const parentPosition = getComputedStyle(parentSection).position;
+            if (parentPosition === "static") {
+                parentSection.style.position = "relative";
+            }
+
+            // Ensure existing content within the section sits above the satellites
+            parentSection
+                .querySelectorAll(
+                    ":scope > :not(.floating-satellites-container)",
+                )
+                .forEach((child) => {
+                    const el = child as HTMLElement;
+                    const currentZ = getComputedStyle(el).zIndex;
+                    if (currentZ === "auto" || parseInt(currentZ) < 1) {
+                        el.style.position = el.style.position || "relative";
+                        el.style.zIndex = el.style.zIndex || "1";
+                    }
+                });
+
+            // Use Math.random for truly random positions each page load
+            const rand = Math.random;
+
+            satellites.forEach((sat) => {
+                const isFormosat = sat.dataset.satellite === "formosat";
+
+                // Randomize initial position
+                // FORMOSAT tends toward top-right, TRITON toward bottom-left
+                let startX: number, startY: number;
+                let moveX: number, moveY: number;
+                let rotation: number, rotationEnd: number;
+
+                if (isFormosat) {
+                    // Formosat: generally right half, random Y
+                    startX = 50 + rand() * 35; // 50-85% from left
+                    startY = 5 + rand() * 30; // 5-35% from top
+                    moveX = -(30 + rand() * 60); // moves left 30-90px
+                    moveY = 40 + rand() * 80; // moves down 40-120px
+                    rotation = -15 + rand() * 30; // -15 to 15 deg
+                    rotationEnd = rotation + (10 + rand() * 20);
+                } else {
+                    // Triton: generally left half, random Y
+                    startX = 5 + rand() * 35; // 5-40% from left
+                    startY = 50 + rand() * 35; // 50-85% from top
+                    moveX = 30 + rand() * 60; // moves right 30-90px
+                    moveY = -(30 + rand() * 60); // moves up 30-90px
+                    rotation = -10 + rand() * 20;
+                    rotationEnd = rotation - (10 + rand() * 20);
+                }
+
+                // Set initial position
+                gsap.set(sat, {
+                    left: `${startX}%`,
+                    top: `${startY}%`,
+                    rotation: rotation,
+                    scale: 0.9 + rand() * 0.3,
+                });
+
+                // Create scroll-triggered animation
+                gsap.to(sat, {
+                    x: moveX,
+                    y: moveY,
+                    rotation: rotationEnd,
+                    opacity: 0.12,
+                    ease: "none",
+                    scrollTrigger: {
+                        trigger: parentSection,
+                        start: "top bottom",
+                        end: "bottom top",
+                        scrub: 1.5,
+                    },
+                });
+            });
+        });
+    }
+
+    // Initialize on DOM ready
+    if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initFloatingSatellites);
+    } else {
+        initFloatingSatellites();
+    }
+
+    // Re-init on Astro page transitions (view transitions)
+    document.addEventListener("astro:page-load", initFloatingSatellites);
+</script>
+
+
