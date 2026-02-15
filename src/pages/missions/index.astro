@@ -30,7 +30,7 @@ const missions = (await getCollection("missions")).sort(
       <!-- Status tabs -->
       <div class="flex gap-4 mb-12">
         <button
-          class="mission-tab-page px-6 py-3 rounded-lg font-medium transition-all duration-300 bg-tech-blue text-white"
+          class="mission-tab-page px-6 py-3 rounded-lg font-medium transition-all duration-300 bg-tech-purple text-white"
           data-status="active"
           data-i18n="missionsPage.active"
         >
@@ -99,7 +99,7 @@ const missions = (await getCollection("missions")).sort(
                 </p>
                 <a
                   href={`/missions/${mission.slug}`}
-                  class="inline-flex items-center gap-2 text-tech-blue font-medium text-sm hover:gap-3 transition-all duration-300"
+                  class="inline-flex items-center gap-2 text-tech-purple font-medium text-sm hover:gap-3 transition-all duration-300"
                 >
                   <span data-i18n="missionsPage.readMore">了解更多</span>
                   <svg
@@ -134,11 +134,11 @@ const missions = (await getCollection("missions")).sort(
     tab.addEventListener("click", () => {
       const status = tab.getAttribute("data-status");
       tabs.forEach((t) => {
-        t.classList.remove("bg-tech-blue", "text-white");
+        t.classList.remove("bg-tech-purple", "text-white");
         t.classList.add("bg-gray-100", "text-gray-600");
       });
       tab.classList.remove("bg-gray-100", "text-gray-600");
-      tab.classList.add("bg-tech-blue", "text-white");
+      tab.classList.add("bg-tech-purple", "text-white");
 
       cards.forEach((card) => {
         const el = card as HTMLElement;

@@ -32,7 +32,7 @@
   .tech-border::before,
   .tech-border::after {
     content: '';
-    @apply absolute w-4 h-4 border-tech-blue;
+    @apply absolute w-4 h-4 border-tech-purple;
   }
 
   .tech-border::before {
@@ -44,23 +44,23 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-tech-blue text-white font-medium rounded-lg hover:bg-tech-blue-light transition-all duration-300 hover:shadow-lg hover:shadow-tech-blue/30;
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-tech-purple text-white font-medium rounded-lg hover:bg-tech-purple-light transition-all duration-300 hover:shadow-lg hover:shadow-tech-purple/30;
   }
 
   .btn-outline {
-    @apply inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white font-medium rounded-lg hover:border-tech-blue hover:text-tech-blue transition-all duration-300;
+    @apply inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white font-medium rounded-lg hover:border-tech-purple hover:text-tech-purple transition-all duration-300;
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-xl hover:shadow-tech-blue/10;
+    @apply transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-xl hover:shadow-tech-purple/10;
   }
 
   .gradient-text {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-tech-blue to-neon-green;
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-tech-purple to-neon-green;
   }
 
   .prose-content {
-    @apply prose prose-invert prose-lg max-w-none prose-headings:font-heading prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-tech-blue prose-a:no-underline hover:prose-a:text-neon-green prose-strong:text-white prose-img:rounded-lg;
+    @apply prose prose-invert prose-lg max-w-none prose-headings:font-heading prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-tech-purple prose-a:no-underline hover:prose-a:text-neon-green prose-strong:text-white prose-img:rounded-lg;
   }
 }
 
@@ -133,7 +133,7 @@
 
 /* Mission card number */
 .mission-number {
-  @apply text-7xl md:text-8xl font-display font-bold text-tech-blue/20 absolute -top-6 -left-2 select-none;
+  @apply text-7xl md:text-8xl font-display font-bold text-tech-purple/20 absolute -top-6 -left-2 select-none;
 }
 
 /* Team member card hover */

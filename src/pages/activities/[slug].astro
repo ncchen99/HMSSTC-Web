@@ -1,10 +1,10 @@
 ---
-import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
-import type { GetStaticPaths } from 'astro';
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
+import type { GetStaticPaths } from "astro";
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const activities = await getCollection('activities');
+  const activities = await getCollection("activities");
   return activities.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry },
@@ -19,32 +19,68 @@ const { Content } = await entry.render();
   <div class="pt-28 pb-20 bg-white min-h-screen">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <nav class="mb-8 text-sm">
-        <a href="/" class="text-gray-400 hover:text-tech-blue transition-colors" data-i18n="activitiesPage.breadcrumbHome">首頁</a>
+        <a
+          href="/"
+          class="text-gray-400 hover:text-tech-purple transition-colors"
+          data-i18n="activitiesPage.breadcrumbHome">首頁</a
+        >
         <span class="text-gray-300 mx-2">/</span>
-        <a href="/activities" class="text-gray-400 hover:text-tech-blue transition-colors" data-i18n="activitiesPage.breadcrumbActivities">活動花絮</a>
+        <a
+          href="/activities"
+          class="text-gray-400 hover:text-tech-purple transition-colors"
+          data-i18n="activitiesPage.breadcrumbActivities">活動花絮</a
+        >
         <span class="text-gray-300 mx-2">/</span>
         <span class="text-gray-600">{entry.data.title}</span>
       </nav>
 
-      {entry.data.image && (
-        <div class="relative h-64 md:h-96 rounded-2xl overflow-hidden mb-10">
-          <img src={entry.data.image} alt={entry.data.title} class="w-full h-full object-cover" />
-        </div>
-      )}
+      {
+        entry.data.image && (
+          <div class="relative h-64 md:h-96 rounded-2xl overflow-hidden mb-10">
+            <img
+              src={entry.data.image}
+              alt={entry.data.title}
+              class="w-full h-full object-cover"
+            />
+          </div>
+        )
+      }
 
       <div class="mb-8">
-        <h1 class="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">{entry.data.title}</h1>
-        <p class="text-gray-500"><span data-i18n="activitiesPage.datePrefix">公告時間</span> {entry.data.date}</p>
+        <h1
+          class="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4"
+        >
+          {entry.data.title}
+        </h1>
+        <p class="text-gray-500">
+          <span data-i18n="activitiesPage.datePrefix">公告時間</span>
+          {entry.data.date}
+        </p>
       </div>
 
-      <div class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-tech-blue">
+      <div
+        class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-tech-purple"
+      >
         <Content />
       </div>
 
       <div class="mt-12 pt-8 border-t border-gray-100">
-        <a href="/activities" class="inline-flex items-center gap-2 text-tech-blue font-medium hover:gap-3 transition-all duration-300">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        <a
+          href="/activities"
+          class="inline-flex items-center gap-2 text-tech-purple font-medium hover:gap-3 transition-all duration-300"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            class="w-4 h-4"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"></path>
           </svg>
           <span data-i18n="activitiesPage.backToActivities">返回活動花絮</span>
         </a>

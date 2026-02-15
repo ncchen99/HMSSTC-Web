@@ -2,7 +2,7 @@
 title: "成功大學攜手京都大學 共辦第十屆「亞洲人類圈科學研討會」"
 date: "2025-09-25"
 excerpt: "古都交會，跨域創新 —— 太空科技與永續生存領域重量級學者齊聚一堂，深入探討亞洲區域環境變遷。"
-image: "https://images.unsplash.com/photo-1540575467063-178a50109e82?w=800&q=80"
+image: "https://images.unsplash.com/photo-1761839258657-457dda39b5cc"
 category: "news"
 ---
 

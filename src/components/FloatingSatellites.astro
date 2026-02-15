@@ -142,9 +142,9 @@ const { id = "floating-satellites" } = Astro.props;
                 let rotation: number, rotationEnd: number;
 
                 if (isFormosat) {
-                    // Formosat: 偏向右側邊緣 (75-90% from left)
-                    startX = 75 + rand() * 15;
-                    startY = 5 + rand() * 40; // 5-45% from top
+                    // Formosat: 偏向右側邊緣 (70-85% from left)
+                    startX = 70 + rand() * 15;
+                    startY = 2 + rand() * 18; // 2-20% from top
                     moveX = -(40 + rand() * 80); // 向左漂移 40-120px
                     moveY = 100 + rand() * 150; // 向下漂移 100-250px
                     rotation = -15 + rand() * 30;
@@ -152,7 +152,7 @@ const { id = "floating-satellites" } = Astro.props;
                 } else {
                     // Triton: 偏向左側邊緣 (5-20% from left)
                     startX = 5 + rand() * 15;
-                    startY = 45 + rand() * 40; // 45-85% from top
+                    startY = 70 + rand() * 20; // 70-90% from top
                     moveX = 40 + rand() * 80; // 向右漂移 40-120px
                     moveY = -(100 + rand() * 150); // 向上漂移 100-250px
                     rotation = -10 + rand() * 20;
