@@ -47,6 +47,10 @@ export const translations = {
         'about.pageTitle': '關於中心 | 夏漢民太空科技中心',
         'about.heroTitle': '關於中心',
         'about.heroSubtitle': '認識夏漢民太空科技中心的使命與歷史',
+        'about.stats.missions': '太空任務',
+        'about.stats.members': '核心成員',
+        'about.stats.publications': '學術論文',
+        'about.stats.partnerships': '國際合作',
 
         // Contact Page
         'contact.pageTitle': '聯絡我們 | 夏漢民太空科技中心',
@@ -66,6 +70,9 @@ export const translations = {
         'contact.form.message': '訊息內容',
         'contact.form.messagePlaceholder': '請輸入您的訊息...',
         'contact.form.submit': '送出訊息',
+        'contact.mapTitle': '國立成功大學位置',
+        'contact.contacts.director': '林建宏 教授 中心主任',
+        'contact.contacts.secretary': '林子軒 先生 中心秘書',
 
         // Footer
         'footer.orgName': '夏漢民太空科技中心',
@@ -74,6 +81,8 @@ export const translations = {
         'footer.address1': '701 臺南市東區大學路1號',
         'footer.address2': '國立成功大學成功校區 綜合二館3樓 49315 室',
         'footer.copyright': '© 2025 夏漢民太空科技中心 保留所有權利。',
+        'footer.director': '林建宏 教授 中心主任',
+        'footer.secretary': '林子軒 先生 中心秘書',
 
         // Common
         'common.home': '首頁',
@@ -119,6 +128,10 @@ export const translations = {
         'about.pageTitle': 'About | HMSSTC',
         'about.heroTitle': 'About Us',
         'about.heroSubtitle': 'Learn about the mission and history of HMSSTC',
+        'about.stats.missions': 'Space Missions',
+        'about.stats.members': 'Core Members',
+        'about.stats.publications': 'Publications',
+        'about.stats.partnerships': 'Intl. Partnerships',
 
         // Contact Page
         'contact.pageTitle': 'Contact | HMSSTC',
@@ -138,6 +151,9 @@ export const translations = {
         'contact.form.message': 'Message',
         'contact.form.messagePlaceholder': 'Enter your message...',
         'contact.form.submit': 'Send Message',
+        'contact.mapTitle': 'NCKU Location',
+        'contact.contacts.director': 'Prof. Jian-Hong Lin, Director',
+        'contact.contacts.secretary': 'Mr. Zi-Xuan Lin, Secretary',
 
         // Footer
         'footer.orgName': 'HMSSTC',
@@ -146,6 +162,8 @@ export const translations = {
         'footer.address1': 'No. 1, University Rd., East Dist., Tainan 701',
         'footer.address2': 'NCKU Cheng Kung Campus, Building 2, 3F, Room 49315',
         'footer.copyright': '© 2025 HMSSTC. All rights reserved.',
+        'footer.director': 'Prof. Jian-Hong Lin, Director',
+        'footer.secretary': 'Mr. Zi-Xuan Lin, Secretary',
 
         // Common
         'common.home': 'Home',
@@ -156,28 +174,84 @@ export const translations = {
 
 export type TranslationKey = keyof typeof translations['zh-TW'];
 
-export function getLangFromUrl(url: URL): Lang {
-    const searchLang = url.searchParams.get('lang');
-    if (searchLang && searchLang in translations) {
-        return searchLang as Lang;
+/**
+ * Client-side i18n helper script to be included in the page.
+ * Uses localStorage for language persistence. All translatable elements
+ * use data-i18n="key" attributes and are updated via JS.
+ */
+export const i18nClientScript = `
+<script>
+  (function() {
+    const translations = ${JSON.stringify(translations)};
+    const defaultLang = '${defaultLang}';
+
+    function getLang() {
+      return localStorage.getItem('hmsstc-lang') || defaultLang;
     }
-    return defaultLang;
-}
 
-export function t(lang: Lang, key: TranslationKey): string {
-    return translations[lang]?.[key] ?? translations[defaultLang][key] ?? key;
-}
-
-export function getAlternateLang(lang: Lang): Lang {
-    return lang === 'zh-TW' ? 'en' : 'zh-TW';
-}
-
-export function localizedUrl(url: URL, targetLang: Lang): string {
-    const newUrl = new URL(url);
-    if (targetLang === defaultLang) {
-        newUrl.searchParams.delete('lang');
-    } else {
-        newUrl.searchParams.set('lang', targetLang);
+    function setLang(lang) {
+      localStorage.setItem('hmsstc-lang', lang);
+      applyTranslations(lang);
     }
-    return newUrl.pathname + newUrl.search;
-}
+
+    function applyTranslations(lang) {
+      const t = translations[lang] || translations[defaultLang];
+
+      // Update html lang attribute
+      document.documentElement.lang = lang === 'en' ? 'en' : 'zh-TW';
+
+      // Update all elements with data-i18n attribute
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) {
+          el.textContent = t[key];
+        }
+      });
+
+      // Update all elements with data-i18n-placeholder attribute
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (t[key]) {
+          el.placeholder = t[key];
+        }
+      });
+
+      // Update all elements with data-i18n-title attribute
+      document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        const key = el.getAttribute('data-i18n-title');
+        if (t[key]) {
+          el.title = t[key];
+        }
+      });
+
+      // Update page title if data-i18n-page-title exists
+      const pageTitle = document.querySelector('[data-i18n-page-title]');
+      if (pageTitle) {
+        const key = pageTitle.getAttribute('data-i18n-page-title');
+        if (t[key]) {
+          document.title = t[key];
+        }
+      }
+
+      // Update lang switch buttons
+      document.querySelectorAll('[data-lang-switch]').forEach(btn => {
+        btn.textContent = lang === 'en' ? '中文' : 'EN';
+      });
+
+      // Show/hide language-specific content
+      document.querySelectorAll('[data-lang-content]').forEach(el => {
+        const contentLang = el.getAttribute('data-lang-content');
+        el.style.display = contentLang === lang ? '' : 'none';
+      });
+    }
+
+    // Initialize on page load
+    const lang = getLang();
+    applyTranslations(lang);
+
+    // Expose globally for lang switch buttons
+    window.__setLang = setLang;
+    window.__getLang = getLang;
+  })();
+<\/script>
+`;

@@ -1,20 +1,25 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getLangFromUrl, t } from '../i18n/translations';
 import { marked } from 'marked';
 import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
 
-const lang = getLangFromUrl(Astro.url);
-const langFile = lang === 'en' ? 'about.en.md' : 'about.zh-TW.md';
-const filePath = path.join(process.cwd(), 'src', 'content', 'pages', langFile);
-const fileContent = fs.readFileSync(filePath, 'utf-8');
-const { data: frontmatter, content } = matter(fileContent);
-const htmlContent = await marked(content);
+// Read both language versions
+const zhFilePath = path.join(process.cwd(), 'src', 'content', 'pages', 'about.zh-TW.md');
+const enFilePath = path.join(process.cwd(), 'src', 'content', 'pages', 'about.en.md');
+
+const zhFileContent = fs.readFileSync(zhFilePath, 'utf-8');
+const enFileContent = fs.readFileSync(enFilePath, 'utf-8');
+
+const { data: zhFrontmatter, content: zhContent } = matter(zhFileContent);
+const { data: enFrontmatter, content: enContent } = matter(enFileContent);
+
+const zhHtml = await marked(zhContent);
+const enHtml = await marked(enContent);
 ---
 
-<BaseLayout title={t(lang, 'about.pageTitle')}>
+<BaseLayout title="關於中心 | 夏漢民太空科技中心" pageTitleKey="about.pageTitle">
   <!-- Hero -->
   <section class="relative pt-28 pb-16 overflow-hidden">
     <div class="absolute inset-0">
@@ -22,35 +27,40 @@ const htmlContent = await marked(content);
       <div class="absolute inset-0 bg-gradient-to-b from-space-dark/80 to-space-dark"></div>
     </div>
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">{frontmatter.title}</h1>
-      <p class="text-xl text-gray-300">{frontmatter.subtitle}</p>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6" data-i18n="about.heroTitle">{zhFrontmatter.title}</h1>
+      <p class="text-xl text-gray-300" data-i18n="about.heroSubtitle">{zhFrontmatter.subtitle}</p>
     </div>
   </section>
 
   <!-- Content from Markdown -->
   <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-gray-900 prose-headings:mb-4 prose-p:text-gray-600 prose-p:leading-relaxed prose-strong:text-gray-900 prose-ul:text-gray-600 prose-li:text-gray-600 prose-a:text-tech-blue hover:prose-a:text-tech-blue-light prose-h2:text-3xl prose-h2:mt-12 prose-h2:pb-3 prose-h2:border-b prose-h2:border-gray-100">
-        <Fragment set:html={htmlContent} />
+      <!-- Chinese content -->
+      <div data-lang-content="zh-TW" class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-gray-900 prose-headings:mb-4 prose-p:text-gray-600 prose-p:leading-relaxed prose-strong:text-gray-900 prose-ul:text-gray-600 prose-li:text-gray-600 prose-a:text-tech-blue hover:prose-a:text-tech-blue-light prose-h2:text-3xl prose-h2:mt-12 prose-h2:pb-3 prose-h2:border-b prose-h2:border-gray-100">
+        <Fragment set:html={zhHtml} />
+      </div>
+      <!-- English content -->
+      <div data-lang-content="en" style="display:none" class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-gray-900 prose-headings:mb-4 prose-p:text-gray-600 prose-p:leading-relaxed prose-strong:text-gray-900 prose-ul:text-gray-600 prose-li:text-gray-600 prose-a:text-tech-blue hover:prose-a:text-tech-blue-light prose-h2:text-3xl prose-h2:mt-12 prose-h2:pb-3 prose-h2:border-b prose-h2:border-gray-100">
+        <Fragment set:html={enHtml} />
       </div>
 
       <!-- Key stats -->
       <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
         <div class="text-center p-6 rounded-xl bg-space-dark">
           <div class="text-3xl font-display font-bold text-neon-green mb-2">9</div>
-          <div class="text-sm text-gray-400">{lang === 'en' ? 'Space Missions' : '太空任務'}</div>
+          <div class="text-sm text-gray-400" data-i18n="about.stats.missions">太空任務</div>
         </div>
         <div class="text-center p-6 rounded-xl bg-space-dark">
           <div class="text-3xl font-display font-bold text-tech-blue mb-2">7+</div>
-          <div class="text-sm text-gray-400">{lang === 'en' ? 'Core Members' : '核心成員'}</div>
+          <div class="text-sm text-gray-400" data-i18n="about.stats.members">核心成員</div>
         </div>
         <div class="text-center p-6 rounded-xl bg-space-dark">
           <div class="text-3xl font-display font-bold text-accent-orange mb-2">100+</div>
-          <div class="text-sm text-gray-400">{lang === 'en' ? 'Publications' : '學術論文'}</div>
+          <div class="text-sm text-gray-400" data-i18n="about.stats.publications">學術論文</div>
         </div>
         <div class="text-center p-6 rounded-xl bg-space-dark">
           <div class="text-3xl font-display font-bold text-accent-teal mb-2">10+</div>
-          <div class="text-sm text-gray-400">{lang === 'en' ? 'Intl. Partnerships' : '國際合作'}</div>
+          <div class="text-sm text-gray-400" data-i18n="about.stats.partnerships">國際合作</div>
         </div>
       </div>
     </div>
