@@ -1,10 +1,20 @@
 ---
+import { t, getAlternateLang, localizedUrl, type Lang } from '../i18n/translations';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const altLang = getAlternateLang(lang);
+const altUrl = localizedUrl(Astro.url, altLang);
+
 const navItems = [
-  { label: '最新消息', href: '/news' },
-  { label: '關於中心', href: '/about' },
-  { label: '太空任務', href: '/missions' },
-  { label: '活動花絮', href: '/activities' },
-  { label: '聯絡我們', href: '/contact' },
+  { label: t(lang, 'nav.news'), href: '/news' },
+  { label: t(lang, 'nav.about'), href: '/about' },
+  { label: t(lang, 'nav.missions'), href: '/missions' },
+  { label: t(lang, 'nav.activities'), href: '/activities' },
+  { label: t(lang, 'nav.contact'), href: '/contact' },
 ];
 
 const currentPath = Astro.url.pathname;
@@ -15,7 +25,7 @@ const currentPath = Astro.url.pathname;
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-center justify-between h-20">
         <!-- Logo -->
-        <a href="/" class="flex items-center gap-3 group">
+        <a href={lang === 'en' ? '/?lang=en' : '/'} class="flex items-center gap-3 group">
           <img src="/images/logo.svg" alt="HMSSTC Logo" class="h-12 w-auto" />
         </a>
 
@@ -23,7 +33,7 @@ const currentPath = Astro.url.pathname;
         <nav class="hidden lg:flex items-center gap-8">
           {navItems.map((item) => (
             <a
-              href={item.href}
+              href={lang === 'en' ? `${item.href}?lang=en` : item.href}
               class={`text-sm font-medium tracking-wide transition-colors duration-200 hover:text-tech-blue ${
                 currentPath.startsWith(item.href)
                   ? 'text-tech-blue'
@@ -33,9 +43,12 @@ const currentPath = Astro.url.pathname;
               {item.label}
             </a>
           ))}
-          <div class="ml-4 px-4 py-2 border border-white/20 rounded text-sm text-gray-400 hover:border-tech-blue hover:text-tech-blue transition-all cursor-pointer">
-            EN
-          </div>
+          <a
+            href={altUrl}
+             class="ml-4 px-4 py-2 border border-white/20 rounded text-sm text-gray-400 hover:border-tech-blue hover:text-tech-blue transition-all cursor-pointer"
+          >
+            {t(lang, 'nav.langSwitch')}
+          </a>
         </nav>
 
         <!-- Mobile Menu Button -->
@@ -60,7 +73,7 @@ const currentPath = Astro.url.pathname;
     <nav class="flex flex-col items-center gap-6 pt-12">
       {navItems.map((item) => (
         <a
-          href={item.href}
+          href={lang === 'en' ? `${item.href}?lang=en` : item.href}
           class={`text-lg font-medium tracking-wide transition-colors duration-200 hover:text-tech-blue ${
             currentPath.startsWith(item.href)
               ? 'text-tech-blue'
@@ -70,9 +83,9 @@ const currentPath = Astro.url.pathname;
           {item.label}
         </a>
       ))}
-      <div class="mt-4 px-6 py-2 border border-white/20 rounded text-gray-400">
-        EN
-      </div>
+      <a href={altUrl} class="mt-4 px-6 py-2 border border-white/20 rounded text-gray-400 hover:border-tech-blue hover:text-tech-blue transition-all">
+        {t(lang, 'nav.langSwitch')}
+      </a>
     </nav>
   </div>
 </header>

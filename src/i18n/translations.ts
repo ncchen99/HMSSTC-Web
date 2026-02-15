@@ -1,0 +1,183 @@
+export const languages = {
+    'zh-TW': '中文',
+    'en': 'EN',
+} as const;
+
+export type Lang = keyof typeof languages;
+
+export const defaultLang: Lang = 'zh-TW';
+
+export const translations = {
+    'zh-TW': {
+        // Navigation
+        'nav.news': '最新消息',
+        'nav.about': '關於中心',
+        'nav.missions': '太空任務',
+        'nav.activities': '活動花絮',
+        'nav.contact': '聯絡我們',
+        'nav.langSwitch': 'EN',
+
+        // Hero
+        'hero.title': '夏漢民太空科技中心',
+        'hero.subtitle': '啟動臺灣太空新視界｜匯聚前沿科研、跨域人才與國際合作，領航未來太空時代',
+        'hero.madeInTaiwan': '臺灣製造',
+        'hero.missionCount': '任務次數',
+        'hero.scroll': 'Scroll',
+
+        // Missions Section
+        'missions.title': '參與國家太空任務',
+        'missions.active': '執行中任務',
+        'missions.retired': '除役任務',
+        'missions.datePrefix': '公告時間',
+        'missions.readMore': '了解更多',
+        'missions.moreInfo': '更多資訊',
+
+        // News Section
+        'news.title': '最新消息',
+        'news.datePrefix': '公告時間',
+        'news.readMore': '了解更多',
+        'news.moreNews': '更多消息',
+
+        // Team Section
+        'team.title': '團隊成員',
+        'team.more': '更多',
+        'team.backToTeam': '返回團隊成員',
+
+        // About Page
+        'about.pageTitle': '關於中心 | 夏漢民太空科技中心',
+        'about.heroTitle': '關於中心',
+        'about.heroSubtitle': '認識夏漢民太空科技中心的使命與歷史',
+
+        // Contact Page
+        'contact.pageTitle': '聯絡我們 | 夏漢民太空科技中心',
+        'contact.heroTitle': '聯絡我們',
+        'contact.heroSubtitle': '歡迎與我們聯繫，了解更多合作機會',
+        'contact.info': '聯絡資訊',
+        'contact.phone': '電話',
+        'contact.address': '地址',
+        'contact.email': '電子郵件',
+        'contact.form': '聯絡表單',
+        'contact.form.name': '姓名',
+        'contact.form.namePlaceholder': '請輸入您的姓名',
+        'contact.form.email': '電子郵件',
+        'contact.form.emailPlaceholder': 'your@email.com',
+        'contact.form.subject': '主旨',
+        'contact.form.subjectPlaceholder': '請輸入主旨',
+        'contact.form.message': '訊息內容',
+        'contact.form.messagePlaceholder': '請輸入您的訊息...',
+        'contact.form.submit': '送出訊息',
+
+        // Footer
+        'footer.orgName': '夏漢民太空科技中心',
+        'footer.orgNameEn': 'Hsia Han-Min Space Science & Technology Center',
+        'footer.phone': '電話：06-2757575 #60073',
+        'footer.address1': '701 臺南市東區大學路1號',
+        'footer.address2': '國立成功大學成功校區 綜合二館3樓 49315 室',
+        'footer.copyright': '© 2025 夏漢民太空科技中心 保留所有權利。',
+
+        // Common
+        'common.home': '首頁',
+        'common.readMore': '了解更多',
+        'common.backToHome': '返回首頁',
+    },
+    'en': {
+        // Navigation
+        'nav.news': 'News',
+        'nav.about': 'About',
+        'nav.missions': 'Missions',
+        'nav.activities': 'Activities',
+        'nav.contact': 'Contact',
+        'nav.langSwitch': '中文',
+
+        // Hero
+        'hero.title': 'HMSSTC',
+        'hero.subtitle': 'Pioneering Taiwan\'s New Space Vision | Advancing Cutting-Edge Research, Interdisciplinary Talent, and International Cooperation',
+        'hero.madeInTaiwan': 'Made in Taiwan',
+        'hero.missionCount': 'Missions',
+        'hero.scroll': 'Scroll',
+
+        // Missions Section
+        'missions.title': 'National Space Missions',
+        'missions.active': 'Active Missions',
+        'missions.retired': 'Retired Missions',
+        'missions.datePrefix': 'Announced',
+        'missions.readMore': 'Read more',
+        'missions.moreInfo': 'More Info',
+
+        // News Section
+        'news.title': 'Latest News',
+        'news.datePrefix': 'Published',
+        'news.readMore': 'Read more',
+        'news.moreNews': 'More News',
+
+        // Team Section
+        'team.title': 'Team Members',
+        'team.more': 'More',
+        'team.backToTeam': 'Back to Team',
+
+        // About Page
+        'about.pageTitle': 'About | HMSSTC',
+        'about.heroTitle': 'About Us',
+        'about.heroSubtitle': 'Learn about the mission and history of HMSSTC',
+
+        // Contact Page
+        'contact.pageTitle': 'Contact | HMSSTC',
+        'contact.heroTitle': 'Contact Us',
+        'contact.heroSubtitle': 'Get in touch to learn more about collaboration opportunities',
+        'contact.info': 'Contact Information',
+        'contact.phone': 'Phone',
+        'contact.address': 'Address',
+        'contact.email': 'Email',
+        'contact.form': 'Contact Form',
+        'contact.form.name': 'Name',
+        'contact.form.namePlaceholder': 'Enter your name',
+        'contact.form.email': 'Email',
+        'contact.form.emailPlaceholder': 'your@email.com',
+        'contact.form.subject': 'Subject',
+        'contact.form.subjectPlaceholder': 'Enter subject',
+        'contact.form.message': 'Message',
+        'contact.form.messagePlaceholder': 'Enter your message...',
+        'contact.form.submit': 'Send Message',
+
+        // Footer
+        'footer.orgName': 'HMSSTC',
+        'footer.orgNameEn': 'Hsia Han-Min Space Science & Technology Center',
+        'footer.phone': 'Phone: 06-2757575 #60073',
+        'footer.address1': 'No. 1, University Rd., East Dist., Tainan 701',
+        'footer.address2': 'NCKU Cheng Kung Campus, Building 2, 3F, Room 49315',
+        'footer.copyright': '© 2025 HMSSTC. All rights reserved.',
+
+        // Common
+        'common.home': 'Home',
+        'common.readMore': 'Read more',
+        'common.backToHome': 'Back to Home',
+    },
+} as const;
+
+export type TranslationKey = keyof typeof translations['zh-TW'];
+
+export function getLangFromUrl(url: URL): Lang {
+    const searchLang = url.searchParams.get('lang');
+    if (searchLang && searchLang in translations) {
+        return searchLang as Lang;
+    }
+    return defaultLang;
+}
+
+export function t(lang: Lang, key: TranslationKey): string {
+    return translations[lang]?.[key] ?? translations[defaultLang][key] ?? key;
+}
+
+export function getAlternateLang(lang: Lang): Lang {
+    return lang === 'zh-TW' ? 'en' : 'zh-TW';
+}
+
+export function localizedUrl(url: URL, targetLang: Lang): string {
+    const newUrl = new URL(url);
+    if (targetLang === defaultLang) {
+        newUrl.searchParams.delete('lang');
+    } else {
+        newUrl.searchParams.set('lang', targetLang);
+    }
+    return newUrl.pathname + newUrl.search;
+}

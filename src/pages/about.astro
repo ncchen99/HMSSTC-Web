@@ -1,8 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLangFromUrl, t } from '../i18n/translations';
+import { marked } from 'marked';
+import fs from 'node:fs';
+import path from 'node:path';
+import matter from 'gray-matter';
+
+const lang = getLangFromUrl(Astro.url);
+const langFile = lang === 'en' ? 'about.en.md' : 'about.zh-TW.md';
+const filePath = path.join(process.cwd(), 'src', 'content', 'pages', langFile);
+const fileContent = fs.readFileSync(filePath, 'utf-8');
+const { data: frontmatter, content } = matter(fileContent);
+const htmlContent = await marked(content);
 ---
 
-<BaseLayout title="關於中心 | 夏漢民太空科技中心">
+<BaseLayout title={t(lang, 'about.pageTitle')}>
   <!-- Hero -->
   <section class="relative pt-28 pb-16 overflow-hidden">
     <div class="absolute inset-0">
@@ -10,102 +22,35 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="absolute inset-0 bg-gradient-to-b from-space-dark/80 to-space-dark"></div>
     </div>
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">關於中心</h1>
-      <p class="text-xl text-gray-300">認識夏漢民太空科技中心的使命與歷史</p>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">{frontmatter.title}</h1>
+      <p class="text-xl text-gray-300">{frontmatter.subtitle}</p>
     </div>
   </section>
 
-  <!-- Content -->
+  <!-- Content from Markdown -->
   <section class="py-20 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Mission -->
-      <div class="mb-16">
-        <div class="flex items-center gap-4 mb-6">
-          <div class="w-12 h-12 rounded-xl bg-tech-blue/10 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-tech-blue">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
-            </svg>
-          </div>
-          <h2 class="text-3xl font-heading font-bold text-gray-900">中心使命</h2>
-        </div>
-        <div class="prose prose-lg max-w-none prose-p:text-gray-600 prose-p:leading-relaxed">
-          <p>
-            夏漢民太空科技中心（Hsia Han-Min Space Science & Technology Center, HMSSTC）成立於國立成功大學，
-            以推動臺灣太空科技研究與人才培育為宗旨，致力於成為亞太地區太空科學研究的重要樞紐。
-          </p>
-          <p>
-            中心秉持「跨域整合、國際合作、人才培育、科技創新」的核心理念，結合成功大學各學院的研究能量，
-            與國內外學術機構及太空研究組織建立深厚的合作網絡，共同推進太空科技的前沿發展。
-          </p>
-        </div>
-      </div>
-
-      <!-- Vision -->
-      <div class="mb-16">
-        <div class="flex items-center gap-4 mb-6">
-          <div class="w-12 h-12 rounded-xl bg-neon-green/10 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-neon-green">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M2.036 12.322a1.012 1.012 0 0 1 0-.639C3.423 7.51 7.36 4.5 12 4.5c4.638 0 8.573 3.007 9.963 7.178.07.207.07.431 0 .639C20.577 16.49 16.64 19.5 12 19.5c-4.638 0-8.573-3.007-9.963-7.178Z" />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-            </svg>
-          </div>
-          <h2 class="text-3xl font-heading font-bold text-gray-900">願景</h2>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-          <div class="p-6 rounded-xl bg-gradient-to-br from-tech-blue/5 to-tech-blue/10 border border-tech-blue/10">
-            <h3 class="text-lg font-bold text-gray-900 mb-2">🛰️ 科研卓越</h3>
-            <p class="text-gray-600 text-sm leading-relaxed">推動太空科學前沿研究，開發創新酬載技術，提升臺灣太空科技國際能見度。</p>
-          </div>
-          <div class="p-6 rounded-xl bg-gradient-to-br from-neon-green/5 to-neon-green/10 border border-neon-green/10">
-            <h3 class="text-lg font-bold text-gray-900 mb-2">🌏 國際合作</h3>
-            <p class="text-gray-600 text-sm leading-relaxed">與全球太空研究機構建立合作，參與國際太空聯盟任務與人才交流計畫。</p>
-          </div>
-          <div class="p-6 rounded-xl bg-gradient-to-br from-accent-orange/5 to-accent-yellow/10 border border-accent-orange/10">
-            <h3 class="text-lg font-bold text-gray-900 mb-2">🎓 人才培育</h3>
-            <p class="text-gray-600 text-sm leading-relaxed">培養跨領域太空科技人才，向下扎根太空教育，為臺灣太空產業儲備未來力量。</p>
-          </div>
-        </div>
-      </div>
-
-      <!-- History -->
-      <div class="mb-16">
-        <div class="flex items-center gap-4 mb-6">
-          <div class="w-12 h-12 rounded-xl bg-accent-orange/10 flex items-center justify-center">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6 text-accent-orange">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-            </svg>
-          </div>
-          <h2 class="text-3xl font-heading font-bold text-gray-900">中心歷史</h2>
-        </div>
-        <div class="prose prose-lg max-w-none prose-p:text-gray-600 prose-p:leading-relaxed">
-          <p>
-            中心以夏漢民校長之名命名，紀念其對成功大學與臺灣高等教育的卓越貢獻。
-            夏校長任內積極推動學術國際化與科技研發，為大學的發展奠定了重要基礎。
-          </p>
-          <p>
-            中心自成立以來，已參與多項國家級太空任務，包括福爾摩沙衛星系列計畫，
-            累計參與 9 項太空任務，建立了從衛星科學酬載設計、地面站營運到數據分析的完整研發能力。
-          </p>
-        </div>
+      <div class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-gray-900 prose-headings:mb-4 prose-p:text-gray-600 prose-p:leading-relaxed prose-strong:text-gray-900 prose-ul:text-gray-600 prose-li:text-gray-600 prose-a:text-tech-blue hover:prose-a:text-tech-blue-light prose-h2:text-3xl prose-h2:mt-12 prose-h2:pb-3 prose-h2:border-b prose-h2:border-gray-100">
+        <Fragment set:html={htmlContent} />
       </div>
 
       <!-- Key stats -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16">
         <div class="text-center p-6 rounded-xl bg-space-dark">
           <div class="text-3xl font-display font-bold text-neon-green mb-2">9</div>
-          <div class="text-sm text-gray-400">太空任務</div>
+          <div class="text-sm text-gray-400">{lang === 'en' ? 'Space Missions' : '太空任務'}</div>
         </div>
         <div class="text-center p-6 rounded-xl bg-space-dark">
           <div class="text-3xl font-display font-bold text-tech-blue mb-2">7+</div>
-          <div class="text-sm text-gray-400">核心成員</div>
+          <div class="text-sm text-gray-400">{lang === 'en' ? 'Core Members' : '核心成員'}</div>
         </div>
         <div class="text-center p-6 rounded-xl bg-space-dark">
           <div class="text-3xl font-display font-bold text-accent-orange mb-2">100+</div>
-          <div class="text-sm text-gray-400">學術論文</div>
+          <div class="text-sm text-gray-400">{lang === 'en' ? 'Publications' : '學術論文'}</div>
         </div>
         <div class="text-center p-6 rounded-xl bg-space-dark">
           <div class="text-3xl font-display font-bold text-accent-teal mb-2">10+</div>
-          <div class="text-sm text-gray-400">國際合作</div>
+          <div class="text-sm text-gray-400">{lang === 'en' ? 'Intl. Partnerships' : '國際合作'}</div>
         </div>
       </div>
     </div>

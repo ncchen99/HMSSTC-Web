@@ -135,3 +135,25 @@
 .mission-number {
   @apply text-7xl md:text-8xl font-display font-bold text-tech-blue/20 absolute -top-6 -left-2 select-none;
 }
+
+/* Team member card hover */
+.team-member-card {
+  @apply transition-all duration-300;
+}
+
+.team-member-card:hover {
+  transform: scale(1.03);
+}
+
+/* Fade-in animation for scroll reveals */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

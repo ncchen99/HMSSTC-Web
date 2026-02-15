@@ -1,8 +1,18 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getLangFromUrl, t } from '../i18n/translations';
+import fs from 'node:fs';
+import path from 'node:path';
+import matter from 'gray-matter';
+
+const lang = getLangFromUrl(Astro.url);
+const langFile = lang === 'en' ? 'contact.en.md' : 'contact.zh-TW.md';
+const filePath = path.join(process.cwd(), 'src', 'content', 'pages', langFile);
+const fileContent = fs.readFileSync(filePath, 'utf-8');
+const { data: frontmatter } = matter(fileContent);
 ---
 
-<BaseLayout title="聯絡我們 | 夏漢民太空科技中心">
+<BaseLayout title={t(lang, 'contact.pageTitle')}>
   <!-- Hero -->
   <section class="relative pt-28 pb-16 overflow-hidden">
     <div class="absolute inset-0">
@@ -10,8 +20,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="absolute inset-0 bg-gradient-to-b from-space-dark/80 to-space-dark"></div>
     </div>
     <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">聯絡我們</h1>
-      <p class="text-xl text-gray-300">歡迎與我們聯繫，了解更多合作機會</p>
+      <h1 class="text-4xl md:text-5xl lg:text-6xl font-heading font-bold text-white mb-6">{frontmatter.title}</h1>
+      <p class="text-xl text-gray-300">{frontmatter.subtitle}</p>
     </div>
   </section>
 
@@ -20,7 +30,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
         <!-- Contact Info -->
         <div>
-          <h2 class="text-2xl font-heading font-bold text-gray-900 mb-8">聯絡資訊</h2>
+          <h2 class="text-2xl font-heading font-bold text-gray-900 mb-8">{t(lang, 'contact.info')}</h2>
 
           <div class="space-y-6 mb-10">
             <div class="flex items-start gap-4 p-4 rounded-xl bg-gray-50">
@@ -30,8 +40,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </svg>
               </div>
               <div>
-                <h3 class="font-medium text-gray-900">電話</h3>
-                <p class="text-gray-600">06-2757575 #60073</p>
+                <h3 class="font-medium text-gray-900">{t(lang, 'contact.phone')}</h3>
+                <p class="text-gray-600">{frontmatter.phone}</p>
               </div>
             </div>
 
@@ -43,9 +53,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </svg>
               </div>
               <div>
-                <h3 class="font-medium text-gray-900">地址</h3>
-                <p class="text-gray-600">701 臺南市東區大學路1號</p>
-                <p class="text-gray-500 text-sm">國立成功大學成功校區 綜合二館3樓 49315 室</p>
+                <h3 class="font-medium text-gray-900">{t(lang, 'contact.address')}</h3>
+                <p class="text-gray-600">{frontmatter.address}</p>
+                <p class="text-gray-500 text-sm">{frontmatter.addressDetail}</p>
               </div>
             </div>
 
@@ -56,16 +66,14 @@ import BaseLayout from '../layouts/BaseLayout.astro';
                 </svg>
               </div>
               <div>
-                <h3 class="font-medium text-gray-900">電子郵件</h3>
+                <h3 class="font-medium text-gray-900">{t(lang, 'contact.email')}</h3>
                 <div class="space-y-1">
-                  <p class="text-gray-600">
-                    <a href="mailto:charles@mail.ncku.edu.tw" class="text-tech-blue hover:underline">charles@mail.ncku.edu.tw</a>
-                    <span class="text-gray-400"> — 林建宏 教授 中心主任</span>
-                  </p>
-                  <p class="text-gray-600">
-                    <a href="mailto:10810048@gs.ncku.edu.tw" class="text-tech-blue hover:underline">10810048@gs.ncku.edu.tw</a>
-                    <span class="text-gray-400"> — 林子軒 先生 中心秘書</span>
-                  </p>
+                  {frontmatter.contacts?.map((contact: { name: string, email: string }) => (
+                    <p class="text-gray-600">
+                      <a href={`mailto:${contact.email}`} class="text-tech-blue hover:underline">{contact.email}</a>
+                      <span class="text-gray-400"> — {contact.name}</span>
+                    </p>
+                  ))}
                 </div>
               </div>
             </div>
@@ -81,57 +89,57 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               allowfullscreen
               loading="lazy"
               referrerpolicy="no-referrer-when-downgrade"
-              title="國立成功大學位置"
+              title={lang === 'en' ? 'NCKU Location' : '國立成功大學位置'}
             ></iframe>
           </div>
         </div>
 
         <!-- Contact Form -->
         <div>
-          <h2 class="text-2xl font-heading font-bold text-gray-900 mb-8">聯絡表單</h2>
+          <h2 class="text-2xl font-heading font-bold text-gray-900 mb-8">{t(lang, 'contact.form')}</h2>
           <form class="space-y-6" id="contact-form">
             <div>
-              <label for="name" class="block text-sm font-medium text-gray-700 mb-2">姓名</label>
+              <label for="name" class="block text-sm font-medium text-gray-700 mb-2">{t(lang, 'contact.form.name')}</label>
               <input
                 type="text"
                 id="name"
                 name="name"
                 required
                 class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-gray-900"
-                placeholder="請輸入您的姓名"
+                placeholder={t(lang, 'contact.form.namePlaceholder')}
               />
             </div>
             <div>
-              <label for="email" class="block text-sm font-medium text-gray-700 mb-2">電子郵件</label>
+              <label for="email" class="block text-sm font-medium text-gray-700 mb-2">{t(lang, 'contact.form.email')}</label>
               <input
                 type="email"
                 id="email"
                 name="email"
                 required
                 class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-gray-900"
-                placeholder="your@email.com"
+                placeholder={t(lang, 'contact.form.emailPlaceholder')}
               />
             </div>
             <div>
-              <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">主旨</label>
+              <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">{t(lang, 'contact.form.subject')}</label>
               <input
                 type="text"
                 id="subject"
                 name="subject"
                 required
                 class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all text-gray-900"
-                placeholder="請輸入主旨"
+                placeholder={t(lang, 'contact.form.subjectPlaceholder')}
               />
             </div>
             <div>
-              <label for="message" class="block text-sm font-medium text-gray-700 mb-2">訊息內容</label>
+              <label for="message" class="block text-sm font-medium text-gray-700 mb-2">{t(lang, 'contact.form.message')}</label>
               <textarea
                 id="message"
                 name="message"
                 rows="5"
                 required
                 class="w-full px-4 py-3 rounded-xl border border-gray-200 focus:border-tech-blue focus:ring-2 focus:ring-tech-blue/20 outline-none transition-all resize-none text-gray-900"
-                placeholder="請輸入您的訊息..."
+                placeholder={t(lang, 'contact.form.messagePlaceholder')}
               ></textarea>
             </div>
             <button
@@ -141,7 +149,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
               </svg>
-              送出訊息
+              {t(lang, 'contact.form.submit')}
             </button>
           </form>
         </div>

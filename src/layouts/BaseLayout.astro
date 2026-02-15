@@ -2,19 +2,24 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
+import { getLangFromUrl, t, type Lang } from '../i18n/translations';
 
 interface Props {
   title?: string;
   description?: string;
 }
 
+const lang = getLangFromUrl(Astro.url);
+
 const {
-  title = '夏漢民太空科技中心 | HMSSTC',
-  description = '啟動臺灣太空新視界｜匯聚前沿科研、跨域人才與國際合作，領航未來太空時代'
+  title = lang === 'en' ? 'HMSSTC | Hsia Han-Min Space Science & Technology Center' : '夏漢民太空科技中心 | HMSSTC',
+  description = lang === 'en'
+    ? 'Pioneering Taiwan\'s New Space Vision | Advancing Cutting-Edge Research, Interdisciplinary Talent, and International Cooperation'
+    : '啟動臺灣太空新視界｜匯聚前沿科研、跨域人才與國際合作，領航未來太空時代'
 } = Astro.props;
 ---
 <!doctype html>
-<html lang="zh-TW">
+<html lang={lang === 'en' ? 'en' : 'zh-TW'}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,10 +28,10 @@ const {
     <title>{title}</title>
   </head>
   <body class="min-h-screen bg-space-dark text-white font-body antialiased">
-    <Header />
+    <Header lang={lang} />
     <main>
       <slot />
     </main>
-    <Footer />
+    <Footer lang={lang} />
   </body>
 </html>
