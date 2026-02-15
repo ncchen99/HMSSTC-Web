@@ -18,3 +18,6 @@ lerna-debug.log*
 # editor/system files (optional, can be in global gitignore)
 .idea/
 .vscode/
+
+# astro
+.astro
