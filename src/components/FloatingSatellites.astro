@@ -55,12 +55,12 @@ const { id = "floating-satellites" } = Astro.props;
 
     .floating-satellite {
         position: absolute;
-        opacity: 0.12;
+        opacity: 0; /* 預設隱藏，防止閃爍 */
         pointer-events: none;
         user-select: none;
         will-change: transform;
         filter: grayscale(10%) brightness(0.95);
-        transition: opacity 0.3s ease;
+        transition: filter 0.6s ease;
     }
 
     .floating-satellite--formosat {
@@ -142,21 +142,21 @@ const { id = "floating-satellites" } = Astro.props;
                 let rotation: number, rotationEnd: number;
 
                 if (isFormosat) {
-                    // Formosat: generally right half, random Y
-                    startX = 55 + rand() * 30; // 55-85% from left
-                    startY = 5 + rand() * 30; // 5-35% from top
-                    moveX = -(60 + rand() * 100); // moves left 60-160px
-                    moveY = 80 + rand() * 120; // moves down 80-200px
-                    rotation = -15 + rand() * 30; // -15 to 15 deg
-                    rotationEnd = rotation + (20 + rand() * 30);
+                    // Formosat: 偏向右側邊緣 (75-90% from left)
+                    startX = 75 + rand() * 15;
+                    startY = 5 + rand() * 40; // 5-45% from top
+                    moveX = -(40 + rand() * 80); // 向左漂移 40-120px
+                    moveY = 100 + rand() * 150; // 向下漂移 100-250px
+                    rotation = -15 + rand() * 30;
+                    rotationEnd = rotation + (20 + rand() * 40);
                 } else {
-                    // Triton: generally left half, random Y
-                    startX = 5 + rand() * 30; // 5-35% from left
-                    startY = 55 + rand() * 30; // 55-85% from top
-                    moveX = 60 + rand() * 100; // moves right 60-160px
-                    moveY = -(60 + rand() * 100); // moves up 60-160px
+                    // Triton: 偏向左側邊緣 (5-20% from left)
+                    startX = 5 + rand() * 15;
+                    startY = 45 + rand() * 40; // 45-85% from top
+                    moveX = 40 + rand() * 80; // 向右漂移 40-120px
+                    moveY = -(100 + rand() * 150); // 向上漂移 100-250px
                     rotation = -10 + rand() * 20;
-                    rotationEnd = rotation - (20 + rand() * 30);
+                    rotationEnd = rotation - (20 + rand() * 40);
                 }
 
                 // Set initial position
@@ -165,6 +165,14 @@ const { id = "floating-satellites" } = Astro.props;
                     top: `${startY}%`,
                     rotation: rotation,
                     scale: 0.8 + rand() * 0.4,
+                });
+
+                // 平滑淡入到正確位置，防止跳動
+                gsap.to(sat, {
+                    opacity: 0.12,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    delay: rand() * 0.4,
                 });
 
                 // Create scroll-triggered animation
