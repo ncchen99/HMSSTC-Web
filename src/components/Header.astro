@@ -1,0 +1,105 @@
+---
+const navItems = [
+  { label: '最新消息', href: '/news' },
+  { label: '關於中心', href: '/about' },
+  { label: '太空任務', href: '/missions' },
+  { label: '活動花絮', href: '/activities' },
+  { label: '聯絡我們', href: '/contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 transition-all duration-300" id="main-header">
+  <div class="bg-space-dark/80 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        <!-- Logo -->
+        <a href="/" class="flex items-center gap-3 group">
+          <img src="/images/logo.svg" alt="HMSSTC Logo" class="h-12 w-auto" />
+        </a>
+
+        <!-- Desktop Nav -->
+        <nav class="hidden lg:flex items-center gap-8">
+          {navItems.map((item) => (
+            <a
+              href={item.href}
+              class={`text-sm font-medium tracking-wide transition-colors duration-200 hover:text-tech-blue ${
+                currentPath.startsWith(item.href)
+                  ? 'text-tech-blue'
+                  : 'text-gray-300'
+              }`}
+            >
+              {item.label}
+            </a>
+          ))}
+          <div class="ml-4 px-4 py-2 border border-white/20 rounded text-sm text-gray-400 hover:border-tech-blue hover:text-tech-blue transition-all cursor-pointer">
+            EN
+          </div>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <button
+          id="mobile-menu-btn"
+          class="lg:hidden text-white p-2"
+          aria-label="Toggle menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden fixed inset-0 top-20 bg-space-dark/95 backdrop-blur-lg transform translate-x-full transition-transform duration-300 z-40"
+  >
+    <nav class="flex flex-col items-center gap-6 pt-12">
+      {navItems.map((item) => (
+        <a
+          href={item.href}
+          class={`text-lg font-medium tracking-wide transition-colors duration-200 hover:text-tech-blue ${
+            currentPath.startsWith(item.href)
+              ? 'text-tech-blue'
+              : 'text-gray-300'
+          }`}
+        >
+          {item.label}
+        </a>
+      ))}
+      <div class="mt-4 px-6 py-2 border border-white/20 rounded text-gray-400">
+        EN
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  const btn = document.getElementById('mobile-menu-btn');
+  const menu = document.getElementById('mobile-menu');
+  let isOpen = false;
+
+  btn?.addEventListener('click', () => {
+    isOpen = !isOpen;
+    if (isOpen) {
+      menu?.classList.remove('translate-x-full');
+      menu?.classList.add('translate-x-0');
+    } else {
+      menu?.classList.remove('translate-x-0');
+      menu?.classList.add('translate-x-full');
+    }
+  });
+
+  // Header background on scroll
+  const header = document.getElementById('main-header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      header?.classList.add('shadow-lg', 'shadow-black/20');
+    } else {
+      header?.classList.remove('shadow-lg', 'shadow-black/20');
+    }
+  });
+</script>

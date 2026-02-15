@@ -1,0 +1,32 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = '夏漢民太空科技中心 | HMSSTC',
+  description = '啟動臺灣太空新視界｜匯聚前沿科研、跨域人才與國際合作，領航未來太空時代'
+} = Astro.props;
+---
+<!doctype html>
+<html lang="zh-TW">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen bg-space-dark text-white font-body antialiased">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
