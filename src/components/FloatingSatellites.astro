@@ -55,21 +55,21 @@ const { id = "floating-satellites" } = Astro.props;
 
     .floating-satellite {
         position: absolute;
-        opacity: 0.07;
+        opacity: 0.12;
         pointer-events: none;
         user-select: none;
         will-change: transform;
-        filter: grayscale(20%) brightness(0.9);
+        filter: grayscale(10%) brightness(0.95);
         transition: opacity 0.3s ease;
     }
 
     .floating-satellite--formosat {
-        width: clamp(120px, 18vw, 280px);
+        width: clamp(140px, 20vw, 320px);
         height: auto;
     }
 
     .floating-satellite--triton {
-        width: clamp(100px, 15vw, 240px);
+        width: clamp(120px, 18vw, 280px);
         height: auto;
     }
 
@@ -143,20 +143,20 @@ const { id = "floating-satellites" } = Astro.props;
 
                 if (isFormosat) {
                     // Formosat: generally right half, random Y
-                    startX = 50 + rand() * 35; // 50-85% from left
+                    startX = 55 + rand() * 30; // 55-85% from left
                     startY = 5 + rand() * 30; // 5-35% from top
-                    moveX = -(30 + rand() * 60); // moves left 30-90px
-                    moveY = 40 + rand() * 80; // moves down 40-120px
+                    moveX = -(60 + rand() * 100); // moves left 60-160px
+                    moveY = 80 + rand() * 120; // moves down 80-200px
                     rotation = -15 + rand() * 30; // -15 to 15 deg
-                    rotationEnd = rotation + (10 + rand() * 20);
+                    rotationEnd = rotation + (20 + rand() * 30);
                 } else {
                     // Triton: generally left half, random Y
-                    startX = 5 + rand() * 35; // 5-40% from left
-                    startY = 50 + rand() * 35; // 50-85% from top
-                    moveX = 30 + rand() * 60; // moves right 30-90px
-                    moveY = -(30 + rand() * 60); // moves up 30-90px
+                    startX = 5 + rand() * 30; // 5-35% from left
+                    startY = 55 + rand() * 30; // 55-85% from top
+                    moveX = 60 + rand() * 100; // moves right 60-160px
+                    moveY = -(60 + rand() * 100); // moves up 60-160px
                     rotation = -10 + rand() * 20;
-                    rotationEnd = rotation - (10 + rand() * 20);
+                    rotationEnd = rotation - (20 + rand() * 30);
                 }
 
                 // Set initial position
@@ -164,7 +164,7 @@ const { id = "floating-satellites" } = Astro.props;
                     left: `${startX}%`,
                     top: `${startY}%`,
                     rotation: rotation,
-                    scale: 0.9 + rand() * 0.3,
+                    scale: 0.8 + rand() * 0.4,
                 });
 
                 // Create scroll-triggered animation
@@ -172,17 +172,20 @@ const { id = "floating-satellites" } = Astro.props;
                     x: moveX,
                     y: moveY,
                     rotation: rotationEnd,
-                    opacity: 0.12,
+                    opacity: 0.2,
                     ease: "none",
                     scrollTrigger: {
                         trigger: parentSection,
                         start: "top bottom",
                         end: "bottom top",
-                        scrub: 1.5,
+                        scrub: 1.2,
                     },
                 });
             });
         });
+
+        // Force a refresh once all are initialized
+        ScrollTrigger.refresh();
     }
 
     // Initialize on DOM ready
@@ -195,5 +198,3 @@ const { id = "floating-satellites" } = Astro.props;
     // Re-init on Astro page transitions (view transitions)
     document.addEventListener("astro:page-load", initFloatingSatellites);
 </script>
-
-

@@ -157,8 +157,9 @@ const news = (await getCollection('news')).sort((a, b) => new Date(b.data.date).
   </section>
 
   <!-- ========== NEWS PREVIEW SECTION ========== -->
-  <section class="relative py-24 bg-gray-50" id="news-preview">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+  <section class="relative py-24 bg-gray-50 overflow-hidden" id="news-preview">
+    <FloatingSatellites id="index-news" />
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
       <h2 class="text-3xl md:text-4xl lg:text-5xl font-heading font-bold text-gray-900 mb-10" data-i18n="news.title">
         最新消息
       </h2>
