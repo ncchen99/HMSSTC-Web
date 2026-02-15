@@ -9,6 +9,7 @@ interface Props {
   description?: string;
   pageTitleKey?: string;
   transparentHeader?: boolean;
+  titleEn?: string;
 }
 
 const {
@@ -16,6 +17,7 @@ const {
   description = "啟動臺灣太空新視界｜匯聚前沿科研、跨域人才與國際合作，領航未來太空時代",
   pageTitleKey,
   transparentHeader = false,
+  ...props
 } = Astro.props;
 ---
 
@@ -28,6 +30,11 @@ const {
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico" />
     <title>{title}</title>
     {pageTitleKey && <meta data-i18n-page-title={pageTitleKey} />}
+    {
+      props.titleEn && (
+        <meta name="dynamic-title" data-zh={title} data-en={props.titleEn} />
+      )
+    }
   </head>
   <body class="min-h-screen bg-space-dark text-white font-body antialiased">
     <Header transparent={transparentHeader} />

@@ -278,12 +278,24 @@ export const i18nClientScript = `
         }
       });
 
-      // Update page title if data-i18n-page-title exists
-      const pageTitle = document.querySelector('[data-i18n-page-title]');
-      if (pageTitle) {
-        const key = pageTitle.getAttribute('data-i18n-page-title');
-        if (t[key]) {
-          document.title = t[key];
+      // Update page title
+      const dynamicTitle = document.querySelector('meta[name="dynamic-title"]');
+      if (dynamicTitle) {
+        const zh = dynamicTitle.getAttribute('data-zh');
+        const en = dynamicTitle.getAttribute('data-en');
+        if (lang === 'en' && en) {
+          document.title = en;
+        } else if (zh) {
+          document.title = zh;
+        }
+      } else {
+        // Fallback to i18n key
+        const pageTitle = document.querySelector('[data-i18n-page-title]');
+        if (pageTitle) {
+          const key = pageTitle.getAttribute('data-i18n-page-title');
+          if (t[key]) {
+            document.title = t[key];
+          }
         }
       }
 

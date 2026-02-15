@@ -2,7 +2,7 @@
 title: "福爾摩沙衛星八號"
 date: "2025-08-01"
 status: "active"
-image: "https://images.unsplash.com/photo-1457364887197-9150188c107b?w=800&q=80"
+image: "/images/福爾摩沙衛星八號.jpg"
 excerpt: "福爾摩沙衛星八號是臺灣新一代高解析度光學遙測衛星，預計搭載多項先進科學酬載。"
 order: 2
 ---
