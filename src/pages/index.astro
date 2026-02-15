@@ -35,7 +35,7 @@ const news = (await getCollection('news')).sort((a, b) => new Date(b.data.date).
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center">
       <!-- Main Title -->
       <h1
-        class="hero-title text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-white mb-8 sm:mb-10 leading-tight tracking-wide"
+        class="hero-title text-4xl sm:text-5xl lg:text-6xl font-bold font-heading text-white mb-8 mt-20 sm:mb-10 leading-tight tracking-wide"
         id="hero-title"
         data-i18n="hero.title"
       >
@@ -53,7 +53,7 @@ const news = (await getCollection('news')).sort((a, b) => new Date(b.data.date).
       </div>
 
       <!-- Stats Row -->
-      <div class="hero-stats flex items-center justify-center gap-10 sm:gap-16 mb-10 sm:mb-16">
+      <div class="hero-stats flex items-center justify-center gap-10 sm:gap-16 mb-5 sm:mb-16">
         <div class="flex items-center gap-4">
           <span class="text-gray-300 text-lg" data-i18n="hero.madeInTaiwan">臺灣製造</span>
           <img src="/images/taiwan.svg" alt="Taiwan" class="w-12 h-12 object-contain opacity-90" />
