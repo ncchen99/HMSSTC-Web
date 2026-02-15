@@ -32,9 +32,9 @@ const currentPath = Astro.url.pathname;
               <a
                 href={item.href}
                 data-i18n={item.i18nKey}
-                class={`text-sm font-medium tracking-wide transition-colors duration-200 hover:text-tech-purple ${
+                class={`text-sm font-medium tracking-wide transition-colors duration-200 hover:text-tech-blue-light ${
                   currentPath.startsWith(item.href)
-                    ? "text-tech-purple"
+                    ? "text-tech-blue-light"
                     : "text-gray-300"
                 }`}
               >
@@ -45,7 +45,7 @@ const currentPath = Astro.url.pathname;
           <button
             data-lang-switch
             onclick="window.__setLang(window.__getLang() === 'en' ? 'zh-TW' : 'en')"
-            class="ml-4 px-4 py-2 border border-white/20 rounded text-sm text-gray-400 hover:border-tech-purple hover:text-tech-purple transition-all cursor-pointer"
+            class="ml-4 px-4 py-2 border border-white/20 rounded text-sm text-gray-400 hover:border-tech-blue-light hover:text-tech-blue-light transition-all cursor-pointer"
           >
             EN
           </button>
@@ -86,9 +86,9 @@ const currentPath = Astro.url.pathname;
           <a
             href={item.href}
             data-i18n={item.i18nKey}
-            class={`text-lg font-medium tracking-wide transition-colors duration-200 hover:text-tech-purple ${
+            class={`text-lg font-medium tracking-wide transition-colors duration-200 hover:text-tech-blue-light ${
               currentPath.startsWith(item.href)
-                ? "text-tech-purple"
+                ? "text-tech-blue-light"
                 : "text-gray-300"
             }`}
           >
@@ -99,7 +99,7 @@ const currentPath = Astro.url.pathname;
       <button
         data-lang-switch
         onclick="window.__setLang(window.__getLang() === 'en' ? 'zh-TW' : 'en')"
-        class="mt-4 px-6 py-2 border border-white/20 rounded text-gray-400 hover:border-tech-purple hover:text-tech-purple transition-all cursor-pointer"
+        class="mt-4 px-6 py-2 border border-white/20 rounded text-gray-400 hover:border-tech-blue-light hover:text-tech-blue-light transition-all cursor-pointer"
       >
         EN
       </button>

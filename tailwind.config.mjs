@@ -4,16 +4,16 @@ export default {
     theme: {
         extend: {
             colors: {
-                'space-dark': '#02002C',
-                'space-deep': '#050520',
-                'tech-purple': '#8F8BFF',
-                'tech-purple-light': '#B8B5FF',
-                'neon-green': '#66E0A1',
-                'neon-green-light': '#8AEFC0',
-                'accent-orange': '#F4983B',
-                'accent-yellow': '#FAC452',
-                'accent-teal': '#8AE7D1',
-                'accent-sky': '#8fd3f4',
+                'space-dark': '#030712',
+                'space-deep': '#0F172A',
+                'tech-blue': '#1E40AF',
+                'tech-blue-light': '#3B82F6',
+                'neon-green': '#2563EB',
+                'neon-green-light': '#60A5FA',
+                'accent-orange': '#1D4ED8',
+                'accent-yellow': '#93C5FD',
+                'accent-teal': '#DBEAFE',
+                'accent-sky': '#EFF6FF',
             },
             fontFamily: {
                 display: ['Orbitron', 'sans-serif'],
@@ -21,9 +21,9 @@ export default {
                 body: ['Noto Sans TC', 'Helvetica', 'Roboto', 'sans-serif'],
             },
             backgroundImage: {
-                'gradient-orange': 'linear-gradient(135deg, #F4983B, #FAC452)',
-                'gradient-teal': 'linear-gradient(135deg, #8fd3f4, #8AE7D1)',
-                'gradient-blue': 'linear-gradient(135deg, #8F8BFF, #B8B5FF)',
+                'gradient-orange': 'linear-gradient(135deg, #1E40AF, #93C5FD)',
+                'gradient-teal': 'linear-gradient(135deg, #60A5FA, #DBEAFE)',
+                'gradient-blue': 'linear-gradient(135deg, #1E40AF, #3B82F6)',
             },
             animation: {
                 'float': 'float 6s ease-in-out infinite',
@@ -41,8 +41,8 @@ export default {
                     '50%': { transform: 'translateY(-20px)' },
                 },
                 pulseGlow: {
-                    '0%, 100%': { opacity: '0.6', boxShadow: '0 0 20px rgba(143, 139, 255, 0.3)' },
-                    '50%': { opacity: '1', boxShadow: '0 0 40px rgba(143, 139, 255, 0.6)' },
+                    '0%, 100%': { opacity: '0.6', boxShadow: '0 0 20px rgba(30, 64, 175, 0.3)' },
+                    '50%': { opacity: '1', boxShadow: '0 0 40px rgba(30, 64, 175, 0.6)' },
                 },
                 scrollHint: {
                     '0%': { opacity: '0', transform: 'translateY(-8px)' },

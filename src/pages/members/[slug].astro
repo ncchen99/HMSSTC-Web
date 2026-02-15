@@ -19,9 +19,8 @@ const { Content } = await entry.render();
   <div class="pt-28 pb-20 bg-white min-h-screen">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       <nav class="mb-8 text-sm">
-        <a
-          href="/"
-          class="text-gray-400 hover:text-tech-purple transition-colors">首頁</a
+        <a href="/" class="text-gray-400 hover:text-tech-blue transition-colors"
+          >首頁</a
         >
         <span class="text-gray-300 mx-2">/</span>
         <span class="text-gray-600">{entry.data.name}</span>
@@ -66,12 +65,12 @@ const { Content } = await entry.render();
             {entry.data.name}
           </h1>
           <p class="text-lg text-gray-600 mb-1">{entry.data.affiliation}</p>
-          <p class="text-tech-purple font-medium">{entry.data.title}</p>
+          <p class="text-tech-blue font-medium">{entry.data.title}</p>
           {
             entry.data.email && (
               <a
                 href={`mailto:${entry.data.email}`}
-                class="mt-3 inline-flex items-center gap-2 text-gray-500 hover:text-tech-purple transition-colors text-sm"
+                class="mt-3 inline-flex items-center gap-2 text-gray-500 hover:text-tech-blue transition-colors text-sm"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -96,7 +95,7 @@ const { Content } = await entry.render();
 
       <!-- Content -->
       <div
-        class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-tech-purple prose-li:text-gray-600"
+        class="prose prose-lg max-w-none prose-headings:font-heading prose-headings:text-gray-900 prose-p:text-gray-600 prose-a:text-tech-blue prose-li:text-gray-600"
       >
         <Content />
       </div>
@@ -104,7 +103,7 @@ const { Content } = await entry.render();
       <div class="mt-12 pt-8 border-t border-gray-100">
         <a
           href="/#team"
-          class="inline-flex items-center gap-2 text-tech-purple font-medium hover:gap-3 transition-all duration-300"
+          class="inline-flex items-center gap-2 text-tech-blue font-medium hover:gap-3 transition-all duration-300"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

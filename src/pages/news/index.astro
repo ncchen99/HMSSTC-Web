@@ -43,7 +43,7 @@ const news = (await getCollection("news")).sort(
               </div>
 
               <div class="p-6 pt-8">
-                <h2 class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-purple transition-colors">
+                <h2 class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors">
                   {item.data.title}
                 </h2>
                 <p class="text-sm text-gray-500 mb-3">
@@ -54,7 +54,7 @@ const news = (await getCollection("news")).sort(
                 </p>
                 <a
                   href={`/news/${item.slug}`}
-                  class="inline-flex items-center gap-2 text-tech-purple font-medium text-sm hover:gap-3 transition-all duration-300"
+                  class="inline-flex items-center gap-2 text-tech-blue font-medium text-sm hover:gap-3 transition-all duration-300"
                 >
                   Read more
                   <svg
