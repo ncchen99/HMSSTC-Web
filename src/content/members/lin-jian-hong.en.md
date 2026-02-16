@@ -1,29 +1,55 @@
 ---
 name: "Lin Chien-Hung"
-title: "Distinguished Professor, Director of the Center"
-affiliation: "Department of Earth Sciences, National Cheng Kung University"
-image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=80"
+title: "Distinguished Professor, Director"
+affiliation: "Department of Earth Sciences, National Cheng Kung University, Han-Min Hsu Center for Space Science and Technology"
+image: "../images/members/lin-jian-hong.jpg"
 email: "charles@mail.ncku.edu.tw"
+phone: "+886-6-2755312"
 order: 1
 ---
 
 ## Professor Chien-Hung Lin
 
-Distinguished Professor of the Department of Earth Sciences, National Cheng Kung University, and Director of the Han-Min Hsu Center for Space Science and Technology.
+Distinguished Professor of the Department of Earth Sciences at National Cheng Kung University and Director of the Han-Min Hsu Center for Space Science and Technology.
+
+### Basic Information
+
+- **Name**: Lin Chien-Hung (Charles Lin)
+- **Position**: Distinguished Professor, Director of the Center
+- **Phone**: +886-6-2755312
+- **Email**: charles@mail.ncku.edu.tw
+
+### Education and Career
+
+- **2019–Present** Distinguished Professor, Department of Earth Sciences, National Cheng Kung University
+- **2016–2019** Professor, Department of Earth Sciences, National Cheng Kung University
+- **2013–2016** Associate Professor, Department of Earth Sciences, National Cheng Kung University
+- **2010–2013** Assistant Professor, Department of Earth Sciences, National Cheng Kung University
+- **2008–2010** Assistant Research Professor, Plasma Science Research Center, National Cheng Kung University
+- **2006–2007** Assistant Researcher, National Space Organization
+- **2005** Ph.D., Space Science Institute, National Central University
+- **2001–2005** Doctoral Research Assistant, National Center for Atmospheric Research, USA (Newkirk Fellowship)
+- **1999** B.S., Department of Physics, Fu Jen Catholic University
 
 ### Research Interests
 
-- Space Physics
-- Ionospheric Physics
+- Satellite Missions
+- Atmospheric Science
 - GNSS Meteorology
-- Satellite Science Payload Development
+- Ionospheric Physics
+- Space Physics
 
-### Academic Experience
+### Satellite Missions Involved
 
-Professor Lin has long been engaged in space science research, leading multiple research projects funded by the National Science and Technology Council, and participating in the development of scientific payloads for several Taiwanese satellites. He has extensive international collaboration experience in the fields of ionospheric physics and space weather.
+- FORMOSAT-2 ISUAL (Ionospheric and Atmospheric Lightning Activity)
+- FORMOSAT-3 (Space Weather)
+- FORMOSAT-7 (Space Weather)
+- Aeolus Mission (Hydrology Observation)
+- FORMOSAT-8A (Lightning and Ionosphere Coupling)
+- FORMOSAT-9A (Space Weather Ionospheric Probe)
 
-### Representative Research
+### Academic Awards
 
-- Principal Investigator of the AIP Payload for FORMOSAT-5
-- Member of the COSMIC/FORMOSAT-3 Science Team
-- Published numerous SCI journal articles in top journals such as JGR and GRL
+- **2021** Li Kuo-Ting Distinguished Scholar, National Cheng Kung University
+- **2018** Outstanding Research Award, Ministry of Science and Technology
+- **2014** Outstanding Research Award, National Science Council
