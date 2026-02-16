@@ -231,7 +231,12 @@ const { data: enData } = matter(enFileContent);
           >
             聯絡表單
           </h2>
-          <form class="space-y-6" id="contact-form">
+          <form
+            class="space-y-6"
+            id="contact-form"
+            action="https://formsubmit.co/10810048@gs.ncku.edu.tw"
+            method="POST"
+          >
             <div>
               <label
                 for="name"
@@ -298,7 +303,7 @@ const { data: enData } = matter(enFileContent);
             </div>
             <button
               type="submit"
-              class="w-full btn-primary justify-center bg-tech-blue text-white py-4 rounded-xl text-lg"
+              class="w-full btn-primary justify-center bg-tech-blue text-white py-4 rounded-xl text-lg hover:bg-tech-blue/90 transition-colors duration-300"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
