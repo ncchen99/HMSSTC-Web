@@ -1,6 +1,7 @@
 ---
 title: "2024 NCKU SPACE FORUM 國際研討會"
 date: "2024-01-01"
+image: "../images/activities/ncku-space-forum-2024-cover.png"
 excerpt: "成功大學舉辦國際太空研討會，邀集全球太空領域專家共襄盛舉，探討太空科技未來發展方向。"
 ---
 

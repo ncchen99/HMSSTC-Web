@@ -1,35 +1,39 @@
 ---
-title: "Good News: High School Students Successfully Launch Self-Made CubeSat — Han-Min Hsu Center Partners with Nankang Experimental High School and Pingtung Experimental High School to Launch Space Education"
+title: "Announcement: High School Students Successfully Launch a Self-Built CubeSat — NCKU HMSSTC Partners with Nanke and Pingtung Experimental High Schools"
 date: "2025-09-21"
-excerpt: "On September 21, 2025, the Han-Min Hsu Center for Space Science and Technology at National Cheng Kung University successfully assisted high school students in launching their self-made CubeSat into near space."
-image: "../images/news/cubesat-highschool.jpg"
+excerpt: "On September 21, 2025, the Han-Min Hsu Center for Space Science and Technology at National Cheng Kung University collaborated with two high schools to launch student-built CubeSats into near space."
+image: "../images/news/cubesat-highschool-cover.jpg"
 category: "announcement"
 ---
 
-## High School Students Successfully Launch Self-Made CubeSat
+## High School Students Successfully Launch a Self-Built CubeSat
 
-On September 21, 2025, the Han-Min Hsu Center for Space Science and Technology at National Cheng Kung University (hereinafter referred to as "the Center") partnered with Nankang International Experimental High School and Pingtung Experimental High School to complete a groundbreaking space education initiative. The CubeSat developed by students from both schools successfully ascended using a high-altitude balloon with assistance from Professor Chen Ping-Chih's team, reaching an altitude of approximately 30 kilometers in the near-space environment and formally commencing its scientific mission.
+On September 21, 2025, the Han-Min Hsu Center for Space Science and Technology at National Cheng Kung University (HMSSTC) partnered with Nanke International Experimental Senior High School and Pingtung Experimental Senior High School to complete a landmark space education project. With support from Professor Bing-Zhi Chen’s team, CubeSats independently developed by students from the two schools were launched successfully by high-altitude balloon, reaching near-space conditions at about 30 km above the ground and officially beginning their scientific mission.
 
 ### Project Background and Objectives
 
-This initiative aims to advance space education at the grassroots level, providing high school students with an opportunity to experience the complete process of satellite design, construction, testing, and launch. Through hands-on learning, we aim to cultivate the next generation of space professionals.
+This project aims to root space education at the pre-university level by allowing high school students to participate in the full workflow of satellite design, fabrication, testing, and launch. Through hands-on learning, students build interdisciplinary capability and practical engineering experience.
 
-A total of 20 high school students participated in this mission, gaining complete exposure to aerospace engineering processes—from CubeSat design and construction to testing and actual launch. The satellite is equipped with a sensing module that collects data on atmospheric pressure, temperature, humidity, and high-altitude radiation, providing students with invaluable cross-disciplinary integration and practical experience.
+Twenty students participated in this mission and experienced the end-to-end aerospace engineering process. Their CubeSats carried sensor modules to collect pressure, temperature, humidity, and high-altitude radiation data, offering valuable cross-disciplinary learning opportunities.
 
 ### Mission Features and Innovation
 
-Professor Chen Ping-Chih noted that this project's unique feature is its simplified satellite manufacturing process, marking the first instance of high school students completing design and actual flight under professional team guidance. Unlike traditional rocket launches, this mission utilized a high-altitude balloon as the launch vehicle, significantly reducing costs and technical barriers while igniting young people's passion for space exploration.
+Professor Bing-Zhi Chen noted that the project streamlined the CubeSat development process and, for the first time, enabled high school students to complete design and real flight under professional guidance. Unlike conventional rocket launches, this mission used a high-altitude balloon platform to lower cost and technical barriers while inspiring student interest in space science.
 
-Notably, Nankang Experimental High School students attached blessing cards from graduating students to the CubeSat, wishing them success on the College Entrance Exam, adding a warm human element to this scientific endeavor.
+![High school student CubeSat launch](../images/news/cubesat-highschool-cover.jpg)
+
+### Human Touch
+
+Students from Nanke Experimental High School attached blessing cards from graduating seniors to one of the CubeSats as wishes for success in upcoming entrance exams, adding a warm and meaningful human element to the mission.
 
 ### School Support and Aspirations
 
-Nankang Experimental High School Principal Tsai Ming-Hui stated that allowing students to personally participate in space science exploration during their high school years represents a unique and profound learning experience. Pingtung Experimental High School Principal Chen Chi-Wei emphasized that the school has incorporated space technology into its curriculum and looks forward to continued collaboration with universities and research institutions to expand students' scientific horizons.
+Principal Ming-Hui Tsai of Nanke Experimental High School stated that letting students directly engage in space science at the high school stage is a rare and profound learning experience. Principal Chih-Wei Chen of Pingtung Experimental High School also emphasized that space technology has been integrated into the school curriculum, and he expects continued collaboration with universities and research institutions to broaden students’ scientific horizons.
 
 ### Center Vision and Future Plans
 
-The Center has long been committed to advancing space technology development and promoting science education. This project not only exemplifies university-high school collaboration but also establishes a foundation for cultivating Taiwan's next generation of space technology talent. We hope to continue promoting youth space education through increased interdisciplinary collaboration, ushering in a new space age for Taiwan.
+HMSSTC has long been committed to advancing space technology and promoting science education. This project demonstrates a model of university–high school collaboration and lays a foundation for cultivating Taiwan’s next generation of science and engineering talent. The Center will continue promoting youth space education through cross-disciplinary cooperation.
 
 ### Educational Significance
 
-The success of this mission not only marks a new chapter in Taiwan's space education but also proves the maxim that "space exploration is no longer distant." The Han-Min Hsu Center will continue to promote more space education initiatives to cultivate more space technology professionals for Taiwan.
+The success of this mission marks a new chapter in Taiwan’s space education and shows that space is no longer out of reach for younger generations. HMSSTC will continue launching similar educational initiatives to cultivate future space professionals.

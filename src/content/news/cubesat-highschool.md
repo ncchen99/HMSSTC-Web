@@ -2,7 +2,7 @@
 title: "【消息公告】高中生自製立方衛星成功升空 —— 成功大學夏漢民太空中心攜手南科實中、屏科實中啟航太空教育"
 date: "2025-09-21"
 excerpt: "2025年9月21日，國立成功大學夏漢民太空科技發展中心攜手南科實中與屏科實中，成功協助高中生將自製立方衛星送入太空。"
-image: "../images/news/cubesat-highschool.jpg"
+image: "../images/news/cubesat-highschool-cover.jpg"
 category: "announcement"
 ---
 
@@ -20,7 +20,7 @@ category: "announcement"
 
 陳炳志教授表示，此次計畫的特色在於將衛星製作過程簡化，首次由高中生在專業團隊引導下，完成設計並搭配實際飛行。不同於傳統火箭發射，本次採用探空氣球載具，降低成本與技術門檻，同時點燃年輕世代對太空領域的熱情。
 
-![高中生自製立方衛星升空](../images/news/高中生自製立方衛星成功升空cover%20.jpg)
+![高中生自製立方衛星升空](../images/news/cubesat-highschool-cover.jpg)
 
 ### 人文溫度
 

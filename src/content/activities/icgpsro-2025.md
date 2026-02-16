@@ -1,6 +1,7 @@
 ---
 title: "2025 第七屆國際導航衛星掩星觀測研討會"
 date: "2025-01-01"
+image: "../images/activities/icgpsro-2025-cover.png"
 excerpt: "國際導航衛星掩星觀測領域的年度盛會，聚集全球專家共同探討最新研究成果與應用技術。"
 ---
 
