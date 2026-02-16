@@ -63,6 +63,12 @@ export const translations = {
     'news.readMore': '了解更多',
     'news.moreNews': '更多消息',
 
+    // News Page
+    'newsPage.pageTitle': '最新消息 | 夏漢民太空科技中心',
+    'newsPage.heading': '最新消息',
+    'newsPage.description': '掌握中心最新動態與學術進展',
+    'newsPage.readMore': '了解更多',
+
     // Team Section
     'team.title': '團隊成員',
     'team.more': '更多',
@@ -168,6 +174,12 @@ export const translations = {
     'news.datePrefix': 'Published',
     'news.readMore': 'Read more',
     'news.moreNews': 'More News',
+
+    // News Page
+    'newsPage.pageTitle': 'News | HMSSTC',
+    'newsPage.heading': 'Latest News',
+    'newsPage.description': 'Keep up with the latest updates and academic progress of the center',
+    'newsPage.readMore': 'Read more',
 
     // Team Section
     'team.title': 'Team Members',
