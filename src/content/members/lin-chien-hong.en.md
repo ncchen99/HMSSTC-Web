@@ -2,7 +2,7 @@
 name: "Lin Chien-Hung"
 title: "Distinguished Professor, Director"
 affiliation: "Department of Earth Sciences, National Cheng Kung University, Han-Min Hsu Center for Space Science and Technology"
-image: "../images/members/lin-jian-hong.jpg"
+image: "../images/members/lin-chien-hong.jpg"
 email: "charles@mail.ncku.edu.tw"
 phone: "+886-6-2755312"
 order: 1

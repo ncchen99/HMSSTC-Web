@@ -2,7 +2,7 @@
 name: "林建宏"
 title: "特聘教授、中心主任"
 affiliation: "國立成功大學地球科學系、夏漢民太空科技中心"
-image: "../images/members/lin-jian-hong.jpg"
+image: "../images/members/lin-chien-hong.jpg"
 email: "charles@mail.ncku.edu.tw"
 phone: "+886-6-2755312"
 order: 1
