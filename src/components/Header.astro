@@ -107,7 +107,9 @@ const currentPath = Astro.url.pathname;
     </nav>
 
     <!-- Language switch -->
-    <div class="px-6 py-4 mt-auto border-t border-white/10">
+    <div
+      class="px-6 pt-4 pb-[max(1.25rem,env(safe-area-inset-bottom))] mt-auto mb-2 border-t border-white/10"
+    >
       <button
         data-lang-switch
         onclick="window.__setLang(window.__getLang() === 'en' ? 'zh-TW' : 'en')"
@@ -234,10 +236,13 @@ const currentPath = Astro.url.pathname;
     background-color: rgba(5, 13, 26, 0.7);
     backdrop-filter: blur(12px);
     border-left: 1px solid rgba(255, 255, 255, 0.08);
-    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
     display: flex;
     flex-direction: column;
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .mobile-menu-panel.is-open {
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
   }
 
   /* Mobile Nav Item hover animation */

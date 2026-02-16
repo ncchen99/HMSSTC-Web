@@ -38,7 +38,13 @@ const { data: enData } = matter(enFileContent);
   <!-- Hero -->
   <section class="relative pt-36 pb-16 overflow-hidden">
     <div class="absolute inset-0">
-      <Image src={starryBg} alt="" class="w-full h-full object-cover" />
+      <Image
+        src={starryBg}
+        alt=""
+        class="w-full h-full object-cover"
+        loading="eager"
+        fetchpriority="high"
+      />
       <div
         class="absolute inset-0 bg-gradient-to-b from-space-dark to-space-dark/50"
       >

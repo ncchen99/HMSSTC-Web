@@ -45,9 +45,33 @@ const membersCollection = defineCollection({
     }),
 });
 
+const pagesCollection = defineCollection({
+    type: 'content',
+    schema: z.object({
+        title: z.string(),
+        subtitle: z.string().optional(),
+        phone: z.string().optional(),
+        address: z.string().optional(),
+        addressDetail: z.string().optional(),
+        contacts: z.array(
+            z.object({
+                name: z.string(),
+                email: z.string(),
+            }),
+        ).optional(),
+    }),
+});
+
+const imagesCollection = defineCollection({
+    type: 'data',
+    schema: z.object({}).passthrough(),
+});
+
 export const collections = {
     news: newsCollection,
     missions: missionsCollection,
     activities: activitiesCollection,
     members: membersCollection,
+    pages: pagesCollection,
+    images: imagesCollection,
 };
