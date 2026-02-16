@@ -18,10 +18,10 @@ const currentPath = Astro.url.pathname;
   data-transparent={transparent.toString()}
 >
   <div class="header-bg-provider transition-all duration-500">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
+    <div class="header-inner-container">
+      <div class="flex items-center justify-between w-full">
         <!-- Logo -->
-        <a href="/" class="flex items-center gap-3 group">
+        <a href="/" class="flex items-center gap-3 group flex-shrink-0">
           <img src="/images/logo.svg" alt="HMSSTC Logo" class="h-12 w-auto" />
         </a>
 
@@ -32,7 +32,7 @@ const currentPath = Astro.url.pathname;
               <a
                 href={item.href}
                 data-i18n={item.i18nKey}
-                class={`text-sm font-medium tracking-wide transition-colors duration-200 hover:text-tech-blue-light ${
+                class={`text-sm font-medium tracking-wide transition-colors duration-200 hover:text-tech-blue-light whitespace-nowrap ${
                   currentPath.startsWith(item.href)
                     ? "text-tech-blue-light"
                     : "text-gray-300"
@@ -45,7 +45,7 @@ const currentPath = Astro.url.pathname;
           <button
             data-lang-switch
             onclick="window.__setLang(window.__getLang() === 'en' ? 'zh-TW' : 'en')"
-            class="ml-4 px-4 py-2 border border-white/20 rounded text-sm text-gray-400 hover:border-tech-blue-light hover:text-tech-blue-light transition-all cursor-pointer"
+            class="ml-4 px-4 py-2 border border-white/20 rounded text-sm text-gray-400 hover:border-tech-blue-light hover:text-tech-blue-light transition-all cursor-pointer whitespace-nowrap"
           >
             EN
           </button>
@@ -54,60 +54,137 @@ const currentPath = Astro.url.pathname;
         <!-- Mobile Menu Button -->
         <button
           id="mobile-menu-btn"
-          class="lg:hidden text-white p-2"
+          class="lg:hidden relative w-10 h-10 flex items-center justify-center text-white rounded-lg transition-all duration-300 hover:bg-white/10"
           aria-label="Toggle menu"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke-width="1.5"
-            stroke="currentColor"
-            class="w-6 h-6"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5"></path>
-          </svg>
+          <div class="hamburger-icon" id="hamburger-icon">
+            <span class="hamburger-line line-1"></span>
+            <span class="hamburger-line line-2"></span>
+            <span class="hamburger-line line-3"></span>
+          </div>
         </button>
       </div>
     </div>
   </div>
 
-  <!-- Mobile Menu -->
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobile-menu-overlay"
+    class="lg:hidden fixed inset-0 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-opacity duration-300 z-40"
+  >
+  </div>
+
+  <!-- Mobile Menu Panel -->
   <div
     id="mobile-menu"
-    class="lg:hidden fixed inset-0 top-20 bg-space-dark/95 backdrop-blur-lg transform translate-x-full transition-transform duration-300 z-40"
+    class="lg:hidden fixed right-0 bottom-0 w-full sm:w-80 bg-space-dark/98 backdrop-blur-xl transform translate-x-full transition-transform duration-400 z-50 mobile-menu-panel"
   >
-    <nav class="flex flex-col items-center gap-6 pt-12">
+    <!-- Mobile menu close button -->
+    <div
+      class="flex items-center justify-between px-6 py-4 border-b border-white/10"
+    >
+      <span class="text-xs font-medium tracking-widest text-gray-500 uppercase"
+        >Navigation</span
+      >
+      <button
+        id="mobile-menu-close"
+        class="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-white/10 transition-colors"
+        aria-label="Close menu"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-5 h-5 text-gray-400"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M6 18L18 6M6 6l12 12"></path>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Nav items -->
+    <nav class="flex flex-col px-4 py-4 gap-1">
       {
-        navItems.map((item) => (
+        navItems.map((item, index) => (
           <a
             href={item.href}
             data-i18n={item.i18nKey}
-            class={`text-lg font-medium tracking-wide transition-colors duration-200 hover:text-tech-blue-light ${
+            class={`mobile-nav-item group flex items-center gap-3 px-4 py-3.5 rounded-xl text-base font-medium tracking-wide transition-all duration-200 ${
               currentPath.startsWith(item.href)
-                ? "text-tech-blue-light"
-                : "text-gray-300"
+                ? "text-tech-blue-light bg-tech-blue/10"
+                : "text-gray-300 hover:text-white hover:bg-white/5"
             }`}
+            style={`--item-index: ${index};`}
           >
+            <span
+              class={`w-1.5 h-1.5 rounded-full transition-all duration-200 ${
+                currentPath.startsWith(item.href)
+                  ? "bg-tech-blue-light scale-100"
+                  : "bg-gray-600 scale-75 group-hover:bg-white group-hover:scale-100"
+              }`}
+            />
             {item.label}
           </a>
         ))
       }
+    </nav>
+
+    <!-- Language switch -->
+    <div class="px-6 py-4 mt-auto border-t border-white/10">
       <button
         data-lang-switch
         onclick="window.__setLang(window.__getLang() === 'en' ? 'zh-TW' : 'en')"
-        class="mt-4 px-6 py-2 border border-white/20 rounded text-gray-400 hover:border-tech-blue-light hover:text-tech-blue-light transition-all cursor-pointer"
+        class="w-full flex items-center justify-center gap-2 px-6 py-3 rounded-xl border border-white/15 text-sm text-gray-400 hover:border-tech-blue-light/50 hover:text-tech-blue-light hover:bg-tech-blue/5 transition-all duration-300 cursor-pointer"
       >
-        EN
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          class="w-4 h-4"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M10.5 21l5.25-11.25L21 21m-9-3h7.5M3 5.621a48.474 48.474 0 016-.371m0 0c1.12 0 2.233.038 3.334.114M9 5.25V3m3.334 2.364C11.176 10.658 7.69 15.08 3 17.502m9.334-12.138c.896.061 1.785.147 2.666.257m-4.589 8.495a18.023 18.023 0 01-3.827-5.802"
+          ></path>
+        </svg>
+        <span>EN / 中文</span>
       </button>
-    </nav>
+    </div>
   </div>
 </header>
 
 <style>
+  /* Header inner container - full width padding */
+  .header-inner-container {
+    width: 100%;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  @media (min-width: 640px) {
+    .header-inner-container {
+      padding: 0 2rem;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .header-inner-container {
+      padding: 0 3rem;
+    }
+  }
+
   /* Base state for standard pages or when scrolled */
   .header-bg-provider {
     background-color: rgba(5, 13, 26, 0.9);
@@ -135,26 +212,156 @@ const currentPath = Astro.url.pathname;
   #main-header.shadow-active {
     box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5);
   }
+
+  /* Hamburger Icon Animation */
+  .hamburger-icon {
+    width: 20px;
+    height: 14px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .hamburger-line {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: currentColor;
+    border-radius: 2px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-origin: center;
+  }
+
+  .hamburger-icon.is-active .line-1 {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  .hamburger-icon.is-active .line-2 {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+
+  .hamburger-icon.is-active .line-3 {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  /* Mobile Menu Panel */
+  .mobile-menu-panel {
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    box-shadow: -20px 0 60px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* Mobile Nav Item hover animation */
+  .mobile-nav-item {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mobile-nav-item::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(59, 130, 246, 0.03),
+      transparent
+    );
+    transform: translateX(-100%);
+    transition: transform 0.4s ease;
+  }
+
+  .mobile-nav-item:hover::before {
+    transform: translateX(100%);
+  }
+
+  /* Stagger animation for mobile nav items */
+  .mobile-menu-panel.is-open .mobile-nav-item {
+    animation: slideInItem 0.3s ease-out forwards;
+    opacity: 0;
+    animation-delay: calc(var(--item-index) * 0.05s + 0.1s);
+  }
+
+  @keyframes slideInItem {
+    from {
+      opacity: 0;
+      transform: translateX(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
 </style>
 
 <script>
   const btn = document.getElementById("mobile-menu-btn");
+  const closeBtn = document.getElementById("mobile-menu-close");
   const menu = document.getElementById("mobile-menu");
+  const overlay = document.getElementById("mobile-menu-overlay");
+  const hamburger = document.getElementById("hamburger-icon");
+  const header = document.getElementById("main-header");
   let isOpen = false;
 
-  btn?.addEventListener("click", () => {
-    isOpen = !isOpen;
-    if (isOpen) {
-      menu?.classList.remove("translate-x-full");
-      menu?.classList.add("translate-x-0");
-    } else {
-      menu?.classList.remove("translate-x-0");
-      menu?.classList.add("translate-x-full");
+  function openMenu() {
+    isOpen = true;
+    // Dynamically set top based on current header height
+    const headerHeight =
+      header?.querySelector(".header-bg-provider")?.getBoundingClientRect()
+        .height || 80;
+    if (menu) {
+      menu.style.top = headerHeight + "px";
     }
+    if (overlay) {
+      overlay.style.top = headerHeight + "px";
+    }
+    menu?.classList.remove("translate-x-full");
+    menu?.classList.add("translate-x-0", "is-open");
+    overlay?.classList.remove("opacity-0", "pointer-events-none");
+    overlay?.classList.add("opacity-100", "pointer-events-auto");
+    hamburger?.classList.add("is-active");
+    document.body.style.overflow = "hidden";
+  }
+
+  function closeMenu() {
+    isOpen = false;
+    menu?.classList.remove("translate-x-0", "is-open");
+    menu?.classList.add("translate-x-full");
+    overlay?.classList.remove("opacity-100", "pointer-events-auto");
+    overlay?.classList.add("opacity-0", "pointer-events-none");
+    hamburger?.classList.remove("is-active");
+    document.body.style.overflow = "";
+  }
+
+  btn?.addEventListener("click", () => {
+    if (isOpen) closeMenu();
+    else openMenu();
   });
 
+  closeBtn?.addEventListener("click", closeMenu);
+  overlay?.addEventListener("click", closeMenu);
+
+  // Close menu on nav link click
+  menu?.querySelectorAll("a").forEach((link) => {
+    link.addEventListener("click", closeMenu);
+  });
+
+  // Update mobile menu top position on scroll (header height changes)
+  function updateMenuPosition() {
+    if (isOpen && menu && overlay) {
+      const headerHeight =
+        header?.querySelector(".header-bg-provider")?.getBoundingClientRect()
+          .height || 80;
+      menu.style.top = headerHeight + "px";
+      overlay.style.top = headerHeight + "px";
+    }
+  }
+
   // Header background on scroll
-  const header = document.getElementById("main-header");
   const isTransparentEnabled =
     header?.getAttribute("data-transparent") === "true";
 
@@ -172,6 +379,8 @@ const currentPath = Astro.url.pathname;
         header?.classList.remove("is-at-top");
       }
     }
+
+    updateMenuPosition();
   }
 
   window.addEventListener("scroll", handleScroll);
