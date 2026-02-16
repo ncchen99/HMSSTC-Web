@@ -2,7 +2,7 @@
 title: "福爾摩沙衛星五號"
 date: "2017-08-24"
 status: "active"
-image: "/images/福爾摩沙衛星五號.png"
+image: "../images/missions/formosat-5.png"
 excerpt: "福爾摩沙衛星五號是臺灣首顆自主發展的光學遙測衛星，於2017年8月25日成功發射升空。"
 order: 1
 ---

@@ -12,7 +12,7 @@ category: "news"
 
 The 10th Asia Research Node Symposium on Humanosphere Science (ARN 2025) concluded successfully at National Cheng Kung University (NCKU), from September 16 to 18, 2025. Jointly organized by Han-Min Hsia Space Science and Technology Center (NCKU) and College of Planning and Design, together with Kyoto University Research Institute for Sustainable Humanosphere (RISH), the symposium underscored the shared commitment of Taiwan and Japan to advancing research in space technology and sustainability. A highlight of the event was the signing of a new Memorandum of Understanding (MOU), marking a milestone in deepening cross-border and interdisciplinary cooperation. A total of 96 participants attended the symposium, including 38 scholars from Kyoto University, as well as representatives from the University of Tokyo and Nagoya University. On the Taiwanese side, scholars from nine institutions, including Academia Sinica and NCKU, were also in attendance.
 
-![MOU Signing](/images/banner.webp)
+![MOU Signing](../images/banner.webp)
 *Prof. Charles Lin, Director of Han-Min Hsia Space Science and Technology Center, Prof. Mamoru YAMAMOTO, Director of Research Institute for Sustainable Humanosphere (RISH), and Prof. Ping-Sheng Wu, Senior Vice President, NCKU, sign a Memorandum of Understanding.*
 
 ### Strengthening Ties Between Two Leading Universities

@@ -1,10 +1,12 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import FloatingSatellites from "../components/FloatingSatellites.astro";
+import { Image } from "astro:assets";
 import { marked } from "marked";
 import fs from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import starryBg from "../assets/images/night-starry-sky-background.webp";
 
 // Read both language versions
 const zhFilePath = path.join(
@@ -40,11 +42,7 @@ const enHtml = await marked(enContent);
   <!-- Hero -->
   <section class="relative pt-36 pb-16 overflow-hidden">
     <div class="absolute inset-0">
-      <img
-        src="/images/night-starry-sky-background.webp"
-        alt=""
-        class="w-full h-full object-cover"
-      />
+      <Image src={starryBg} alt="" class="w-full h-full object-cover" />
       <div
         class="absolute inset-0 bg-gradient-to-b from-space-dark to-space-dark/50"
       >

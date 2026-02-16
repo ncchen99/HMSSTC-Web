@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import FloatingSatellites from "../../components/FloatingSatellites.astro";
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 
 const allMissions = await getCollection("missions");
 const missions = allMissions
@@ -66,14 +67,22 @@ const missions = allMissions
               </div>
 
               <div class="relative h-56 overflow-hidden">
-                {mission.data.image && (
-                  <img
-                    src={mission.data.image}
-                    alt={mission.data.title}
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                    loading="lazy"
-                  />
-                )}
+                {mission.data.image &&
+                  (typeof mission.data.image === "string" ? (
+                    <img
+                      src={mission.data.image}
+                      alt={mission.data.title}
+                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <Image
+                      src={mission.data.image}
+                      alt={mission.data.title}
+                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      loading="lazy"
+                    />
+                  ))}
                 <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
                 <div class="absolute top-4 right-4">
                   <span

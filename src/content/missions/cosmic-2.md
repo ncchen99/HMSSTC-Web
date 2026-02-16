@@ -2,7 +2,7 @@
 title: "福爾摩沙衛星七號 (COSMIC-2)"
 date: "2025-08-13"
 status: "active"
-image: "/images/福爾摩沙衛星七號.jpg"
+image: "../images/missions/cosmic-2.jpg"
 excerpt: "福爾摩沙衛星七號是臺美合作的氣象衛星星系計畫，為全球氣象預報提供關鍵數據。"
 order: 3
 ---

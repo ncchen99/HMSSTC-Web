@@ -21,25 +21,27 @@ interface Props {
 }
 
 const { id = "floating-satellites" } = Astro.props;
+
+import { Image } from "astro:assets";
+import formosatImg from "../assets/images/FORMOSAT-7.webp";
+import tritonImg from "../assets/images/TRITON.webp";
 ---
 
 <div class="floating-satellites-container" data-satellite-id={id}>
     <!-- FORMOSAT-7 Satellite -->
-    <img
-        src="/images/FORMOSAT-7.webp"
+    <Image
+        src={formosatImg}
         alt=""
         class="floating-satellite floating-satellite--formosat"
         data-satellite="formosat"
-        aria-hidden="true"
         loading="lazy"
     />
     <!-- TRITON Satellite -->
-    <img
-        src="/images/TRITON.webp"
+    <Image
+        src={tritonImg}
         alt=""
         class="floating-satellite floating-satellite--triton"
         data-satellite="triton"
-        aria-hidden="true"
         loading="lazy"
     />
 </div>

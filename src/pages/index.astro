@@ -2,6 +2,9 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import FloatingSatellites from '../components/FloatingSatellites.astro';
 import { getCollection } from 'astro:content';
+import { Image } from 'astro:assets';
+import bannerImage from '../assets/images/banner.webp';
+import teamBkImage from '../assets/images/team-bk.webp';
 
 const allMissions = await getCollection('missions');
 const missions = allMissions
@@ -38,7 +41,7 @@ const news = allNews
   <section class="hero-section relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-24 pb-32 sm:pt-32 sm:pb-36" id="hero-section">
     <!-- Deep Space Background -->
     <div class="absolute inset-0 hero-bg">
-      <img src="/images/banner.webp" alt="HMSSTC Banner" class="w-full h-full object-cover" />
+      <Image src={bannerImage} alt="HMSSTC Banner" class="w-full h-full object-cover" />
       <div class="absolute inset-0 bg-space-dark/60"></div>
     </div>
 
@@ -144,12 +147,21 @@ const news = allNews
             <!-- Image -->
             <div class="relative h-56 overflow-hidden">
               {mission.data.image && (
-                <img
-                  src={mission.data.image}
-                  alt={mission.data.title}
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
-                />
+                typeof mission.data.image === 'string' ? (
+                  <img
+                    src={mission.data.image}
+                    alt={mission.data.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                ) : (
+                  <Image
+                    src={mission.data.image}
+                    alt={mission.data.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                )
               )}
               <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent"></div>
             </div>
@@ -239,12 +251,21 @@ const news = allNews
             <div class="mission-number text-gray-200">{String(index + 1).padStart(2, '0')}</div>
             <div class="relative h-52 overflow-hidden">
               {item.data.image && (
-                <img
-                  src={item.data.image}
-                  alt={item.data.title}
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                  loading="lazy"
-                />
+                typeof item.data.image === 'string' ? (
+                  <img
+                    src={item.data.image}
+                    alt={item.data.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                ) : (
+                  <Image
+                    src={item.data.image}
+                    alt={item.data.title}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    loading="lazy"
+                  />
+                )
               )}
             </div>
             <div class="p-6 pt-8">
@@ -320,8 +341,8 @@ const news = allNews
   <section class="relative py-24 overflow-hidden" id="team">
     <!-- Background -->
     <div class="absolute inset-0">
-      <img
-        src="/images/team-bk.webp"
+      <Image
+        src={teamBkImage}
         alt=""
         class="w-full h-full object-cover"
       />
@@ -339,12 +360,21 @@ const news = allNews
           >
             <div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4 bg-white/5 border border-white/10 group-hover:border-tech-blue-light/50 transition-all duration-300">
               {member.data.image ? (
-                <img
-                  src={member.data.image}
-                  alt={member.data.name}
-                  class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  loading="lazy"
-                />
+                typeof member.data.image === 'string' ? (
+                  <img
+                    src={member.data.image}
+                    alt={member.data.name}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                ) : (
+                  <Image
+                    src={member.data.image}
+                    alt={member.data.name}
+                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                )
               ) : (
                 <div class="w-full h-full flex items-center justify-center bg-gray-700/50">
                   <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1" stroke="currentColor" class="w-16 h-16 text-gray-500">
