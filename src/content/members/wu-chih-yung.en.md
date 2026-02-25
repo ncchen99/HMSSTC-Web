@@ -6,6 +6,7 @@ email: "cywu@gs.ncku.edu.tw"
 phone: "+886-6-2757575 ext 63620"
 order: 5
 category: "regular"
+image: "../images/members/wu-chih-yung.jpg"
 ---
 
 ## Professor Chih-Yung Wu

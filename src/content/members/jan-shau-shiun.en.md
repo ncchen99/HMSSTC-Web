@@ -6,6 +6,7 @@ email: "ssjan@mail.ncku.edu.tw"
 phone: "+886-6-2757575 ext 63629"
 order: 4
 category: "regular"
+image: "../images/members/jan-shau-shiun.jpg"
 ---
 
 ## Professor Shau-Shiun Jan

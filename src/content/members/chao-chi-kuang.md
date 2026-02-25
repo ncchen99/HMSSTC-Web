@@ -6,6 +6,7 @@ email: "ckchao@jupiter.ss.ncu.edu.tw"
 phone: "+886-3-422-7151 ext 65765"
 order: 3
 category: "advisory"
+image: "../images/members/chao-chi-kuang.jpg"
 ---
 
 ## 趙吉光 教授

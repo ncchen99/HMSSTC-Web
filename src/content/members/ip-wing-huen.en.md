@@ -6,6 +6,7 @@ email: "wingip@astro.ncu.edu.tw"
 phone: "+886-3-422-7151 ext 65959"
 order: 1
 category: "advisory"
+image: "../images/members/ip-wing-huen.jpg"
 ---
 
 ## Academician Wing-Huen Ip

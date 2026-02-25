@@ -6,6 +6,7 @@ email: "koichi0925@gmail.com"
 phone: "+886-6-2757575 ext 65439"
 order: 10
 category: "regular"
+image: "../images/members/chen-jia-hong.png"
 ---
 
 ## Associate Professor Chia-Hung Chen

@@ -6,6 +6,7 @@ email: "jyliu@jupiter.ss.ncu.edu.tw"
 phone: "+886-3-422-7151 ext 65763"
 order: 2
 category: "advisory"
+image: "../images/members/liu-jann-yenq.png"
 ---
 
 ## 劉正彥 教授

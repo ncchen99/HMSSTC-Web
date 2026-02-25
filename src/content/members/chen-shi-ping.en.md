@@ -4,6 +4,7 @@ title: "Assistant Researcher"
 affiliation: "Department of Earth Sciences"
 order: 12
 category: "regular"
+image: "../images/members/chen-shi-ping.jpg"
 ---
 
 ## Assistant Researcher Shih-Ping Chen

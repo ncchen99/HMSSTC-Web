@@ -6,6 +6,7 @@ email: "ycchao@mail.ncku.edu.tw"
 phone: "+886-6-2757575 ext 58674"
 order: 3
 category: "regular"
+image: "../images/members/chao-yei-chin.jpg"
 ---
 
 ## 趙怡欽 教授

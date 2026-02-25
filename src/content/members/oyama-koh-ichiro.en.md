@@ -5,6 +5,7 @@ affiliation: "National Cheng Kung University"
 email: "oyama@isas.jaxa.jp"
 order: 4
 category: "advisory"
+image: "../images/members/oyama-koh-ichiro.jpg"
 ---
 
 ## Professor Koh-Ichiro Oyama

@@ -6,6 +6,7 @@ email: "linhung@mail.ncku.edu.tw"
 phone: "+886-6-2757575 ext 63836"
 order: 8
 category: "regular"
+image: "../images/members/lin-chao-hung.jpg"
 ---
 
 ## 林昭宏 教授

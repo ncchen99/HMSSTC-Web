@@ -6,6 +6,7 @@ email: "chiahsiang.steven.lin@gmail.com"
 phone: "+886-6-2757575 ext 62335"
 order: 7
 category: "regular"
+image: "../images/members/lin-chia-hsiang.jpg"
 ---
 
 ## Professor Chia-Hsiang Lin

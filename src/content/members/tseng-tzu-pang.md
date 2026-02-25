@@ -6,6 +6,7 @@ email: "tzupangtseng@gs.ncku.edu.tw"
 phone: "+886-6-2757575 ext 55313"
 order: 9
 category: "regular"
+image: "../images/members/tseng-tzu-pang.jpg"
 ---
 
 ## 曾子榜 副教授

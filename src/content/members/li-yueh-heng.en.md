@@ -6,6 +6,7 @@ email: "yueheng@mail.ncku.edu.tw"
 phone: "+886-6-2757575 ext 63632"
 order: 6
 category: "regular"
+image: "../images/members/li-yueh-heng.jpg"
 ---
 
 ## Professor Yueh-Heng Li

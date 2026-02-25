@@ -5,6 +5,7 @@ affiliation: "國立成功大學"
 email: "oyama@isas.jaxa.jp"
 order: 4
 category: "advisory"
+image: "../images/members/oyama-koh-ichiro.jpg"
 ---
 
 ## 小山孝一郎 教授
