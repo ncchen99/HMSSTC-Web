@@ -1,35 +1,25 @@
 ---
-name: "Chen Ping-Chih"
-title: "Associate Professor"
+name: "Bing-Chih Chen"
+title: "Professor"
 affiliation: "Department of Physics, National Cheng Kung University"
 image: "../images/members/chen-bing-zhi.webp"
-phone: "+886-6-275-5312"
-order: 4
+email: "alfred@ncku.edu.tw"
+phone: "+886-6-2757575 ext 65267"
+order: 2
+category: "regular"
 ---
 
-## Associate Professor Chen Ping-Chih
+## Professor Bing-Chih Chen
 
-Associate Professor at the Department of Physics, National Cheng Kung University.
+Professor, Department of Physics, National Cheng Kung University.
 
-### Position and Background
+### Education
 
-Professor Chen Ping-Chih is currently an Associate Professor at the Department of Physics of National Cheng Kung University, with long-term engagement in research related to astronomy and atmospheric physics. He received his Ph.D. from the Institute of Physics and Astronomy at National Central University in 2001. He subsequently conducted postdoctoral research and teaching at National Cheng Kung University, serving as Assistant Professor and Associate Professor. He also served as director of the Institute for Space and Plasma Science, bringing him extensive academic and administrative experience.
+2001 PhD, Institute of Physics and Astronomy, National Central University, Taiwan
 
 ### Research Expertise
 
 - Astronomical Observation
 - Atmospheric Electricity
-- Space and Astronomical Instrumentation
+- Instrument Development on Astrophysics and Space Science
 - Lightning Physics
-- Ionospheric Research
-
-### Academic Achievements
-
-Professor Chen's research has been published in numerous internationally renowned journals and has been principal investigator for multiple government research projects. He actively participates in satellite science payload and ground-based observation programs, focusing on:
-- Lightning phenomena
-- Coupling mechanisms between atmosphere and ionosphere
-- Impact of severe weather on space environment
-
-### International Collaboration
-
-Professor Chen has been engaged in long-term international collaborative research, maintaining close academic exchanges with research teams in Japan, China, and Taiwan. He has made important contributions to advancing space science and atmospheric physics research in Taiwan.

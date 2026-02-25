@@ -1,11 +1,11 @@
 ---
-name: "Lin Tzu-Hsuan"
-title: "Center Secretary"
-affiliation: "Han-Min Hsu Center for Space Science and Technology"
-email: "10810048@gs.ncku.edu.tw"
-order: 6
+name: "Zi-Xuan Lin"
+title: "Secretary"
+affiliation: "Han-Ming Hsia Space Science and Technology Center"
+order: 13
+category: "regular"
 ---
 
-## Lin Tzu-Hsuan
+## Secretary Zi-Xuan Lin
 
-Center Secretary at the Han-Min Hsu Center for Space Science and Technology, responsible for administrative affairs and activity coordination of the center.
+Secretary, Han-Ming Hsia Space Science and Technology Center.

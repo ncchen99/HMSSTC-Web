@@ -1,16 +1,11 @@
 ---
-name: "Lin Chia-Ting"
+name: "Chia-Ting Lin"
 title: "Assistant Professor"
-affiliation: "Institute of Space Systems and Engineering, National Cheng Kung University"
-order: 5
+affiliation: "Institute of Space Systems Engineering, National Cheng Kung University"
+order: 11
+category: "regular"
 ---
 
-## Assistant Professor Lin Chia-Ting
+## Assistant Professor Chia-Ting Lin
 
-Assistant Professor at the Institute of Space Systems and Engineering, National Cheng Kung University.
-
-### Research Expertise
-
-- Space Systems Engineering
-- Satellite Design and Manufacturing
-- Space Mission Planning
+Assistant Professor, Institute of Space Systems Engineering.

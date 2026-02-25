@@ -107,7 +107,7 @@ export const translations = {
 
     // Footer
     'footer.orgName': '夏漢民太空科技中心',
-    'footer.orgNameEn': 'Hsia Han-Min Space Science & Technology Center',
+    'footer.orgNameEn': 'HAN-MING HSIA Space Science and Technology Center',
     'footer.phone': '電話：06-2757575 #60073',
     'footer.address1': '701 臺南市東區大學路1號',
     'footer.address2': '國立成功大學成功校區 綜合二館3樓 49315 室',
@@ -219,7 +219,7 @@ export const translations = {
 
     // Footer
     'footer.orgName': 'HMSSTC',
-    'footer.orgNameEn': 'Hsia Han-Min Space Science & Technology Center',
+    'footer.orgNameEn': 'HAN-MING HSIA Space Science and Technology Center',
     'footer.phone': 'Phone: 06-2757575 #60073',
     'footer.address1': 'No. 1, University Rd., East Dist., Tainan 701',
     'footer.address2': 'NCKU Cheng Kung Campus, Building 2, 3F, Room 49315',

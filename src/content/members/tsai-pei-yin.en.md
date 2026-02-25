@@ -1,10 +1,11 @@
 ---
-name: "Tsai Pei-Yin"
-title: "Center Secretary"
-affiliation: "Han-Min Hsu Center for Space Science and Technology"
-order: 7
+name: "Pei-Yin Tsai"
+title: "Secretary"
+affiliation: "Han-Ming Hsia Space Science and Technology Center"
+order: 14
+category: "regular"
 ---
 
-## Tsai Pei-Yin
+## Secretary Pei-Yin Tsai
 
-Center Secretary at the Han-Min Hsu Center for Space Science and Technology, assisting with center administrative affairs and educational outreach programs.
+Secretary, Han-Ming Hsia Space Science and Technology Center.

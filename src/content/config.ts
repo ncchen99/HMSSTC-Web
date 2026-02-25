@@ -42,6 +42,7 @@ const membersCollection = defineCollection({
         image: z.union([image(), z.string()]).optional(),
         email: z.string().optional(),
         order: z.number().default(99),
+        category: z.enum(['regular', 'advisory']).default('regular'),
     }),
 });
 
