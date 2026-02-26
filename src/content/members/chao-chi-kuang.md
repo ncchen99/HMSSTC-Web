@@ -9,8 +9,6 @@ category: "advisory"
 image: "../images/members/chao-chi-kuang.jpg"
 ---
 
-## 趙吉光 教授
-
 國立中央大學太空科學與工程學系教授、太空科學與科技研究中心主任。
 
 ### 學歷背景

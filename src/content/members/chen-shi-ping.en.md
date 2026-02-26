@@ -7,6 +7,4 @@ category: "regular"
 image: "../images/members/chen-shi-ping.jpg"
 ---
 
-## Assistant Researcher Shih-Ping Chen
-
 Assistant Researcher, Department of Earth Sciences.

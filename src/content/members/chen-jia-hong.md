@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/chen-jia-hong.png"
 ---
 
-## 陳佳宏 副教授
-
 國立成功大學地球科學系副教授。
 
 ### 學歷背景

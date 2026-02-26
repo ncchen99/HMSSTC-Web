@@ -9,8 +9,6 @@ category: "advisory"
 image: "../images/members/liu-jann-yenq.png"
 ---
 
-## Professor Jann-Yenq Liu
-
 Professor, Department of Space Science and Engineering, National Central University.
 
 ### Education

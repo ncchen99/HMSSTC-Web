@@ -6,6 +6,4 @@ order: 14
 category: "regular"
 ---
 
-## 蔡佩吟 秘書
-
 夏漢民太空科技中心秘書。

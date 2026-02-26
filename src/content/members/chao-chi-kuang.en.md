@@ -9,8 +9,6 @@ category: "advisory"
 image: "../images/members/chao-chi-kuang.jpg"
 ---
 
-## Professor Chi-Kuang Chao
-
 Professor, Department of Space Science and Engineering, National Central University; Director, Center for Astronautical Physics and Engineering.
 
 ### Education

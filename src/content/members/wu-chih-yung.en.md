@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/wu-chih-yung.jpg"
 ---
 
-## Professor Chih-Yung Wu
-
 Professor / Vice Chair, Department of Aeronautics and Astronautics.
 
 ### Education

@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/lin-chia-hsiang.jpg"
 ---
 
-## Professor Chia-Hsiang Lin
-
 Professor, Department of Electrical Engineering.
 
 ### Education

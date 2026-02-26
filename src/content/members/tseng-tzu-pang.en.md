@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/tseng-tzu-pang.jpg"
 ---
 
-## Associate Professor Tzu-Pang Tseng
-
 Associate Professor, Department of Geomatics, National Cheng Kung University.
 
 ### Education

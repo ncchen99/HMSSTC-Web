@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/chen-jia-hong.png"
 ---
 
-## Associate Professor Chia-Hung Chen
-
 Associate Professor, Department of Earth Sciences, National Cheng Kung University.
 
 ### Education

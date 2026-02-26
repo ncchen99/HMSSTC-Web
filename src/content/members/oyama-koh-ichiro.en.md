@@ -8,8 +8,6 @@ category: "advisory"
 image: "../images/members/oyama-koh-ichiro.jpg"
 ---
 
-## Professor Koh-Ichiro Oyama
-
 Former Professor at Japan Aerospace Exploration Agency (JAXA); Visiting Professor at National Cheng Kung University.
 
 ### Education

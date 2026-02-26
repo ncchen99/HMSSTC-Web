@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/li-yueh-heng.jpg"
 ---
 
-## Professor Yueh-Heng Li
-
 Professor, Department of Aeronautics and Astronautics.
 
 ### Education

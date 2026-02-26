@@ -9,8 +9,6 @@ order: 2
 category: "regular"
 ---
 
-## Professor Bing-Chih Chen
-
 Professor, Department of Physics, National Cheng Kung University.
 
 ### Education

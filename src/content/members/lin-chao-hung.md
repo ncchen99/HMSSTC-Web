@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/lin-chao-hung.jpg"
 ---
 
-## 林昭宏 教授
-
 國立成功大學測量及空間資訊學系教授。
 
 ### 學歷背景

@@ -9,8 +9,6 @@ category: "advisory"
 image: "../images/members/ip-wing-huen.jpg"
 ---
 
-## Academician Wing-Huen Ip
-
 Academician of Academia Sinica, Professor at Institute of Astronomy, National Central University; Chair of Taiwan Space Union (TSU).
 
 ### Education

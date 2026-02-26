@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/lin-chao-hung.jpg"
 ---
 
-## Professor Chao-Hung Lin
-
 Professor, Department of Geomatics, National Cheng Kung University.
 
 ### Education

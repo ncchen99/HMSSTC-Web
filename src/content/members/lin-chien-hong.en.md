@@ -8,8 +8,6 @@ phone: "+886-6-2755312"
 order: 1
 ---
 
-## Professor Chien-Hung Lin
-
 Distinguished Professor of the Department of Earth Sciences at National Cheng Kung University and Director of the Han-Min Hsu Center for Space Science and Technology.
 
 ### Basic Information

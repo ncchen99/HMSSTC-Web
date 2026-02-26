@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/chao-yei-chin.jpg"
 ---
 
-## 趙怡欽 教授
-
 國立成功大學航空太空工程學系各譽講座教授。
 
 ### 學歷背景

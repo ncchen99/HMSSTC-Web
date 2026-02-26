@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/chao-yei-chin.jpg"
 ---
 
-## Professor Yei-Chin Chao
-
 Chair Professor Emeritus, Department of Aeronautics and Astronautics.
 
 ### Education

@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/lin-chia-hsiang.jpg"
 ---
 
-## 林家祥 教授
-
 國立成功大學電機工程學系教授。
 
 ### 學歷背景

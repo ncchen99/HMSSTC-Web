@@ -7,6 +7,4 @@ category: "regular"
 image: "../images/members/lin-jia-ting.jpg"
 ---
 
-## Assistant Professor Chia-Ting Lin
-
 Assistant Professor, Institute of Space Systems Engineering.

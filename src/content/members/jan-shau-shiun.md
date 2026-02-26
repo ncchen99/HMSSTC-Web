@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/jan-shau-shiun.jpg"
 ---
 
-## 詹劭勳 教授
-
 國立成功大學航空太空工程學系教授/系主任。
 
 ### 學歷背景

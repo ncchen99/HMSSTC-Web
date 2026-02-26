@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/jan-shau-shiun.jpg"
 ---
 
-## Professor Shau-Shiun Jan
-
 Professor / Chair, Department of Aeronautics and Astronautics.
 
 ### Education

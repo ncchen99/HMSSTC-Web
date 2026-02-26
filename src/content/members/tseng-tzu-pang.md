@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/tseng-tzu-pang.jpg"
 ---
 
-## 曾子榜 副教授
-
 國立成功大學測量及空間資訊學系副教授。
 
 ### 學歷背景

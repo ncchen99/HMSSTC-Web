@@ -9,8 +9,6 @@ category: "advisory"
 image: "../images/members/ip-wing-huen.jpg"
 ---
 
-## 葉永烜 院士
-
 中央研究院院士、國立中央大學天文研究所教授、臺灣太空科學聯盟(TSU)主席。
 
 ### 學歷背景

@@ -6,6 +6,4 @@ order: 13
 category: "regular"
 ---
 
-## 林子軒 秘書
-
 夏漢民太空科技中心秘書。

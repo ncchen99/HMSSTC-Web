@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/wu-chih-yung.jpg"
 ---
 
-## 吳志勇 教授
-
 國立成功大學航空太空工程學系教授/副系主任。
 
 ### 學歷背景

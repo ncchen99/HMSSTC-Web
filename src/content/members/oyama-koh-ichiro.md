@@ -8,8 +8,6 @@ category: "advisory"
 image: "../images/members/oyama-koh-ichiro.jpg"
 ---
 
-## 小山孝一郎 教授
-
 前日本宇宙航空研究開發機構(JAXA)教授、國立成功大學客座教授。
 
 ### 學歷背景

@@ -9,8 +9,6 @@ category: "advisory"
 image: "../images/members/liu-jann-yenq.png"
 ---
 
-## 劉正彥 教授
-
 國立中央大學太空科學與工程學系教授。
 
 ### 學歷背景

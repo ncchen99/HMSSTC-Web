@@ -9,8 +9,6 @@ category: "regular"
 image: "../images/members/li-yueh-heng.jpg"
 ---
 
-## 李約亨 教授
-
 國立成功大學航空太空工程學系教授。
 
 ### 學歷背景

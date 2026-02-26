@@ -7,6 +7,4 @@ category: "regular"
 image: "../images/members/chen-shi-ping.jpg"
 ---
 
-## 陳世平 助理研究員
-
 國立成功大學地球科學系助理研究員。
