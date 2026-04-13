@@ -6,19 +6,25 @@
  * 上傳完成後自動更新 src/content/gallery/ 內的 YAML 相簿資料。
  *
  * 使用方式：
- *   node tools/upload-photos.mjs [資料夾名稱]
+ *   node tools/upload-photos.mjs [相簿名稱]
  *
  * 範例：
- *   node tools/upload-photos.mjs                # 上傳 photos/ 下所有相簿
- *   node tools/upload-photos.mjs icgpsro-2025   # 只上傳指定相簿
+ *   node tools/upload-photos.mjs                  # 上傳 photos/ 下所有相簿
+ *   node tools/upload-photos.mjs arn-meeting-photos  # 只上傳指定相簿
  *
- * 目錄結構：
+ * 目錄結構（平鋪模式）：
  *   photos/
- *     icgpsro-2025/        ← 相簿名稱（會對應 src/content/gallery/icgpsro-2025.yml）
+ *     icgpsro-2025/        ← 相簿名稱
  *       photo1.jpg
  *       photo2.png
- *     ncku-forum-2024/
- *       ...
+ *
+ * 目錄結構（資料夾模式，子資料夾自動變成 folders）：
+ *   photos/
+ *     arn-meeting-photos/
+ *       09.15/             ← 各子資料夾會成為 YAML 內的 folder 項目
+ *         DSC001.jpg
+ *       09.16/
+ *         DSC002.jpg
  */
 
 import { createReadStream, existsSync, mkdirSync, readdirSync, statSync, readFileSync, writeFileSync } from "fs";
@@ -132,6 +138,13 @@ function findImages(dir) {
   return results.sort();
 }
 
+/** 取得相簿頂層的直屬子資料夾清單（不遞迴）。有子資料夾代表要用 folders 模式。 */
+function getSubFolders(albumDir) {
+  return readdirSync(albumDir)
+    .filter((name) => statSync(join(albumDir, name)).isDirectory())
+    .sort();
+}
+
 async function fileExistsOnR2(key) {
   try {
     await s3.send(new HeadObjectCommand({ Bucket: R2_BUCKET_NAME, Key: key }));
@@ -167,43 +180,20 @@ async function uploadToR2(localPath, r2Key) {
   );
 }
 
-function parseYaml(content) {
+/** 僅解析 YAML 頂層的純量欄位（title, date, cover 等），不碰 photos/folders 陣列。 */
+function parseYamlMeta(content) {
   const result = {};
-  const lines = content.split("\n");
-  let currentKey = null;
-  let inArray = false;
-  let arrayItems = [];
-
-  for (const line of lines) {
-    if (line.startsWith("#") || line.trim() === "") continue;
-
-    const arrayItemMatch = line.match(/^- (.+)$/);
-    const keyValueMatch = line.match(/^(\w[\w.]*?):\s*(.*)$/);
-
-    if (arrayItemMatch && inArray) {
-      const val = arrayItemMatch[1].trim().replace(/^["']|["']$/g, "");
-      arrayItems.push(val);
-    } else if (keyValueMatch) {
-      if (inArray && currentKey) {
-        result[currentKey] = arrayItems;
-      }
-      inArray = false;
-      arrayItems = [];
-      currentKey = keyValueMatch[1];
-      const val = keyValueMatch[2].trim();
-      if (val === "") {
-        inArray = true;
-      } else {
-        result[currentKey] = val.replace(/^["']|["']$/g, "");
-      }
+  for (const line of content.split("\n")) {
+    if (line.startsWith("#") || line.trim() === "" || line.startsWith(" ") || line.startsWith("-")) continue;
+    const m = line.match(/^(\w[\w.]*?):\s*(.+)$/);
+    if (m) {
+      result[m[1]] = m[2].trim().replace(/^["']|["']$/g, "");
     }
-  }
-  if (inArray && currentKey) {
-    result[currentKey] = arrayItems;
   }
   return result;
 }
 
+/** 將相簿資料序列化為 YAML 字串，支援 folders 與 photos 兩種模式。 */
 function buildYaml(albumId, albumData) {
   const lines = [];
   lines.push(`title: ${JSON.stringify(albumData.title)}`);
@@ -213,12 +203,30 @@ function buildYaml(albumId, albumData) {
   if (albumData.descriptionEn) lines.push(`descriptionEn: ${JSON.stringify(albumData.descriptionEn)}`);
   lines.push(`cover: ${JSON.stringify(albumData.cover || "")}`);
   if (albumData.order !== undefined) lines.push(`order: ${albumData.order}`);
-  lines.push(`photos:`);
-  for (const photo of albumData.photos) {
-    lines.push(`  - url: ${JSON.stringify(photo.url)}`);
-    if (photo.caption) lines.push(`    caption: ${JSON.stringify(photo.caption)}`);
-    if (photo.captionEn) lines.push(`    captionEn: ${JSON.stringify(photo.captionEn)}`);
+
+  if (albumData.folders && albumData.folders.length > 0) {
+    lines.push(`photos: []`);
+    lines.push(`folders:`);
+    for (const folder of albumData.folders) {
+      lines.push(`  - name: ${JSON.stringify(folder.name)}`);
+      if (folder.nameEn) lines.push(`    nameEn: ${JSON.stringify(folder.nameEn)}`);
+      lines.push(`    cover: ${JSON.stringify(folder.cover || "")}`);
+      lines.push(`    photos:`);
+      for (const photo of folder.photos) {
+        lines.push(`      - url: ${JSON.stringify(photo.url)}`);
+        if (photo.caption) lines.push(`        caption: ${JSON.stringify(photo.caption)}`);
+        if (photo.captionEn) lines.push(`        captionEn: ${JSON.stringify(photo.captionEn)}`);
+      }
+    }
+  } else {
+    lines.push(`photos:`);
+    for (const photo of albumData.photos || []) {
+      lines.push(`  - url: ${JSON.stringify(photo.url)}`);
+      if (photo.caption) lines.push(`    caption: ${JSON.stringify(photo.caption)}`);
+      if (photo.captionEn) lines.push(`    captionEn: ${JSON.stringify(photo.captionEn)}`);
+    }
   }
+
   return lines.join("\n") + "\n";
 }
 
@@ -227,16 +235,17 @@ function loadExistingYaml(albumId) {
   if (existsSync(yamlPath)) {
     try {
       const content = readFileSync(yamlPath, "utf-8");
-      const parsed = parseYaml(content);
+      const meta = parseYamlMeta(content);
       return {
-        title: parsed.title || albumId,
-        titleEn: parsed.titleEn,
-        date: parsed.date || new Date().toISOString().split("T")[0],
-        description: parsed.description,
-        descriptionEn: parsed.descriptionEn,
-        cover: parsed.cover || "",
-        order: parsed.order ? Number(parsed.order) : undefined,
+        title: meta.title || albumId,
+        titleEn: meta.titleEn,
+        date: meta.date || new Date().toISOString().split("T")[0],
+        description: meta.description,
+        descriptionEn: meta.descriptionEn,
+        cover: meta.cover || "",
+        order: meta.order ? Number(meta.order) : undefined,
         photos: [],
+        folders: [],
       };
     } catch {
       // ignore parse errors
@@ -247,28 +256,26 @@ function loadExistingYaml(albumId) {
     date: new Date().toISOString().split("T")[0],
     cover: "",
     photos: [],
+    folders: [],
   };
 }
 
 // ─── 主程式 ──────────────────────────────────────────────────────────────────
 
-async function processAlbum(albumName) {
-  const albumDir = join(PHOTOS_DIR, albumName);
-  const images = findImages(albumDir);
-
-  if (images.length === 0) {
-    log(`${albumName}: 沒有找到圖片，跳過。`, "warning");
-    return;
-  }
-
-  log(`\n📂 處理相簿：${albumName}（${images.length} 張圖片）`);
-
-  const albumData = loadExistingYaml(albumName);
-  const existingUrls = new Set((albumData.photos || []).map((p) => p.url));
-  const newPhotos = [...(albumData.photos || [])];
-  let coverUrl = albumData.cover || "";
-  let uploadCount = 0;
-  let skipCount = 0;
+/**
+ * 上傳單一批次照片（一個資料夾）並回傳照片 URL 清單與 cover URL。
+ * @param {string[]} images       本地完整路徑清單
+ * @param {string}   albumDir     相簿根目錄（用來計算相對路徑）
+ * @param {string}   albumName    相簿 slug
+ * @param {boolean}  needCover    是否需要產生 _cover.webp（整個相簿的 cover）
+ * @returns {{ photos: {url:string}[], cover: string, uploaded: number, skipped: number }}
+ */
+async function uploadImages(images, albumDir, albumName, needCover = false) {
+  const photos = [];
+  let cover = "";
+  let uploaded = 0;
+  let skipped = 0;
+  const total = images.length;
 
   for (const [i, imagePath] of images.entries()) {
     const relPath = relative(albumDir, imagePath);
@@ -276,50 +283,120 @@ async function processAlbum(albumName) {
     const r2Key = `gallery/${albumName}/${nameWithoutExt}.webp`;
     const publicUrl = `${R2_PUBLIC_URL.replace(/\/$/, "")}/${r2Key}`;
 
-    process.stdout.write(`  [${i + 1}/${images.length}] ${relPath} ... `);
+    process.stdout.write(`    [${i + 1}/${total}] ${relPath} ... `);
 
     if (await fileExistsOnR2(r2Key)) {
       process.stdout.write("已存在，跳過\n");
-      skipCount++;
-      if (!existingUrls.has(publicUrl)) {
-        newPhotos.push({ url: publicUrl });
-        existingUrls.add(publicUrl);
-      }
-      if (!coverUrl && i === 0) coverUrl = publicUrl;
+      skipped++;
+      photos.push({ url: publicUrl });
+      if (!cover && i === 0) cover = publicUrl;
       continue;
     }
 
     try {
-      const isCover = i === 0 && !coverUrl;
-      const tempPath = await compressToWebP(imagePath, isCover);
+      const tempPath = await compressToWebP(imagePath, false);
       await uploadToR2(tempPath, r2Key);
       process.stdout.write("上傳成功 ✓\n");
-      uploadCount++;
+      uploaded++;
+      photos.push({ url: publicUrl });
 
-      if (!existingUrls.has(publicUrl)) {
-        newPhotos.push({ url: publicUrl });
-        existingUrls.add(publicUrl);
-      }
-      if (!coverUrl && i === 0) {
-        const coverKey = `gallery/${albumName}/_cover.webp`;
-        const coverPublicUrl = `${R2_PUBLIC_URL.replace(/\/$/, "")}/${coverKey}`;
-        const coverTempPath = await compressToWebP(imagePath, true);
-        await uploadToR2(coverTempPath, coverKey);
-        coverUrl = coverPublicUrl;
+      if (!cover && i === 0) {
+        cover = publicUrl;
+        if (needCover) {
+          const coverKey = `gallery/${albumName}/_cover.webp`;
+          const coverPublicUrl = `${R2_PUBLIC_URL.replace(/\/$/, "")}/${coverKey}`;
+          const coverTempPath = await compressToWebP(imagePath, true);
+          await uploadToR2(coverTempPath, coverKey);
+          cover = coverPublicUrl;
+        }
       }
     } catch (err) {
       process.stdout.write(`失敗 ✗ (${err.message})\n`);
     }
   }
 
-  albumData.photos = newPhotos;
-  albumData.cover = coverUrl;
+  return { photos, cover, uploaded, skipped };
+}
+
+async function processAlbum(albumName) {
+  const albumDir = join(PHOTOS_DIR, albumName);
+  const subFolders = getSubFolders(albumDir);
+  const albumData = loadExistingYaml(albumName);
+  let totalUploaded = 0;
+  let totalSkipped = 0;
+
+  // ── 資料夾模式（有子資料夾） ──────────────────────────────────────────────
+  if (subFolders.length > 0) {
+    const totalImages = findImages(albumDir).length;
+    log(`\n📂 處理相簿：${albumName}（資料夾模式，${subFolders.length} 個子資料夾，共 ${totalImages} 張圖片）`);
+
+    const newFolders = [];
+    let albumCover = albumData.cover || "";
+
+    for (const folderName of subFolders) {
+      const folderDir = join(albumDir, folderName);
+      const images = findImages(folderDir);
+
+      if (images.length === 0) {
+        log(`  ⚠️  子資料夾 ${folderName} 沒有圖片，跳過。`, "warning");
+        continue;
+      }
+
+      log(`  📁 子資料夾：${folderName}（${images.length} 張）`);
+
+      const needAlbumCover = !albumCover;
+      const { photos, cover, uploaded, skipped } = await uploadImages(
+        images, albumDir, albumName, needAlbumCover
+      );
+
+      if (needAlbumCover && cover) {
+        albumCover = cover.replace(/_cover\.webp$/, `_cover.webp`);
+        const coverKey = `gallery/${albumName}/_cover.webp`;
+        albumCover = `${R2_PUBLIC_URL.replace(/\/$/, "")}/${coverKey}`;
+      }
+
+      newFolders.push({
+        name: folderName,
+        cover: cover,
+        photos,
+      });
+
+      totalUploaded += uploaded;
+      totalSkipped += skipped;
+    }
+
+    albumData.folders = newFolders;
+    albumData.photos = [];
+    albumData.cover = albumCover || (newFolders[0]?.cover ?? "");
+
+  // ── 平鋪模式（無子資料夾） ────────────────────────────────────────────────
+  } else {
+    const images = findImages(albumDir);
+
+    if (images.length === 0) {
+      log(`${albumName}: 沒有找到圖片，跳過。`, "warning");
+      return;
+    }
+
+    log(`\n📂 處理相簿：${albumName}（${images.length} 張圖片）`);
+
+    const needAlbumCover = !albumData.cover;
+    const { photos, cover, uploaded, skipped } = await uploadImages(
+      images, albumDir, albumName, needAlbumCover
+    );
+
+    albumData.photos = photos;
+    albumData.folders = [];
+    if (cover) albumData.cover = cover;
+    totalUploaded = uploaded;
+    totalSkipped = skipped;
+  }
 
   mkdirSync(GALLERY_CONTENT_DIR, { recursive: true });
   const yamlPath = join(GALLERY_CONTENT_DIR, `${albumName}.yml`);
   writeFileSync(yamlPath, buildYaml(albumName, albumData), "utf-8");
 
-  log(`  完成：新增 ${uploadCount} 張，跳過 ${skipCount} 張`, "success");
+  log(`  完成：新增 ${totalUploaded} 張，跳過 ${totalSkipped} 張`, "success");
   log(`  YAML 已更新：src/content/gallery/${albumName}.yml`, "info");
 }
 

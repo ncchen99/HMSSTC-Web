@@ -15,7 +15,10 @@ export async function getStaticPaths() {
 }
 
 const { album } = Astro.props;
-const { title, titleEn, date, description, descriptionEn, photos } = album.data;
+const { title, titleEn, date, description, descriptionEn, photos, folders } = album.data;
+const totalPhotos = folders
+  ? folders.reduce((acc: number, f: { photos: unknown[] }) => acc + f.photos.length, 0)
+  : photos.length;
 ---
 
 <BaseLayout
@@ -36,26 +39,32 @@ const { title, titleEn, date, description, descriptionEn, photos } = album.data;
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3 flex-shrink-0">
           <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
         </svg>
-        <span class="text-gray-600 truncate max-w-xs" data-lang-content="zh-TW">{title}</span>
-        <span class="text-gray-600 truncate max-w-xs" data-lang-content="en" style="display:none;">{titleEn ?? title}</span>
+        <!-- 相簿名稱：進入資料夾後變成可點擊的連結 -->
+        <span id="breadcrumb-album-zh" class="text-gray-600 truncate max-w-xs transition-colors" data-lang-content="zh-TW">{title}</span>
+        <span id="breadcrumb-album-en" class="text-gray-600 truncate max-w-xs transition-colors" data-lang-content="en" style="display:none;">{titleEn ?? title}</span>
+        <!-- 資料夾延伸（預設隱藏） -->
+        <svg id="breadcrumb-folder-sep" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3 flex-shrink-0 hidden">
+          <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+        </svg>
+        <span id="breadcrumb-folder-name" class="text-gray-600 truncate max-w-xs hidden"></span>
       </nav>
 
       <!-- Header -->
       <div class="mb-10">
         <div class="flex items-start justify-between flex-wrap gap-4">
           <div>
-            <h1 class="text-2xl md:text-4xl sm:text-3xl font-heading font-bold text-gray-900 mb-3" data-lang-content="zh-TW">
+            <h1 id="album-title-zh" class="text-2xl md:text-4xl sm:text-3xl font-heading font-bold text-gray-900 mb-3" data-lang-content="zh-TW">
               {title}
             </h1>
-            <h1 class="text-2xl md:text-4xl sm:text-3xl font-heading font-bold text-gray-900 mb-3" data-lang-content="en" style="display:none;">
+            <h1 id="album-title-en" class="text-2xl md:text-4xl sm:text-3xl font-heading font-bold text-gray-900 mb-3" data-lang-content="en" style="display:none;">
               {titleEn ?? title}
             </h1>
             <p class="text-sm text-gray-500 mb-2">
               <span data-i18n="activitiesPage.datePrefix">公告時間</span>{" "}
               {date}
-              {photos.length > 0 && (
+              {totalPhotos > 0 && (
                 <span class="ml-3 text-tech-blue font-medium">
-                  {photos.length} <span data-i18n="gallery.photoCount">張照片</span>
+                  {totalPhotos} <span data-i18n="gallery.photoCount">張照片</span>
                 </span>
               )}
             </p>
@@ -67,13 +76,16 @@ const { title, titleEn, date, description, descriptionEn, photos } = album.data;
             )}
           </div>
           <a
+            id="header-back-btn"
             href="/gallery"
+            data-album-zh={title}
+            data-album-en={titleEn ?? title}
             class="inline-flex items-center gap-2 text-gray-500 hover:text-tech-blue transition-colors text-sm flex-shrink-0 mt-1"
           >
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-4 h-4">
               <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
             </svg>
-            <span data-i18n="gallery.backToGallery">返回相簿列表</span>
+            <span id="header-back-btn-text" data-i18n="gallery.backToGallery">返回相簿列表</span>
           </a>
         </div>
       </div>
@@ -84,9 +96,123 @@ const { title, titleEn, date, description, descriptionEn, photos } = album.data;
       <!-- Photo Grid with React component (client-side for lazy loading + lightbox) -->
       <PhotoGallery
         client:load
-        photos={photos}
+        photos={folders ? [] : photos}
+        folders={folders}
         albumTitle={title}
       />
     </div>
   </div>
 </BaseLayout>
+
+<script>
+  const folderSep = document.getElementById("breadcrumb-folder-sep");
+  const folderNameEl = document.getElementById("breadcrumb-folder-name");
+  const albumZh = document.getElementById("breadcrumb-album-zh");
+  const albumEn = document.getElementById("breadcrumb-album-en");
+
+  const backBtn = document.getElementById("header-back-btn") as HTMLAnchorElement | null;
+  const backBtnText = document.getElementById("header-back-btn-text");
+  let inFolderView = false;
+
+  // ── 標題切換 ──
+  const titleZhEl = document.getElementById("album-title-zh");
+  const titleEnEl = document.getElementById("album-title-en");
+  const originalTitleZh = titleZhEl?.textContent?.trim() ?? "";
+  const originalTitleEn = titleEnEl?.textContent?.trim() ?? "";
+
+  // ── 麵包屑相簿名稱點擊 ──
+  function onAlbumClick() {
+    window.dispatchEvent(new CustomEvent("hmsstc-folder-back"));
+  }
+
+  function activateAlbumLink() {
+    [albumZh, albumEn].forEach((el) => {
+      if (!el) return;
+      el.classList.add("cursor-pointer", "hover:text-tech-blue");
+      el.addEventListener("click", onAlbumClick);
+    });
+  }
+
+  function deactivateAlbumLink() {
+    [albumZh, albumEn].forEach((el) => {
+      if (!el) return;
+      el.classList.remove("cursor-pointer", "hover:text-tech-blue");
+      el.removeEventListener("click", onAlbumClick);
+    });
+  }
+
+  // ── 右上角返回按鈕 ──
+  function getLang() {
+    return (localStorage.getItem("hmsstc-lang") || "zh-TW") as string;
+  }
+
+  function updateBackBtn() {
+    if (!backBtn || !backBtnText) return;
+    if (inFolderView) {
+      const lang = getLang();
+      const name =
+        lang === "en"
+          ? (backBtn.dataset.albumEn ?? "")
+          : (backBtn.dataset.albumZh ?? "");
+      backBtnText.removeAttribute("data-i18n");
+      backBtnText.textContent = lang === "en" ? `Back to ${name}` : `返回${name}`;
+      backBtn.removeAttribute("href");
+      backBtn.style.cursor = "pointer";
+    } else {
+      backBtnText.setAttribute("data-i18n", "gallery.backToGallery");
+      const lang = getLang();
+      backBtnText.textContent = lang === "en" ? "Back to Gallery" : "返回相簿列表";
+      backBtn.setAttribute("href", "/gallery");
+      backBtn.style.cursor = "";
+    }
+  }
+
+  backBtn?.addEventListener("click", (e) => {
+    if (inFolderView) {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent("hmsstc-folder-back"));
+    }
+  });
+
+  // ── 語言切換時同步更新文字 ──
+  window.addEventListener("hmsstc-lang-change", () => {
+    updateBackBtn();
+  });
+
+  // ── 資料夾開關事件 ──
+  window.addEventListener("hmsstc-folder-open", (e) => {
+    const detail = (e as CustomEvent).detail ?? {};
+    const name = detail.name ?? "";
+    const nameZh = detail.nameZh ?? name;
+    const nameEn = detail.nameEn ?? name;
+
+    // 麵包屑
+    if (folderNameEl) {
+      folderNameEl.textContent = name;
+      folderNameEl.classList.remove("hidden");
+    }
+    folderSep?.classList.remove("hidden");
+    activateAlbumLink();
+
+    // 頁面標題
+    if (titleZhEl) titleZhEl.textContent = nameZh;
+    if (titleEnEl) titleEnEl.textContent = nameEn;
+
+    inFolderView = true;
+    updateBackBtn();
+  });
+
+  window.addEventListener("hmsstc-folder-close", () => {
+    // 麵包屑
+    folderNameEl?.classList.add("hidden");
+    folderSep?.classList.add("hidden");
+    deactivateAlbumLink();
+
+    // 還原頁面標題
+    if (titleZhEl) titleZhEl.textContent = originalTitleZh;
+    if (titleEnEl) titleEnEl.textContent = originalTitleEn;
+
+    inFolderView = false;
+    updateBackBtn();
+  });
+</script>

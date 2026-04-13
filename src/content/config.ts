@@ -68,6 +68,12 @@ const imagesCollection = defineCollection({
     schema: z.object({}).passthrough(),
 });
 
+const photoSchema = z.object({
+    url: z.string(),
+    caption: z.string().optional(),
+    captionEn: z.string().optional(),
+});
+
 const galleryCollection = defineCollection({
     type: 'data',
     schema: z.object({
@@ -78,13 +84,15 @@ const galleryCollection = defineCollection({
         description: z.string().optional(),
         descriptionEn: z.string().optional(),
         order: z.number().optional(),
-        photos: z.array(
+        photos: z.array(photoSchema).default([]),
+        folders: z.array(
             z.object({
-                url: z.string(),
-                caption: z.string().optional(),
-                captionEn: z.string().optional(),
+                name: z.string(),
+                nameEn: z.string().optional(),
+                cover: z.string().optional(),
+                photos: z.array(photoSchema).default([]),
             })
-        ).default([]),
+        ).optional(),
     }),
 });
 
