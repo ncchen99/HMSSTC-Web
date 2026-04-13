@@ -63,16 +63,17 @@ const totalPhotos = folders
               <span data-i18n="activitiesPage.datePrefix">公告時間</span>{" "}
               {date}
               {totalPhotos > 0 && (
-                <span class="ml-3 text-tech-blue font-medium">
-                  {totalPhotos} <span data-i18n="gallery.photoCount">張照片</span>
+                <span id="album-photo-count-badge" class="ml-3 text-tech-blue font-medium">
+                  <span id="album-photo-count-number">{totalPhotos}</span>
+                  {" "}<span data-i18n="gallery.photoCount">張照片</span>
                 </span>
               )}
             </p>
             {(description || descriptionEn) && (
-              <>
+              <div id="album-description">
                 <p class="text-gray-600 text-base mt-3 max-w-2xl" data-lang-content="zh-TW">{description}</p>
                 <p class="text-gray-600 text-base mt-3 max-w-2xl" data-lang-content="en" style="display:none;">{descriptionEn ?? description}</p>
-              </>
+              </div>
             )}
           </div>
           <a
@@ -119,6 +120,13 @@ const totalPhotos = folders
   const titleEnEl = document.getElementById("album-title-en");
   const originalTitleZh = titleZhEl?.textContent?.trim() ?? "";
   const originalTitleEn = titleEnEl?.textContent?.trim() ?? "";
+
+  // ── 相片數量 ──
+  const photoCountNumberEl = document.getElementById("album-photo-count-number");
+  const originalPhotoCount = photoCountNumberEl?.textContent?.trim() ?? "";
+
+  // ── 相簿說明 ──
+  const albumDescriptionEl = document.getElementById("album-description");
 
   // ── 麵包屑相簿名稱點擊 ──
   function onAlbumClick() {
@@ -185,6 +193,7 @@ const totalPhotos = folders
     const name = detail.name ?? "";
     const nameZh = detail.nameZh ?? name;
     const nameEn = detail.nameEn ?? name;
+    const photoCount = detail.photoCount ?? null;
 
     // 麵包屑
     if (folderNameEl) {
@@ -197,6 +206,14 @@ const totalPhotos = folders
     // 頁面標題
     if (titleZhEl) titleZhEl.textContent = nameZh;
     if (titleEnEl) titleEnEl.textContent = nameEn;
+
+    // 更新相片數量為該資料夾的數量
+    if (photoCountNumberEl && photoCount !== null) {
+      photoCountNumberEl.textContent = String(photoCount);
+    }
+
+    // 隱藏相簿說明
+    if (albumDescriptionEl) albumDescriptionEl.style.display = "none";
 
     inFolderView = true;
     updateBackBtn();
@@ -211,6 +228,12 @@ const totalPhotos = folders
     // 還原頁面標題
     if (titleZhEl) titleZhEl.textContent = originalTitleZh;
     if (titleEnEl) titleEnEl.textContent = originalTitleEn;
+
+    // 還原相片數量
+    if (photoCountNumberEl) photoCountNumberEl.textContent = originalPhotoCount;
+
+    // 顯示相簿說明
+    if (albumDescriptionEl) albumDescriptionEl.style.display = "";
 
     inFolderView = false;
     updateBackBtn();

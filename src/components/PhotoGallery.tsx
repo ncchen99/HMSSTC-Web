@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import { createPortal } from "react-dom";
+import { motion, AnimatePresence } from "framer-motion";
 
 interface Photo {
   url: string;
@@ -159,6 +160,7 @@ export default function PhotoGallery({ photos = [], folders, albumTitle }: Photo
   const [loadingCount, setLoadingCount] = useState(0);
   const [showInfo, setShowInfo] = useState(false);
   const [downloading, setDownloading] = useState(false);
+  const [direction, setDirection] = useState(0);
 
   useEffect(() => {
     const stored = localStorage.getItem("hmsstc-lang") || "zh-TW";
@@ -198,6 +200,7 @@ export default function PhotoGallery({ photos = [], folders, albumTitle }: Photo
             name: lang === "en" && folder.nameEn ? folder.nameEn : folder.name,
             nameZh: folder.name,
             nameEn: folder.nameEn || folder.name,
+            photoCount: folder.photos.length,
           },
         })
       );
@@ -281,6 +284,7 @@ export default function PhotoGallery({ photos = [], folders, albumTitle }: Photo
   }, []);
 
   const goNext = useCallback(() => {
+    setDirection(1);
     setLightboxIndex((prev) =>
       prev !== null ? (prev + 1) % activePhotos.length : null
     );
@@ -288,11 +292,18 @@ export default function PhotoGallery({ photos = [], folders, albumTitle }: Photo
   }, [activePhotos.length]);
 
   const goPrev = useCallback(() => {
+    setDirection(-1);
     setLightboxIndex((prev) =>
       prev !== null ? (prev - 1 + activePhotos.length) % activePhotos.length : null
     );
     setShowInfo(false);
   }, [activePhotos.length]);
+
+  const slideVariants = {
+    enter: (dir: number) => ({ x: dir > 0 ? "100%" : "-100%" }),
+    center: { x: 0 },
+    exit: (dir: number) => ({ x: dir < 0 ? "100%" : "-100%" }),
+  };
 
   useEffect(() => {
     const handleKey = (e: KeyboardEvent) => {
@@ -380,20 +391,20 @@ export default function PhotoGallery({ photos = [], folders, albumTitle }: Photo
 
       {lightboxIndex !== null && currentPhoto && createPortal(
         <div
-          className="fixed inset-0 z-[9999] bg-black/95 flex items-center justify-center"
+          className="fixed inset-0 z-[9999] bg-black/65 backdrop-blur-xl flex flex-col"
           onClick={closeLightbox}
         >
-          {/* 右上角按鈕群組：資訊、下載、關閉 */}
+          {/* 頂部按鈕列：資訊、下載、關閉 */}
           <div
-            className="absolute top-4 right-4 flex items-center gap-2 z-10"
+            className="relative z-10 flex-shrink-0 flex items-center justify-end gap-2 px-4 pt-4 pb-2"
             onClick={(e) => e.stopPropagation()}
           >
             {/* 資訊按鈕 + Tooltip */}
             <div className="relative">
               <button
                 onClick={() => setShowInfo((v) => !v)}
-                className={`text-white/70 hover:text-white transition-colors p-2 rounded-full hover:bg-black/60 ${
-                  showInfo ? "bg-white/20 text-white" : "bg-black/30"
+                className={`text-white/70 hover:text-white transition-colors p-2 rounded-full hover:bg-white/10 ${
+                  showInfo ? "bg-white/20 text-white" : "bg-white/5"
                 }`}
                 aria-label="照片資訊"
               >
@@ -404,9 +415,9 @@ export default function PhotoGallery({ photos = [], folders, albumTitle }: Photo
 
               {/* Tooltip 卡片 */}
               {showInfo && (
-                <div className="absolute top-full right-0 mt-2.5 w-64 bg-black/70 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl overflow-hidden">
-                  {/* 向上箭頭 */}
-                  <div className="absolute -top-[7px] right-[13px] w-3.5 h-3.5 bg-black/70 border-t border-l border-white/10 rotate-45 rounded-tl-sm" />
+                <div className="fixed top-16 left-1/2 -translate-x-1/2 sm:absolute sm:translate-x-0 sm:left-auto sm:top-full sm:right-0 sm:mt-2.5 z-50 w-64 bg-black/70 backdrop-blur-md rounded-xl border border-white/10 shadow-2xl overflow-hidden">
+                  {/* 向上箭頭（僅桌面顯示） */}
+                  <div className="hidden sm:block absolute -top-[7px] right-[13px] w-3.5 h-3.5 bg-black/70 border-t border-l border-white/10 rotate-45 rounded-tl-sm" />
                   <div className="px-4 py-3.5 space-y-2.5">
                     {currentCaption && (
                       <div>
@@ -443,7 +454,7 @@ export default function PhotoGallery({ photos = [], folders, albumTitle }: Photo
             <button
               onClick={() => handleDownload(currentPhoto.url)}
               disabled={downloading}
-              className="text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full hover:bg-black/60 disabled:opacity-50"
+              className="text-white/70 hover:text-white transition-colors p-2 bg-white/5 rounded-full hover:bg-white/10 disabled:opacity-50"
               aria-label="下載照片"
               title={lang === "en" ? "Download" : "下載照片"}
             >
@@ -459,7 +470,7 @@ export default function PhotoGallery({ photos = [], folders, albumTitle }: Photo
             {/* 關閉按鈕 */}
             <button
               onClick={closeLightbox}
-              className="text-white/70 hover:text-white transition-colors p-2 bg-black/30 rounded-full hover:bg-black/60"
+              className="text-white/70 hover:text-white transition-colors p-2 bg-white/5 rounded-full hover:bg-white/10"
               aria-label="關閉"
             >
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6">
@@ -468,47 +479,72 @@ export default function PhotoGallery({ photos = [], folders, albumTitle }: Photo
             </button>
           </div>
 
-          {/* 上一張 */}
-          <button
-            onClick={(e) => { e.stopPropagation(); goPrev(); }}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-10 p-2 bg-black/30 rounded-full hover:bg-black/60"
-            aria-label="上一張"
-          >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
-              <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-            </svg>
-          </button>
-
-          {/* 圖片主體 */}
+          {/* 圖片滑動區（flex-1 佔滿剩餘空間） */}
           <div
-            className="max-w-5xl max-h-screen w-full px-16 py-8 flex flex-col items-center"
+            className="flex-1 relative overflow-hidden"
             onClick={(e) => e.stopPropagation()}
           >
-            <img
-              src={currentPhoto.url}
-              alt={currentCaption || ""}
-              className="max-w-full max-h-[80vh] object-contain rounded-lg shadow-2xl"
-            />
-            <div className="mt-4 text-center">
-              {currentCaption && (
-                <p className="text-white/80 text-sm">{currentCaption}</p>
-              )}
-              <p className="text-white/40 text-xs mt-1">
-                {lightboxIndex + 1} / {activePhotos.length}
-              </p>
-            </div>
+            {/* 左右導航按鈕（手機隱藏） */}
+            <button
+              onClick={(e) => { e.stopPropagation(); goPrev(); }}
+              className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-10 p-2 bg-white/10 rounded-full hover:bg-white/20"
+              aria-label="上一張"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+              </svg>
+            </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); goNext(); }}
+              className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-10 p-2 bg-white/10 rounded-full hover:bg-white/20"
+              aria-label="下一張"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+              </svg>
+            </button>
+
+            {/* 圖片動畫容器 */}
+            <AnimatePresence initial={false} custom={direction}>
+              <motion.div
+                key={lightboxIndex}
+                custom={direction}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ x: { type: "spring", stiffness: 300, damping: 30 } }}
+                className="absolute inset-0 flex items-center justify-center px-4 sm:px-20 cursor-grab active:cursor-grabbing"
+                drag="x"
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.15}
+                onDragEnd={(_, { offset, velocity }) => {
+                  if (offset.x < -50 || velocity.x < -300) goNext();
+                  else if (offset.x > 50 || velocity.x > 300) goPrev();
+                }}
+              >
+                <img
+                  src={currentPhoto.url}
+                  alt={currentCaption || ""}
+                  className="max-w-full max-h-full object-contain rounded-lg shadow-2xl select-none pointer-events-none"
+                  draggable={false}
+                />
+              </motion.div>
+            </AnimatePresence>
           </div>
 
-          {/* 下一張 */}
-          <button
-            onClick={(e) => { e.stopPropagation(); goNext(); }}
-            className="absolute right-4 top-1/2 -translate-y-1/2 text-white/70 hover:text-white transition-colors z-10 p-2 bg-black/30 rounded-full hover:bg-black/60"
-            aria-label="下一張"
+          {/* 說明文字與頁碼 */}
+          <div
+            className="flex-shrink-0 text-center px-4 py-4"
+            onClick={(e) => e.stopPropagation()}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-8 h-8">
-              <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-            </svg>
-          </button>
+            {currentCaption && (
+              <p className="text-white/80 text-sm">{currentCaption}</p>
+            )}
+            <p className="text-white/40 text-xs mt-1">
+              {lightboxIndex + 1} / {activePhotos.length}
+            </p>
+          </div>
 
         </div>,
         document.body
