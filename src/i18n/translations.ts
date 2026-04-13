@@ -14,6 +14,7 @@ export const translations = {
     'nav.about': '關於中心',
     'nav.missions': '太空任務',
     'nav.activities': '活動花絮',
+    'nav.gallery': '活動相簿',
     'nav.contact': '聯絡我們',
     'nav.langSwitch': 'EN',
 
@@ -56,6 +57,24 @@ export const translations = {
     'activitiesPage.backToActivities': '返回活動花絮',
     'activitiesPage.breadcrumbHome': '首頁',
     'activitiesPage.breadcrumbActivities': '活動花絮',
+
+    // Photo Gallery Page
+    'gallery.pageTitle': '相簿 | 夏漢民太空科技中心',
+    'gallery.heading': '活動相簿',
+    'gallery.description': '珍藏中心活動的每一個精彩瞬間',
+    'gallery.viewAlbum': '瀏覽相簿',
+    'gallery.backToGallery': '返回相簿列表',
+    'gallery.photoCount': '張照片',
+    'gallery.noPhotos': '此相簿尚無照片',
+    'gallery.close': '關閉',
+    'gallery.prev': '上一張',
+    'gallery.next': '下一張',
+    'gallery.breadcrumbHome': '首頁',
+    'gallery.breadcrumbActivities': '活動花絮',
+    'gallery.breadcrumbGallery': '相簿',
+    'gallery.activityCardTitle': '活動相簿',
+    'gallery.activityCardDesc': '瀏覽中心所有活動的精彩照片，記錄每個重要時刻。',
+    'gallery.activityCardDate': '相簿專區',
 
     // News Section
     'news.title': '最新消息',
@@ -126,6 +145,7 @@ export const translations = {
     'nav.about': 'About',
     'nav.missions': 'Missions',
     'nav.activities': 'Activities',
+    'nav.gallery': 'Photo Gallery',
     'nav.contact': 'Contact',
     'nav.langSwitch': '中文',
 
@@ -168,6 +188,24 @@ export const translations = {
     'activitiesPage.backToActivities': 'Back to Activities',
     'activitiesPage.breadcrumbHome': 'Home',
     'activitiesPage.breadcrumbActivities': 'Activities',
+
+    // Photo Gallery Page
+    'gallery.pageTitle': 'Photo Gallery | HMSSTC',
+    'gallery.heading': 'Photo Gallery',
+    'gallery.description': 'Capturing every memorable moment of center activities',
+    'gallery.viewAlbum': 'View Album',
+    'gallery.backToGallery': 'Back to Gallery',
+    'gallery.photoCount': 'photos',
+    'gallery.noPhotos': 'No photos in this album yet',
+    'gallery.close': 'Close',
+    'gallery.prev': 'Previous',
+    'gallery.next': 'Next',
+    'gallery.breadcrumbHome': 'Home',
+    'gallery.breadcrumbActivities': 'Activities',
+    'gallery.breadcrumbGallery': 'Gallery',
+    'gallery.activityCardTitle': 'Photo Gallery',
+    'gallery.activityCardDesc': 'Browse photos from all center activities and events.',
+    'gallery.activityCardDate': 'Gallery',
 
     // News Section
     'news.title': 'Latest News',

@@ -21,3 +21,9 @@ lerna-debug.log*
 
 # astro
 .astro
+
+# env
+.env
+
+# 原始圖片上傳資料夾（上傳至 Cloudflare R2 後不需提交至 Git）
+/photos

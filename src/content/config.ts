@@ -68,6 +68,26 @@ const imagesCollection = defineCollection({
     schema: z.object({}).passthrough(),
 });
 
+const galleryCollection = defineCollection({
+    type: 'data',
+    schema: z.object({
+        title: z.string(),
+        titleEn: z.string().optional(),
+        date: z.string(),
+        cover: z.string().optional(),
+        description: z.string().optional(),
+        descriptionEn: z.string().optional(),
+        order: z.number().optional(),
+        photos: z.array(
+            z.object({
+                url: z.string(),
+                caption: z.string().optional(),
+                captionEn: z.string().optional(),
+            })
+        ).default([]),
+    }),
+});
+
 export const collections = {
     news: newsCollection,
     missions: missionsCollection,
@@ -75,4 +95,5 @@ export const collections = {
     members: membersCollection,
     pages: pagesCollection,
     images: imagesCollection,
+    gallery: galleryCollection,
 };

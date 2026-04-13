@@ -1,0 +1,11 @@
+# 示例相簿 - 請依此格式新增相簿
+# 執行 tools/upload-photos.mjs 後，此檔案將自動更新
+
+title: "示例相簿"
+titleEn: "Example Album"
+date: "2025-01-01"
+description: "這是一個示例相簿，展示 Photo Gallery 的功能。請執行上傳腳本後，此相簿將自動填入真實照片。"
+descriptionEn: "This is an example album demonstrating the Photo Gallery feature. Run the upload script to populate this album with real photos."
+cover: ""
+order: 99
+photos: []

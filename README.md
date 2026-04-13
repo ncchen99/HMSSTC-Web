@@ -10,10 +10,13 @@
 - **Astro Content Collections**：管理 `src/content/` 內容與 Frontmatter 欄位驗證
 - **TypeScript**：型別定義與開發輔助
 - **Tailwind CSS**：樣式系統
-- **React（少量元件）**：互動式元件使用
+- **React（少量元件）**：互動式元件使用（包含 Photo Gallery 的 Lazy Loading + Lightbox）
 - **Shiki**：Markdown 程式碼區塊語法高亮
+- **Cloudflare R2**：Photo Gallery 圖床（S3 相容物件儲存），詳見 [第 10 節](#10-cloudflare-r2-photo-gallery-整合說明)
 
 此專案在建置時會產生 `dist/`，屬於可部署的靜態網站。
+
+> ⚠️ **注意**：本專案已引入 Cloudflare R2 作為 Photo Gallery 的圖床，雖然網站主體仍是靜態網站，但 Photo Gallery 的圖片資源依賴 Cloudflare R2 服務。交接時請確保 R2 Bucket 存取設定有妥善移轉，詳見第 10 節。
 
 ---
 
@@ -129,6 +132,27 @@ excerpt: "活動摘要"
 活動內容...
 ```
 
+### E. Photo Gallery 相簿（`src/content/gallery/`）
+
+相簿資料為 YAML 格式（`.yml`），通常由上傳腳本自動產生，也可手動編輯：
+
+```yaml
+title: "相簿標題（中文）"
+titleEn: "Album Title (English)"
+date: "2026-02-16"
+description: "相簿描述（中文）"
+descriptionEn: "Album description (English)"
+cover: "https://pub-xxxx.r2.dev/gallery/album-name/_cover.webp"
+order: 1
+photos:
+  - url: "https://pub-xxxx.r2.dev/gallery/album-name/photo1.webp"
+    caption: "照片說明（中文）"
+    captionEn: "Photo caption (English)"
+  - url: "https://pub-xxxx.r2.dev/gallery/album-name/photo2.webp"
+```
+
+> 建議使用 `tools/upload-photos.mjs` 自動上傳，YAML 會自動產生。詳見第 10 節。
+
 ### D. 成員資料（`src/content/members/`）
 
 ```markdown
@@ -242,7 +266,113 @@ npm run build
 
 ---
 
-## 8) 常見問題（FAQ）
+---
+
+## 10) Cloudflare R2 Photo Gallery 整合說明
+
+> 本節對系統交接非常重要，請完整閱讀。
+
+### 架構概述
+
+Photo Gallery 使用 **Cloudflare R2** 作為圖床（圖片儲存服務）。
+
+```
+本地圖片（photos/）
+    ↓  tools/upload-photos.mjs（壓縮為 WebP → 上傳）
+Cloudflare R2 Bucket（hmsstc-photos）
+    ↓  公開存取 URL
+前端 Gallery 頁面（/gallery）
+```
+
+- 網站主體仍為靜態網站，`npm run build` 產生 `dist/`。
+- Gallery 圖片 **不** 在 Git 倉庫內，而是存放在 R2 Bucket。
+- 相簿 YAML 資料（`src/content/gallery/*.yml`）儲存圖片的 R2 URL，**這些 YAML 需要提交至 Git**。
+
+### .env 設定說明
+
+在根目錄建立 `.env` 檔案（不要提交至 Git）：
+
+```env
+# Cloudflare 帳號 ID（從 R2 Endpoint URL 中取得）
+CLOUDFLARE_ACCOUNT_ID=your_account_id
+
+# S3 相容 API 存取金鑰（R2 → Manage R2 API Tokens 建立）
+R2_ACCESS_KEY_ID=your_access_key_id
+R2_SECRET_ACCESS_KEY=your_secret_access_key
+
+# R2 S3 相容 Endpoint（格式：https://<ACCOUNT_ID>.r2.cloudflarestorage.com）
+R2_ENDPOINT=https://your_account_id.r2.cloudflarestorage.com
+
+# R2 儲存桶名稱
+R2_BUCKET_NAME=hmsstc-photos
+
+# R2 公開存取 URL（需在 Cloudflare R2 控制台啟用公開存取）
+# 格式：https://pub-xxxxxxxx.r2.dev  或自訂網域
+R2_PUBLIC_URL=https://pub-XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX.r2.dev
+
+# Cloudflare User API Token（管理 API 使用，非必填）
+CLOUDFLARE_API_TOKEN=your_api_token
+```
+
+### 如何取得上述設定值
+
+1. 登入 [Cloudflare Dashboard](https://dash.cloudflare.com)
+2. 進入 **R2 Object Storage**
+3. 建立 Bucket（名稱需與 `R2_BUCKET_NAME` 一致）
+4. 在 Bucket 設定中啟用**公開存取**（Public Access），取得 `R2_PUBLIC_URL`
+5. 在 **Manage R2 API Tokens** 建立具有 Bucket 讀寫權限的 Token，取得 `R2_ACCESS_KEY_ID` 和 `R2_SECRET_ACCESS_KEY`
+
+### 上傳照片流程
+
+```bash
+# 1. 在根目錄建立 photos/ 資料夾並放入圖片
+mkdir -p photos/your-album-name
+# 將圖片複製到 photos/your-album-name/
+
+# 2. 執行上傳腳本（自動壓縮 WebP + 上傳 + 更新 YAML）
+node tools/upload-photos.mjs
+
+# 或指定特定相簿
+node tools/upload-photos.mjs your-album-name
+
+# 3. 提交 YAML 變更至 Git
+git add src/content/gallery/
+git commit -m "add: your-album-name 相簿"
+
+# 4. 重新建置並部署
+npm run build
+```
+
+### 上傳腳本功能說明
+
+`tools/upload-photos.mjs` 支援：
+
+| 功能 | 說明 |
+|------|------|
+| WebP 壓縮 | 自動將 JPG/PNG 等格式壓縮為 WebP（品質 85，最大寬度 2000px） |
+| 自動略過 | 若 R2 上已存在相同路徑，自動跳過不重複上傳 |
+| 保留目錄 | 保留原始 `photos/相簿名稱/` 的資料夾結構 |
+| 封面圖 | 自動生成 800px 縮圖作為封面（`_cover.webp`） |
+| YAML 更新 | 自動更新 `src/content/gallery/相簿名稱.yml` |
+
+### 頁面路由
+
+| URL | 說明 |
+|-----|------|
+| `/activities` | 活動花絮列表（含 Photo Gallery 入口卡片） |
+| `/gallery` | 相簿列表（所有相簿的封面網格） |
+| `/gallery/:album-id` | 單一相簿（所有照片 + Lightbox 功能） |
+
+### 注意事項（交接重要）
+
+- **R2 Bucket 存取金鑰**：請在交接時建立新的 API Token，撤銷舊 Token
+- **公開存取設定**：確保 Bucket 已啟用公開存取，否則圖片無法顯示
+- **photos/ 資料夾**：已加入 `.gitignore`，不會上傳至 GitHub
+- **YAML 檔案**：`src/content/gallery/*.yml` 包含 R2 URL，**必須**提交至 Git
+
+---
+
+## 11) 常見問題（FAQ）
 
 ### Q1：`npm run dev` 無法啟動？
 
@@ -263,7 +393,7 @@ npm run build
 
 ---
 
-## 9) 建議維運節奏
+## 12) 建議維運節奏
 
 - 每次更新內容都建立 PR（方便審稿與回溯）
 - 發佈前固定跑一次 `npm run build`
