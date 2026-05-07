@@ -8,8 +8,18 @@ category: "news"
 
 Text and Photos by NCKU News Center & Hsia Han-min Space Technology Center
 
-![The Gemini-Pollux CubeSat was launched today aboard a SpaceX Falcon 9 rocket from Vandenberg Space Force Base in California.](../images/news/gemini-pollux-launch-rocket.jpg)
-*The Gemini-Pollux CubeSat was launched today aboard a SpaceX Falcon 9 rocket from Vandenberg Space Force Base in California.*
+<div class="aspect-video w-full my-8">
+  <iframe
+    class="w-full h-full rounded-xl shadow-lg"
+    src="https://www.youtube.com/embed/Yp2Bj578BDk?rel=0&start=0&end=96"
+    title="Gemini-Pollux CubeSat Launch Report"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
+
+*The Gemini-Pollux CubeSat was launched today aboard a SpaceX Falcon 9 rocket from Vandenberg Space Force Base in California. (Video source: PTS NEWS)*
 
 National Cheng Kung University's (NCKU) Hsia Han-min Space Technology Center (HMSSTC) hosted a live broadcast of its CubeSat mission launch on the afternoon of the 3rd. The "Gemini-Pollux" CubeSat, entirely designed and integrated by NCKU faculty and students—from structural design, power, and communication systems to attitude control and software integration—was successfully launched aboard a SpaceX Falcon 9 rocket from Vandenberg Space Force Base in California. Carrying the hopes of many, it entered a low Earth orbit at an altitude of approximately 590 km, demonstrating the results of Taiwan's space talent cultivation and collaboration with local industries.
 

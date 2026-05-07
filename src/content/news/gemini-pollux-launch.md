@@ -8,8 +8,18 @@ category: "news"
 
 文、圖／成大新聞中心、成大夏漢民太空科技中心
 
-![「雙子星-波魯克斯」（Gemini-Pollux）立方衛星，今搭乘搭載美國太空探索公司獵鷹九號火箭（SpaceX Falcon 9 ），自美國加州范登堡太空軍基地發射升空](../images/news/gemini-pollux-launch-rocket.jpg)
-*「雙子星-波魯克斯」（Gemini-Pollux）立方衛星，今搭乘搭載美國太空探索公司獵鷹九號火箭（SpaceX Falcon 9 ），自美國加州范登堡太空軍基地發射升空*
+<div class="aspect-video w-full my-8">
+  <iframe
+    class="w-full h-full rounded-xl shadow-lg"
+    src="https://www.youtube.com/embed/Yp2Bj578BDk?rel=0&start=0&end=96"
+    title="「雙子星-波魯克斯」立方衛星發射報導"
+    frameborder="0"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen>
+  </iframe>
+</div>
+
+*「雙子星-波魯克斯」（Gemini-Pollux）立方衛星，今搭乘搭載美國太空探索公司獵鷹九號火箭（SpaceX Falcon 9 ），自美國加州范登堡太空軍基地發射升空（影片來源：公視新聞網）*
 
 國立成功大學夏漢民太空科技中心推動的立方衛星任務 3 日下午舉辦發射直播觀禮，這個從結構設計、電源、通訊系統到姿態控制與軟體整合，由成大師生一手打造的「雙子星─波魯克斯」（Gemini─Pollux）立方衛星，今搭載美國太空探索公司獵鷹九號火箭（SpaceX Falcon 9 ），自美國加州范登堡太空軍基地發射升空，帶著眾人的期盼進入距地約 590 公里的低地球軌道，展現台灣太空人才培育與本土產業合作成果。
 

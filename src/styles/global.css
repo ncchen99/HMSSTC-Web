@@ -96,10 +96,12 @@
     @apply prose prose-invert prose-lg max-w-none prose-headings:font-heading prose-headings:text-white prose-p:text-gray-300 prose-p:leading-relaxed prose-a:text-tech-blue prose-a:no-underline hover:prose-a:text-neon-green prose-strong:text-white prose-img:rounded-lg;
   }
 
-  /* Markdown Image Captions */
+  /* Markdown Image & Video Captions */
   .prose p img + em,
   .prose p picture + em,
-  .prose p span + em {
+  .prose p span + em,
+  .prose .aspect-video + em,
+  .prose .aspect-video + p em {
     @apply block text-center text-sm text-gray-500 mt-2 mb-6 leading-relaxed;
     font-style: normal;
   }
