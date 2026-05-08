@@ -107,10 +107,10 @@ const albums = allAlbums
                 >
                   {album.data.titleEn ?? album.data.title}
                 </h2>
-                <p class="text-sm text-gray-500 mb-3">
-                  <span data-i18n="activitiesPage.datePrefix">公告時間</span>{" "}
+                <div class="flex items-center text-sm text-gray-500 mb-4 group-hover:text-tech-blue/80 transition-colors">
+                  <span data-i18n="gallery.datePrefix" class="mr-1.5">發布時間</span>
                   {album.data.date}
-                </p>
+                </div>
                 {(album.data.description || album.data.descriptionEn) && (
                   <>
                     <p class="text-gray-600 text-sm line-clamp-3 mb-4" data-lang-content="zh-TW">
