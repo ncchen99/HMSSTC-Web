@@ -1,6 +1,6 @@
 ---
 title: "The 7th International Conference on GPS Radio Occultation (ICGPSRO) Kicks Off at NCKU"
-date: "2026-05-09"
+date: "2025-10-29"
 excerpt: "Experts and scholars from top research institutions in the US, Europe, and Japan gathered at NCKU to discuss the latest advances in GNSS Radio Occultation and Reflectometry (GNSS-RO/R)."
 image: "../images/news/icgpsro-2025-group.jpg"
 category: "news"
