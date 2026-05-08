@@ -40,8 +40,8 @@ const totalPhotos = folders
           <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
         </svg>
         <!-- 相簿名稱：進入資料夾後變成可點擊的連結 -->
-        <span id="breadcrumb-album-zh" class="text-gray-600 truncate max-w-xs transition-colors" data-lang-content="zh-TW">{title}</span>
-        <span id="breadcrumb-album-en" class="text-gray-600 truncate max-w-xs transition-colors" data-lang-content="en" style="display:none;">{titleEn ?? title}</span>
+        <span id="breadcrumb-album-zh" class="text-gray-600 truncate max-w-md transition-colors" data-lang-content="zh-TW">{title}</span>
+        <span id="breadcrumb-album-en" class="text-gray-600 truncate max-w-md transition-colors" data-lang-content="en" style="display:none;">{titleEn ?? title}</span>
         <!-- 資料夾延伸（預設隱藏） -->
         <svg id="breadcrumb-folder-sep" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3 h-3 flex-shrink-0 hidden">
           <path stroke-linecap="round" stroke-linejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
@@ -52,7 +52,7 @@ const totalPhotos = folders
       <!-- Header -->
       <div class="mb-10">
         <div class="flex items-start justify-between flex-wrap gap-4">
-          <div>
+          <div class="flex-1 min-w-[280px]">
             <h1 id="album-title-zh" class="text-2xl md:text-4xl sm:text-3xl font-heading font-bold text-gray-900 mb-3" data-lang-content="zh-TW">
               {title}
             </h1>
@@ -71,8 +71,8 @@ const totalPhotos = folders
             </p>
             {(description || descriptionEn) && (
               <div id="album-description">
-                <p class="text-gray-600 text-base mt-3 max-w-2xl" data-lang-content="zh-TW">{description}</p>
-                <p class="text-gray-600 text-base mt-3 max-w-2xl" data-lang-content="en" style="display:none;">{descriptionEn ?? description}</p>
+                <p class="text-gray-600 text-base mt-3 max-w-full" data-lang-content="zh-TW">{description}</p>
+                <p class="text-gray-600 text-base mt-3 max-w-full" data-lang-content="en" style="display:none;">{descriptionEn ?? description}</p>
               </div>
             )}
           </div>
