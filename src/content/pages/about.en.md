@@ -5,7 +5,7 @@ subtitle: "Learn about the mission, history, and vision of HMSSTC"
 
 ## Center Overview
 
-As Taiwan’s space industry has been identified as one of the nation’s six core strategic industries, space development requires interdisciplinary integration and talent cultivation. The Han-Min Hsu Center for Space Science and Technology (HMSSTC) is dedicated to integrating space research teams across NCKU’s College of Engineering, College of Electrical Engineering and Computer Science, and College of Science to advance frontier space science and engineering.
+As Taiwan’s space industry has been identified as one of the nation’s six core strategic industries, space development requires interdisciplinary integration and talent cultivation. The Han-Min Hsia Center for Space Science and Technology (HMSSTC) is dedicated to integrating space research teams across NCKU’s College of Engineering, College of Electrical Engineering and Computer Science, and College of Science to advance frontier space science and engineering.
 
 The Center focuses on training next-generation space talent, promoting international cooperation, supporting Taiwan’s national space programs, and strengthening industrial competitiveness through industry-academia collaboration and research translation.
 
