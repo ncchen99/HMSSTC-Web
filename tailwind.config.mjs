@@ -16,9 +16,9 @@ export default {
                 'accent-sky': '#EFF6FF',
             },
             fontFamily: {
-                display: ['Orbitron', 'sans-serif'],
-                heading: ['Exo', 'sans-serif'],
-                body: ['Noto Sans TC', 'Helvetica', 'Roboto', 'sans-serif'],
+                display: ['Orbitron', 'Noto Sans TC', 'sans-serif'],
+                heading: ['Exo', 'Noto Sans TC', 'sans-serif'],
+                body: ['Helvetica', 'Arial', 'Roboto', 'Noto Sans TC', 'sans-serif'],
             },
             backgroundImage: {
                 'gradient-orange': 'linear-gradient(135deg, #1E40AF, #93C5FD)',
