@@ -45,27 +45,17 @@ const news = allNews
       <div class="absolute inset-0 bg-space-dark/60"></div>
     </div>
 
-    <!-- Animated star layers -->
+    <!-- Single, restrained star layer -->
     <div class="stars-layer stars-small"></div>
-    <div class="stars-layer stars-medium"></div>
-    <div class="stars-layer stars-large"></div>
 
     <!-- Subtle radial glow -->
     <div class="absolute inset-0 hero-radial-glow"></div>
 
-    <!-- Floating particles -->
-    <div class="hero-particle" style="top: 15%; right: 8%; animation-delay: 0s;"></div>
-    <div class="hero-particle" style="top: 60%; left: 5%; animation-delay: 1.5s;"></div>
-    <div class="hero-particle hero-particle--accent" style="top: 25%; left: 12%; animation-delay: 0.8s;"></div>
-    <div class="hero-particle" style="bottom: 30%; right: 15%; animation-delay: 2.2s;"></div>
-
     <!-- Content -->
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center">
-      <div class="relative group">
-        <!-- Text glow effect -->
-        <div class="absolute -inset-x-20 -inset-y-10 bg-tech-blue/20 blur-[100px] opacity-50 group-hover:opacity-80 transition-opacity duration-1000 -z-10"></div>
+      <div class="relative">
         <h1
-          class="hero-title text-3xl sm:text-5xl lg:text-6xl font-bold font-heading mb-8 mt-16 sm:mb-10 leading-tight tracking-[0.12em] animate-shimmer"
+          class="hero-title text-3xl sm:text-5xl lg:text-6xl font-bold font-heading mb-8 mt-16 sm:mb-10 leading-tight tracking-[0.12em]"
           id="hero-title"
           data-i18n="hero.title"
           data-content="夏漢民太空科技中心"
@@ -74,10 +64,11 @@ const news = allNews
         </h1>
       </div>
 
-      <!-- Subtitle Box -->
-      <div class="hero-subtitle-box max-w-3xl mx-auto mb-10 sm:mb-14">
+      <!-- Subtitle: editorial treatment, gold accent rule above clean text -->
+      <div class="hero-subtitle-box max-w-3xl mx-auto mb-10 sm:mb-14 flex flex-col items-center">
+        <span class="block w-12 h-px bg-accent mb-6"></span>
         <p
-          class="text-base sm:text-lg md:text-xl text-gray-300 leading-relaxed px-8 py-5 rounded-lg border border-white/20 bg-white/5 backdrop-blur-sm"
+          class="text-base sm:text-lg md:text-xl text-gray-200 leading-relaxed tracking-wide [text-shadow:0_2px_8px_rgba(0,0,0,0.5)]"
           data-i18n="hero.subtitle"
         >
           啟動臺灣太空新視界｜匯聚前沿科研、跨域人才與國際合作，領航未來太空時代
@@ -119,14 +110,14 @@ const news = allNews
       <!-- Status tabs -->
       <div class="flex gap-4 mb-12">
         <button
-          class="mission-tab px-6 py-3 rounded-lg font-medium transition-all duration-300 bg-tech-blue text-white"
+          class="mission-tab px-6 py-3 rounded-md font-medium transition-all duration-300 bg-tech-blue text-white"
           data-status="active"
           data-i18n="missions.active"
         >
           執行中任務
         </button>
         <button
-          class="mission-tab px-6 py-3 rounded-lg font-medium transition-all duration-300 bg-gray-100 text-gray-600 hover:bg-gray-200"
+          class="mission-tab px-6 py-3 rounded-md font-medium transition-all duration-300 bg-gray-100 text-gray-600 hover:bg-gray-200"
           data-status="retired"
           data-i18n="missions.retired"
         >
@@ -138,7 +129,7 @@ const news = allNews
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" id="missions-grid">
         {missions.map((mission, index) => (
           <article
-            class="mission-card group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover"
+            class="mission-card group relative bg-white rounded-lg overflow-hidden border border-gray-100 shadow-card transition-all duration-300 card-hover"
             data-status={mission.data.status}
           >
             <!-- Number -->
@@ -151,14 +142,14 @@ const news = allNews
                   <img
                     src={mission.data.image}
                     alt={mission.data.title}
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                   />
                 ) : (
                   <Image
                     src={mission.data.image}
                     alt={mission.data.title}
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                   />
                 )
@@ -245,38 +236,41 @@ const news = allNews
         最新消息
       </h2>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {news.slice(0, 3).map((item, index) => (
-          <article class="group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover">
-            <div class="mission-number text-gray-200">{String(index + 1).padStart(2, '0')}</div>
-            <div class="relative h-52 overflow-hidden">
+      <!-- Featured-first layout: the latest item spans full width as a wide
+           feature, the next two sit beside each other below -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {news.slice(0, 3).map((item, index) => {
+          const featured = index === 0;
+          return (
+          <article class={`group relative bg-white rounded-lg overflow-hidden border border-gray-100 shadow-card transition-all duration-300 card-hover ${featured ? 'md:col-span-2 md:flex md:h-80' : ''}`}>
+            <div class={`relative overflow-hidden ${featured ? 'h-56 md:h-full md:w-1/2' : 'h-52'}`}>
               {item.data.image && (
                 typeof item.data.image === 'string' ? (
                   <img
                     src={item.data.image}
                     alt={item.data.title}
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                   />
                 ) : (
                   <Image
                     src={item.data.image}
                     alt={item.data.title}
-                    class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                     loading="lazy"
                   />
                 )
               )}
             </div>
-            <div class="p-6 pt-8">
+            <div class={`p-6 ${featured ? 'md:w-1/2 md:flex md:flex-col md:justify-center' : ''}`}>
               <h3
-                class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors"
+                class={`font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors ${featured ? 'text-xl md:text-2xl' : 'text-lg'}`}
                 data-lang-content="zh-TW"
               >
                 {item.data.title}
               </h3>
               <h3
-                class="text-lg font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors"
+                class={`font-heading font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-tech-blue transition-colors ${featured ? 'text-xl md:text-2xl' : 'text-lg'}`}
                 data-lang-content="en"
                 style="display: none;"
               >
@@ -290,13 +284,13 @@ const news = allNews
                 >
               </p>
               <p
-                class="text-gray-600 text-sm line-clamp-2 mb-4"
+                class={`text-gray-600 text-sm mb-4 ${featured ? 'line-clamp-3' : 'line-clamp-2'}`}
                 data-lang-content="zh-TW"
               >
                 {item.data.excerpt}
               </p>
               <p
-                class="text-gray-600 text-sm line-clamp-2 mb-4"
+                class={`text-gray-600 text-sm mb-4 ${featured ? 'line-clamp-3' : 'line-clamp-2'}`}
                 data-lang-content="en"
                 style="display: none;"
               >
@@ -323,7 +317,8 @@ const news = allNews
               </a>
             </div>
           </article>
-        ))}
+          );
+        })}
       </div>
 
       <div class="mt-12 text-center">
@@ -358,7 +353,7 @@ const news = allNews
             href={`/members/${member.slug}`}
             class="team-member-card group text-center block"
           >
-            <div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4 bg-white/5 border border-white/10 group-hover:border-tech-blue-light/50 transition-all duration-300">
+            <div class="relative w-full aspect-square rounded-lg overflow-hidden mb-4 bg-white/5 border border-white/10 group-hover:border-tech-blue-light/50 transition-all duration-300">
               {member.data.image ? (
                 typeof member.data.image === 'string' ? (
                   <img
@@ -444,7 +439,7 @@ const news = allNews
             href={`/members/${member.slug}`}
             class="team-member-card group text-center block"
           >
-            <div class="relative w-full aspect-square rounded-xl overflow-hidden mb-4 bg-white/5 border border-white/10 group-hover:border-tech-blue-light/50 transition-all duration-300">
+            <div class="relative w-full aspect-square rounded-lg overflow-hidden mb-4 bg-white/5 border border-white/10 group-hover:border-tech-blue-light/50 transition-all duration-300">
               {member.data.image ? (
                 typeof member.data.image === 'string' ? (
                   <img
@@ -588,86 +583,15 @@ const news = allNews
     100% { opacity: 1; }
   }
 
-  /* ===== Floating Particles ===== */
-  .hero-particle {
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.5);
-    border-radius: 50%;
-    animation: particleFloat 6s ease-in-out infinite;
-    z-index: 5;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
-  }
-
-  .hero-particle--accent {
-    background: rgba(96, 165, 250, 0.6);
-    box-shadow: 0 0 12px rgba(96, 165, 250, 0.4);
-  }
-
-  @keyframes particleFloat {
-    0%, 100% {
-      transform: translateY(0) translateX(0);
-      opacity: 0.4;
-    }
-    25% {
-      transform: translateY(-20px) translateX(10px);
-      opacity: 0.8;
-    }
-    50% {
-      transform: translateY(-10px) translateX(-5px);
-      opacity: 0.5;
-    }
-    75% {
-      transform: translateY(-25px) translateX(8px);
-      opacity: 0.9;
-    }
-  }
-
   /* ===== Hero Title ===== */
   .hero-title {
-    background: linear-gradient(
-      135deg, 
-      #ffffff 0%, 
-      #ffffff 35%, 
-      #60a5fa 50%, 
-      #ffffff 65%, 
-      #ffffff 100%
-    );
-    background-size: 200% auto;
+    /* Static, restrained gradient — a quiet hint of cool light, no animation */
+    background: linear-gradient(160deg, #ffffff 0%, #ffffff 60%, #cfe0f7 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.4)) drop-shadow(0 0 25px rgba(59, 130, 246, 0.4));
+    filter: drop-shadow(0 4px 14px rgba(0, 0, 0, 0.45));
     position: relative;
     z-index: 1;
-    animation: shimmer 6s linear infinite;
-  }
-
-  @keyframes shimmer {
-    0% { background-position: -100% center; }
-    100% { background-position: 100% center; }
-  }
-
-  .hero-title::after {
-    content: attr(data-content);
-    position: absolute;
-    left: 0;
-    top: 0;
-    z-index: -1;
-    background: inherit;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    filter: blur(15px) opacity(0.4);
-  }
-
-  /* ===== Hero Subtitle Box ===== */
-  .hero-subtitle-box p {
-    transition: all 0.3s ease;
-  }
-
-  .hero-subtitle-box p:hover {
-    border-color: rgba(255, 255, 255, 0.35);
-    background: rgba(255, 255, 255, 0.08);
   }
 
   /* ===== Hero Stats ===== */

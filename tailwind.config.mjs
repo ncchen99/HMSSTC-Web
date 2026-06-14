@@ -4,16 +4,32 @@ export default {
     theme: {
         extend: {
             colors: {
-                'space-dark': '#030712',
-                'space-deep': '#0F172A',
+                // --- Neutrals: warm-leaning deep navy (not pure black) ---
+                'space-dark': '#0B1020',
+                'space-deep': '#141C30',
+                // --- Primary: mission blue ---
+                'primary': '#1E40AF',
+                'primary-light': '#3B82F6',
+                // --- Accent: a single deliberate warm gold (the site's second color) ---
+                'accent': '#E0913A',
+                'accent-light': '#F2B45E',
+                // --- Honest aliases for the primary blue ---
                 'tech-blue': '#1E40AF',
                 'tech-blue-light': '#3B82F6',
-                'neon-green': '#2563EB',
-                'neon-green-light': '#60A5FA',
-                'accent-orange': '#1D4ED8',
-                'accent-yellow': '#93C5FD',
-                'accent-teal': '#DBEAFE',
+                // --- Deprecated template names kept as aliases so existing classes
+                //     keep working; they now resolve to the gold accent (or a blue
+                //     tint) instead of the old fake green/orange/yellow ---
+                'neon-green': '#E0913A',
+                'neon-green-light': '#F2B45E',
+                'accent-orange': '#E0913A',
+                'accent-yellow': '#F2B45E',
+                'accent-teal': '#93C5FD',
                 'accent-sky': '#EFF6FF',
+            },
+            boxShadow: {
+                // Restrained, navy-tinted card shadows (replaces the pillowy lg/2xl defaults)
+                'card': '0 1px 2px rgba(11, 16, 32, 0.06), 0 6px 16px -4px rgba(11, 16, 32, 0.10)',
+                'card-hover': '0 4px 10px -2px rgba(11, 16, 32, 0.10), 0 16px 32px -8px rgba(11, 16, 32, 0.16)',
             },
             fontFamily: {
                 display: ['Orbitron', 'Noto Sans TC', 'sans-serif'],

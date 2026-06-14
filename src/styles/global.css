@@ -77,15 +77,15 @@
   }
 
   .btn-primary {
-    @apply inline-flex items-center gap-2 px-6 py-3 bg-tech-blue text-white font-medium rounded-lg hover:bg-tech-blue-light transition-all duration-300 hover:shadow-lg hover:shadow-tech-blue/30;
+    @apply inline-flex items-center gap-2 px-6 py-3 bg-tech-blue text-white font-medium rounded-md hover:bg-tech-blue-light transition-all duration-300 hover:shadow-card-hover;
   }
 
   .btn-outline {
-    @apply inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white font-medium rounded-lg hover:border-tech-blue hover:text-tech-blue transition-all duration-300;
+    @apply inline-flex items-center gap-2 px-6 py-3 border border-white/30 text-white font-medium rounded-md hover:border-accent hover:text-accent transition-all duration-300;
   }
 
   .card-hover {
-    @apply transition-all duration-300 hover:transform hover:-translate-y-1 hover:shadow-xl hover:shadow-tech-blue/10;
+    @apply transition-all duration-300 hover:shadow-card-hover;
   }
 
   .gradient-text {
@@ -182,7 +182,7 @@
 
 /* Mission card number */
 .mission-number {
-  @apply text-7xl md:text-8xl font-display font-bold text-tech-blue/20 absolute -top-6 -left-2 select-none;
+  @apply text-7xl md:text-8xl font-display font-bold text-accent/15 absolute -top-6 -left-2 select-none;
 }
 
 /* Team member card hover */

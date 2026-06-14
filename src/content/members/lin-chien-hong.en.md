@@ -51,3 +51,8 @@ Distinguished Professor of the Department of Earth Sciences at National Cheng Ku
 - **2021** Li Kuo-Ting Distinguished Scholar, National Cheng Kung University
 - **2018** Outstanding Research Award, Ministry of Science and Technology
 - **2014** Outstanding Research Award, National Science Council
+
+### Research Impact
+
+- h-index: 40; ~5,983 total citations; 140 scholarly works (incl. 131 journal articles).
+- His research spans atmospheric vertical coupling, navigation-satellite observations, ionospheric simulation, and space weather; recent topics include equatorial plasma bubbles, machine-learning detection of ionospheric disturbances, GNSS remote sensing, and retrieval of atomic oxygen ions from airglow observations.

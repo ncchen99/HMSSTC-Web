@@ -38,7 +38,7 @@ const news = allNews
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {
           news.map((item, index) => (
-            <article class="group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover border border-gray-100">
+            <article class="group relative bg-white rounded-lg overflow-hidden shadow-card transition-all duration-300 card-hover border border-gray-100">
               <div class="mission-number text-gray-200">
                 {String(index + 1).padStart(2, "0")}
               </div>
@@ -49,14 +49,14 @@ const news = allNews
                     <img
                       src={item.data.image}
                       alt={item.data.title}
-                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       loading="lazy"
                     />
                   ) : (
                     <Image
                       src={item.data.image}
                       alt={item.data.title}
-                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       loading="lazy"
                     />
                   ))}

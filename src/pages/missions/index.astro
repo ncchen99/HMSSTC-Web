@@ -59,7 +59,7 @@ const missions = allMissions
         {
           missions.map((mission, index) => (
             <article
-              class="mission-card-page group relative bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 card-hover border border-gray-100"
+              class="mission-card-page group relative bg-white rounded-lg overflow-hidden shadow-card transition-all duration-300 card-hover border border-gray-100"
               data-status={mission.data.status}
             >
               <div class="mission-number">
@@ -72,14 +72,14 @@ const missions = allMissions
                     <img
                       src={mission.data.image}
                       alt={mission.data.title}
-                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       loading="lazy"
                     />
                   ) : (
                     <Image
                       src={mission.data.image}
                       alt={mission.data.title}
-                      class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
                       loading="lazy"
                     />
                   ))}
