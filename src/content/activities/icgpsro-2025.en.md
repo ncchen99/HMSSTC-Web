@@ -5,8 +5,6 @@ image: "../images/activities/icgpsro-2025-cover.png"
 excerpt: "A major annual event in GNSS radio occultation, gathering global experts to discuss the latest research and applications."
 ---
 
-## 2025 7th International Conference on GPS Radio Occultation (ICGPSRO)
-
 Hosted by the Han-Min Hsu Center for Space Science and Technology at National Cheng Kung University, the 7th ICGPSRO is an important international academic event in the field of GNSS radio occultation.
 
 ### Topics

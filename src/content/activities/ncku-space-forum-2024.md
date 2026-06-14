@@ -5,8 +5,6 @@ image: "../images/activities/ncku-space-forum-2024-cover.png"
 excerpt: "成功大學舉辦國際太空研討會，邀集全球太空領域專家共襄盛舉，探討太空科技未來發展方向。"
 ---
 
-## 2024 NCKU SPACE FORUM 國際研討會
-
 成功大學夏漢民太空科技中心主辦第二屆 NCKU SPACE FORUM，盛邀國際太空研究機構與業界代表參與，共同探討太空產業的創新應用與未來趨勢。
 
 ### 研討會重點

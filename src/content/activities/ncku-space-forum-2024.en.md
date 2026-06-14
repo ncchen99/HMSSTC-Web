@@ -5,8 +5,6 @@ image: "../images/activities/ncku-space-forum-2024-cover.png"
 excerpt: "NCKU hosted an international space symposium bringing together global experts to discuss future directions in space technology."
 ---
 
-## 2024 NCKU SPACE FORUM International Symposium
-
 Hosted by the Han-Min Hsu Center for Space Science and Technology at National Cheng Kung University, the second NCKU SPACE FORUM invited international space agencies, researchers, and industry representatives to discuss innovation and future trends in the space sector.
 
 ### Key Focus Areas
