@@ -6,7 +6,6 @@ image: "../images/news/vertecs-h3-launch-cover.jpg"
 category: "news"
 ---
 
-## Congratulations! HMSSTC Partners NCHU and NTHU Join Japan's H3 Rocket Mission — Taiwan's Self-Developed Cosmic Observation System Reaches Space
 
 > Source: [NCHU News (National Chung Hsing University)](https://www2.nchu.edu.tw/news-detail/id/62134) — Media & Public Relations Center, Secretariat
 

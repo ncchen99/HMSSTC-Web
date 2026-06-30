@@ -6,7 +6,6 @@ image: "../images/news/vertecs-h3-launch-cover.jpg"
 category: "news"
 ---
 
-## 恭賀! 本中心合作夥伴 中興大學、清華大學參與日本H3火箭任務 臺灣自主研發宇宙觀測系統登太空
 
 > 新聞出處：[中興大學興新聞](https://www2.nchu.edu.tw/news-detail/id/62134)（秘書室媒體公關中心）
 
